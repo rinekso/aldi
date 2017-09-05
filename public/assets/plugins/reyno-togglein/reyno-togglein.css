@@ -1,0 +1,66 @@
+.reyno-togglein{
+	width: 100%;
+	height: auto;
+	padding: 0;
+	margin: 0;
+	overflow:hidden;
+}
+.reyno-togglein li{
+	padding: 0 5px;
+	position: relative;
+	width: 200%;
+	right: 0;
+	left: -100%;
+	list-style: none;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+}
+.reyno-togglein li:hover{
+	-webkit-transition-delay: 0s;
+	-moz-transition-delay: 0s;
+	-ms-transition-delay: 0s;
+	-o-transition-delay: 0s;
+	transition-delay: 0s;
+}
+.reyno-togglein.active > li{
+	width: 100%;
+	left: 0;
+}
+
+/*Paginante*/
+.reyno-paginate{
+	list-style: none;
+}
+.reyno-paginate.right li{
+	right: -100%;
+}
+.reyno-paginate.left li{
+	left: -100%;
+}
+.reyno-paginate li{
+	width: 50%;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+	position: absolute;
+}
+.reyno-paginate li:before,.reyno-paginate li:after{
+	display: none;
+}
+.reyno-paginate li.active:before,.reyno-paginate li.active:after{
+	display: block !important;
+}
+.reyno-paginate li.active{
+	width: 100%;
+}
+.reyno-paginate.right li.active{
+	right: 0;
+}
+.reyno-paginate.left li.active{
+	left: 0;
+}
