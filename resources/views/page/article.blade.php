@@ -6,8 +6,8 @@
     <link href="{{asset('assets/plugins/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="styleszheet">
     <link href="{{asset('assets/plugins/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/plugins/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Include stylesheet -->
-    <link href="https://cdn.quilljs.com/1.3.2/quill.snow.css" rel="stylesheet">
+    {{--editor.md--}}
+    <link rel="stylesheet" href="{{asset('assets/plugins/editor.md/css/editormd.min.css')}}" />
 @endsection
 @section('content')
     <h1>Article Page</h1>
@@ -59,15 +59,12 @@
                             <input type="file" class="form-control" placeholder="cover" name="cover">
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="name">Content
+                            <label class="control-label" for="content">Content
                             </label>
-                            <!-- Create the editor container -->
-                            <div class="form-control" id="text-editor">
+                            <div id="test-editormd">
                             </div>
-                            <input type="hidden" value="0" name="content">
                         </div>
                         <div class="ln_solid"></div>
-
                     </div>
                     <div class="box-footer">
                         <button type="button" class="btn btn-primary">Cancel</button>
@@ -95,23 +92,26 @@
     <script src="{{asset('assets/plugins/jszip/dist/jszip.min.js')}}"></script>
     <script src="{{asset('assets/plugins/pdfmake/build/pdfmake.min.js')}}"></script>
     <script src="{{asset('assets/plugins/pdfmake/build/vfs_fonts.js')}}"></script>
-    <!-- Include the Quill library -->
-    <script src="https://cdn.quilljs.com/1.3.2/quill.js"></script>
-
-    <!-- Initialize Quill editor -->
+    {{--editor.md--}}
+    <script src="{{asset('assets/plugins/editor.md/js/editormd.js')}}"></script>
     <script>
-        var quill = new Quill('#text-editor', {
-            modules : {
-                toolbar: [
-                    ['bold', 'italic'],
-                    ['link', 'blockquote', 'code-block', 'image'],
-                    [{ list: 'ordered' }, { list: 'bullet' }]
-                ]
-            },
-            placeholder : 'Type content here...',
-            theme: 'snow'
+        var testEditor;
+
+        $(function() {
+            testEditor = editormd("test-editormd", {
+                width: "100%",
+                height: 400,
+                emoji : true,
+                path : './assets/plugins/editor.md/lib/',
+                saveHTMLToTextarea : true
+            });
+            editormd.loadScript("./assets/plugins/editor.md/languages/en", function() {
+                testEditor.lang = editormd.defaults.lang;
+                testEditor.recreate();
+            });
         });
     </script>
+    {{--datatables--}}
     <script>
         $(document).ready(function(){
             $('#datatable-responsive').DataTable({
@@ -139,19 +139,6 @@
                         className: "btn-sm"
                     }
                 ]
-            });
-            var form = $("#inputArticle");
-            form.submit(function(e) {
-                e.preventDefault();
-                // Populate hidden form on submit
-                var about = document.querySelector('input[name=content]');
-                about.value = JSON.stringify(quill.getContents());
-
-                console.log("Submitted", $(form).serialize(), $(form).serializeArray());
-
-                // No back end to actually submit to!
-                alert('Open the console to see the submit data!');
-                return false;
             });
         });
         </script>

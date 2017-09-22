@@ -10,6 +10,8 @@ class ArticleController extends Controller
         return view('page.article',['menuActive'=>'article']);
     }
     public function input(Request $request){
-        dd($request->all());
+        $form = $request->all();
+        unset($form['test-editormd-markdown-doc']);
+        dd($form);
     }
 }

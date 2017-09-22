@@ -43,7 +43,10 @@
             <a href="{{url('article')}}"><i class="flaticon-copy"></i><span>Article</span></a>
         </li>
         <li>
-            <a href="{{url('account')}}"><i class="flaticon-avatar"></i><span>Tables</span></a>
+            <a href="{{url('account')}}"><i class="flaticon-avatar"></i><span>Account</span></a>
+        </li>
+        <li>
+            <a href="{{url('logout')}}"><i class="flaticon-logout"></i><span>logout</span></a>
         </li>
     </ul>
 </div>

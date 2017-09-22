@@ -11,9 +11,14 @@
 |
 */
 
-Route::get('/', 'UserController@index');
 Route::get('/login','UserController@login');
+Route::get('/logout','UserController@logout');
+Route::post('/login','UserController@loginAction');
 
 //Article route
-Route::get('/article','ArticleController@index');
-Route::post('article/input','ArticleController@input');
+Route::group(['middleware' => 'auth'],function(){
+    Route::get('/', 'UserController@index');
+    Route::get('/article','ArticleController@index');
+    Route::post('article/input','ArticleController@input');
+});
+
