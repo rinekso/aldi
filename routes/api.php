@@ -22,3 +22,6 @@ Route::group(['prefix'=>'article'],function(){
 Route::group(['prefix'=>'gallery'],function(){
     Route::get('detail/{id}','GalleryController@getDetailJson');
 });
+Route::group(['prefix'=>'account'],function(){
+    Route::get('detail/{id}','UserController@getDetailJson');
+});

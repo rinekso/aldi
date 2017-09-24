@@ -28,5 +28,10 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('input','GalleryController@input');
         Route::get('delete/{id}','GalleryController@delete');
     });
+    Route::group(['prefix'=>'account'],function(){
+        Route::get('/','UserController@account');
+        Route::post('input','UserController@input');
+        Route::get('delete/{id}','UserController@delete');
+    });
 });
 
