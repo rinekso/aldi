@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::group(['prefix'=>'article'],function(){
+    Route::get('detail/{id}','ArticleController@getDetailJson');
+});
+Route::group(['prefix'=>'gallery'],function(){
+    Route::get('detail/{id}','GalleryController@getDetailJson');
+});

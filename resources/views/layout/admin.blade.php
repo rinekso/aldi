@@ -42,7 +42,10 @@
         <li @if($menuActive == 'article') class="active" @endif>
             <a href="{{url('article')}}"><i class="flaticon-copy"></i><span>Article</span></a>
         </li>
-        <li>
+        <li @if($menuActive == 'gallery') class="active" @endif>
+            <a href="{{url('gallery')}}"><i class="flaticon-monitor"></i><span>Gallery</span></a>
+        </li>
+        <li @if($menuActive == 'account') class="active" @endif>
             <a href="{{url('account')}}"><i class="flaticon-avatar"></i><span>Account</span></a>
         </li>
         <li>
@@ -64,6 +67,17 @@
 <script src="{{asset('assets/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
 <script src="{{asset('assets/plugins/reyno-togglein/reyno-togglein.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+{{--ajax function--}}
+<script>
+    function ajax(url,type,data,success){
+        $.ajax({
+            url : url,
+            type : type,
+            data : data,
+            success : success
+        })
+    }
+</script>
 @yield('js')
 </body>
 </html>

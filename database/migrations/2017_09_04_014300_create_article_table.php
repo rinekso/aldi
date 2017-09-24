@@ -17,7 +17,9 @@ class CreateArticleTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('title');
+            $table->string('cover');
             $table->text('content');
+            $table->text('markdown');
             $table->timestamps();
         });
     }

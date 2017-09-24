@@ -18,7 +18,15 @@ Route::post('/login','UserController@loginAction');
 //Article route
 Route::group(['middleware' => 'auth'],function(){
     Route::get('/', 'UserController@index');
-    Route::get('/article','ArticleController@index');
-    Route::post('article/input','ArticleController@input');
+    Route::group(['prefix'=>'article'],function(){
+        Route::get('/','ArticleController@index');
+        Route::post('input','ArticleController@input');
+        Route::get('delete/{id}','ArticleController@delete');
+    });
+    Route::group(['prefix'=>'gallery'],function(){
+        Route::get('/','GalleryController@index');
+        Route::post('input','GalleryController@input');
+        Route::get('delete/{id}','GalleryController@delete');
+    });
 });
 
