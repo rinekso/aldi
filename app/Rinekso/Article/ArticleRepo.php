@@ -7,6 +7,13 @@ class ArticleRepo extends BaseRepo{
     {
         $this->model = $article;
     }
+    public function searchAll($input){
+        return $this->model->select('*')
+            ->where('title','like','%'.$input.'%')
+            ->orWhere('summary','like','%'.$input.'%')
+            ->orWhere('markdown','like','%'.$input.'%')
+            ->get();
+    }
 }
 /**
  * Created by PhpStorm.

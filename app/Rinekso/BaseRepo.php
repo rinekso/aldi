@@ -1,5 +1,7 @@
 <?php namespace App\Rinekso;
 
+use Carbon\Carbon;
+
 class BaseRepo
 {
     protected $model;
@@ -10,6 +12,8 @@ class BaseRepo
     }
     public function input($input)
     {
+        $input['created_at'] = Carbon::now()->toDateTimeString();
+        $input['updated_at'] = Carbon::now()->toDateTimeString();
         $proses = $this->model->insert($input);
         if($proses)
             return true;
@@ -17,6 +21,7 @@ class BaseRepo
     }
     public function update($input,$id)
     {
+        $input['updated_at'] = Carbon::now()->toDateTimeString();
         $this->model->where('id','=',$id)
             ->update($input);
         return true;
@@ -25,6 +30,7 @@ class BaseRepo
     public function getData()
     {
         $proses = $this->model->select('*')
+            ->orderBy('id','desc')
             ->get();
         return $proses;
     }
@@ -56,6 +62,13 @@ class BaseRepo
     public function getPaginate($limit = 10)
     {
         return $this->model->paginate($limit);
+    }
+    public function limit($limit)
+    {
+        return $this->model
+            ->orderBy('id','desc')
+            ->limit($limit)
+            ->get();
     }
     public function search($category,$search)
     {
