@@ -11,27 +11,23 @@
 |
 */
 
-Route::get('/login','UserController@login');
-Route::get('/logout','UserController@logout');
-Route::post('/login','UserController@loginAction');
+Route::get('/', 'UserController@index');
+Route::post('menu', 'UserController@menu');
+Route::post('pembayaran', 'UserController@pembayaran');
 
-//Article route
-Route::group(['middleware' => 'auth'],function(){
-    Route::get('/', 'UserController@index');
-    Route::group(['prefix'=>'article'],function(){
-        Route::get('/','ArticleController@index');
-        Route::post('input','ArticleController@input');
-        Route::get('delete/{id}','ArticleController@delete');
-    });
-    Route::group(['prefix'=>'gallery'],function(){
-        Route::get('/','GalleryController@index');
-        Route::post('input','GalleryController@input');
-        Route::get('delete/{id}','GalleryController@delete');
-    });
-    Route::group(['prefix'=>'account'],function(){
-        Route::get('/','UserController@account');
-        Route::post('input','UserController@input');
-        Route::get('delete/{id}','UserController@delete');
-    });
+// admin
+Route::group([ 'prefix' => 'adm' , 'middleware' => ['admin']],function(){
+	Route::get('/','AdminController@index');
+	Route::get('history','AdminController@history');
+	Route::get('siswa','SiswaController@index');
+	Route::get('siswa/tambah','SiswaController@tambah');
+	Route::post('siswa/tambah/process','SiswaController@tambahAction');
+	Route::get('topup','AdminController@topup');
 });
 
+// Auth::routes();
+
+Route::post('/login/process', 'AdminController@loginProcess');
+Route::get('/login', function(){
+	return view('admin.login');
+});

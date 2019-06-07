@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Panel | Home</title>
+	<link rel="stylesheet" type="text/css" href="../assets/plugins/flaticon/flaticon.css">
+  <link rel="stylesheet" type="text/css" href="../assets/plugins/bootstrap/dist/css/bootstrap.css">
+  <!-- Reyno-togglein -->
+  <link href="../assets/plugins/reyno-togglein/reyno-togglein.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../assets/css/animate.css">
+    <!-- jQuery custom content scroller -->
+    <link href="../assets/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+</head>
+<body>
+<div id="branding">
+	<div class="wrapper">
+		<div class="logo">
+			<img src="../assets/images/logo.png">
+		</div>
+		<a href="javascript:;" class="box pull-right">
+			<img src="../assets/images/photo.jpg">
+		</a>
+		<a href="javascript:;" class="box bg-green pull-right">
+			<i class="flaticon-settings"></i>
+		</a>
+		<a href="javascript:;" class="box bg-red pull-right">
+      <div class="notif bg-blue">7</div>
+      <i class="flaticon-envelope"></i>
+		</a>
+		<form>
+			<div id="search" data-toggle=0>
+				<input type="text" onkeyup="searchActive()" placeholder="Search in web">
+				<button type="submit" class="flaticon-magnifying-glass"></button>
+			</div>
+		</form>
+	</div>
+</div>
+<div id="nav" class="left-col scroll-view">
+	<ul class="menu-group">
+		<li>
+			<a href="index.html"><i class="flaticon-house"></i><span>Home</span></a>
+		</li>
+		<li>
+			<a href="chart.html"><i class="flaticon-pie-chart"></i><span>Chart</span></a>
+		</li>
+		<li>
+      <a href="basic_form.html"><i class="flaticon-edit"></i><span>Form</span></a>
+		</li>
+		<li>
+			<a href="javascript:;"><i class="flaticon-monitor"></i><span>UI Element</span></a>
+			<ul class="level-2">
+				<li>
+					<a href="general.html">General</a>
+				</li>
+				<li>
+					<a href="icons.html">Icons</a>
+				</li>
+				<li>
+					<a href="timeline.html">Timeline</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="tables.html"><i class="flaticon-copy"></i><span>Tables</span></a>
+		</li>
+		<li class="active">
+      <div class="notif bg-red">7</div>
+			<a href="javascript:;"><i class="flaticon-envelope"></i><span>Mailbox</span></a>
+			<ul class="level-2">
+				<li class="active">
+					<a href="inbox.html">Inbox</a>
+				</li>
+				<li>
+					<a href="compose.html">Compose</a> 
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="javascript:;"><i class="flaticon-star"></i><span>Extra</span></a>
+			<ul class="level-2">
+				<li>
+					<a href="login.html">Login</a>
+				</li>
+				<li>
+					<a href="blank.html">Blank Page</a>
+				</li>
+				<li>
+					<a href="404.html">404</a>
+				</li>
+				<li>
+					<a href="500.html">500</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="javascript:;"><i class="flaticon-book"></i><span>Multilevel</span></a>
+			<ul class="level-2">
+				<li>
+					<a href="javascript:;">Level-1</a>
+					<ul>
+						<li>
+							<a href="javascript:;">Level-2</a>
+						</li>
+						<li>
+							<a href="javascript:;">Level-2</a>
+							<ul>
+								<li>
+									<a href="javascript:;">Level-3</a>
+									<ul>
+										<li>
+											<a href="javascript:;">Level-4</a>
+										</li>
+										<li>
+											<a href="javascript:;">Level-4</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="javascript:;">Level-3</a>
+								</li>
+								<li>
+									<a href="javascript:;">Level-3</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:;">Level-2</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="javascript:;">Level-1</a>
+				</li>
+				<li>
+					<a href="javascript:;">Level-1</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+<div class="right-col">
+	<div class="wrapper">
+    <div class="box-contain">
+      <div class="box-header">
+        Inbox
+        <div class="clearfix"></div>
+      </div>
+      <div class="box-body">
+        <div class="col-sm-3 mail_list_column" style=" overflow:hidden;">
+          <a href="compose.html" id="compose" class="btn btn-sm btn-success btn-block">COMPOSE</a>
+          <ul class="reyno-paginate right" rey-limit="8" rey-page="1" id="inbox" rey-height="40" style="min-height:320px;">
+            <li class="active">
+              <a href="javascript:;" class="mail-btn" data='1'>
+                <div class="mail_list active">
+                  <div class="right">
+                    <h3>John Doe <small>19-Oct-2016</small></h3>
+                  </div>
+                  <div class="left"> 
+                    <i class="fa fa-caret-right"></i>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='2'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>Simson Rinekso <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='3'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>Anton A <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='4'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>John Doe <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='5'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>Simson Rinekso <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='6'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>Anton A <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='7'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>John Doe <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='8'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>Simson Rinekso <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='9'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>Anton A <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='10'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>John Doe <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='11'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>Simson Rinekso <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='12'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>Anton A <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='13'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>John Doe <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='14'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>Simson Rinekso <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" class="mail-btn" data='15'>
+                <div class="mail_list">
+                  <div class="right">
+                    <h3>Anton A <small>19-Oct-2016</small></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+          <ul class="pagination reyno-pagination-page small" for="#inbox">
+          </ul>
+        </div>
+        <!-- /MAIL LIST -->
+
+        <!-- CONTENT MAIL -->
+        <div class="col-sm-9 mail_view">
+          <div class="inbox-body" id="1">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>John Doe</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="2">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Simson Rinekso</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="3">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="4">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="5">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="6">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="7">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="8">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="9">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="10">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="11">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="12">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="13">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="14">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+          <div class="inbox-body" id="15">
+            <div class="mail_heading row">
+              <div class="col-md-12">
+                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+              </div>
+            </div>
+            <div class="sender-info">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>Anton A</strong>
+                  <span>(simson.r@gmail.com)</span>
+                  <p class="date">19 Oct 2016</p>
+                </div>
+              </div>
+            </div>
+            <div class="view-mail">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /CONTENT MAIL -->
+        <div class="clearfix"></div>
+      </div>
+    </div>
+	</div>
+</div>
+<div class="clearfix"></div>
+  <div class="footer">
+    <div class="wrapper">
+      Design by <a target="_blank" href="http://www.facebook.com/rino.syfox/">Simson Rinekso</a>
+    </div>
+  </div>
+<script src="../assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../assets/plugins/reyno-togglein/reyno-togglein.js"></script>
+<script src="../assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- jQuery custom content scroller -->
+<script src="../assets/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="assets/js/custom.js"></script>
+<script>
+$(document).ready(function(){
+  reynoPaginate("#inbox");
+  // mail
+  $(".inbox-body").hide();
+  $("#1").show();
+  $('.mail-btn').click(function(){
+    var id = $(this).attr('data');
+    $(".mail-btn .mail_list").removeClass("active");
+    $(".mail-btn .mail_list .left").remove();
+    $(".mail-btn[data='"+id+"'] .mail_list").addClass("active").append(
+      '<div class="left">'+ 
+        '<i class="fa fa-caret-right"></i>'+
+      '</div>'
+      );
+    $(".inbox-body").hide();
+    $("#"+id).fadeIn();
+  });
+});
+</script>
+</body>
+</html>

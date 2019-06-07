@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Panel | Home</title>
+	<link rel="stylesheet" type="text/css" href="../assets/plugins/flaticon/flaticon.css">
+  <link rel="stylesheet" type="text/css" href="../assets/plugins/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="../assets/plugins/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/animate.css">
+  <!-- Datatables -->
+  <link href="../assets/plugins/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/plugins/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/plugins/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/plugins/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/plugins/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+  <!-- jQuery custom content scroller -->
+  <link href="../assets/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+</head>
+<body>
+<div id="branding">
+	<div class="wrapper">
+		<div class="logo">
+			<img src="../assets/images/logo.png">
+		</div>
+		<a href="javascript:;" class="box pull-right">
+			<img src="../assets/images/photo.jpg">
+		</a>
+		<a href="javascript:;" class="box bg-green pull-right">
+			<i class="flaticon-settings"></i>
+		</a>
+		<a href="javascript:;" class="box bg-red pull-right">
+      <div class="notif bg-blue">7</div>
+      <i class="flaticon-envelope"></i>
+		</a>
+		<form>
+			<div id="search" data-toggle=0>
+				<input type="text" onkeyup="searchActive()" placeholder="Search in web">
+				<button type="submit" class="flaticon-magnifying-glass"></button>
+			</div>
+		</form>
+	</div>
+</div>
+<div id="nav" class="left-col scroll-view">
+	<ul class="menu-group">
+		<li>
+			<a href="index.html"><i class="flaticon-house"></i><span>Home</span></a>
+		</li>
+		<li>
+			<a href="chart.html"><i class="flaticon-pie-chart"></i><span>Chart</span></a>
+		</li>
+		<li>
+      <a href="basic_form.html"><i class="flaticon-edit"></i><span>Form</span></a>
+		</li>
+		<li>
+			<a href="javascript:;"><i class="flaticon-monitor"></i><span>UI Element</span></a>
+			<ul class="level-2">
+				<li>
+					<a href="general.html">General</a>
+				</li>
+				<li>
+					<a href="icons.html">Icons</a>
+				</li>
+				<li>
+					<a href="timeline.html">Timeline</a>
+				</li>
+			</ul>
+		</li>
+		<li class="active">
+			<a href="tables.html"><i class="flaticon-copy"></i><span>Tables</span></a>
+		</li>
+		<li>
+      <div class="notif bg-red">7</div>
+			<a href="javascript:;"><i class="flaticon-envelope"></i><span>Mailbox</span></a>
+			<ul class="level-2">
+				<li>
+					<a href="inbox.html">Inbox</a>
+				</li>
+				<li>
+					<a href="compose.html">Compose</a> 
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="javascript:;"><i class="flaticon-star"></i><span>Extra</span></a>
+			<ul class="level-2">
+				<li>
+					<a href="login.html">Login</a>
+				</li>
+				<li>
+					<a href="blank.html">Blank Page</a>
+				</li>
+				<li>
+					<a href="404.html">404</a>
+				</li>
+				<li>
+					<a href="500.html">500</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="javascript:;"><i class="flaticon-book"></i><span>Multilevel</span></a>
+			<ul class="level-2">
+				<li>
+					<a href="javascript:;">Level-1</a>
+					<ul>
+						<li>
+							<a href="javascript:;">Level-2</a>
+						</li>
+						<li>
+							<a href="javascript:;">Level-2</a>
+							<ul>
+								<li>
+									<a href="javascript:;">Level-3</a>
+									<ul>
+										<li>
+											<a href="javascript:;">Level-4</a>
+										</li>
+										<li>
+											<a href="javascript:;">Level-4</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="javascript:;">Level-3</a>
+								</li>
+								<li>
+									<a href="javascript:;">Level-3</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:;">Level-2</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="javascript:;">Level-1</a>
+				</li>
+				<li>
+					<a href="javascript:;">Level-1</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+<div class="right-col">
+	<div class="wrapper">
+    <div class="title-page">
+      Tables
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="box-contain">
+          <div class="box-header">
+            Basic Table
+            <div class="clearfix"></div>
+          </div>
+          <div class="box-body card-box table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nama</th>
+                  <th>Kota</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>John Doe</td>
+                  <td>Mojokerto</td>
+                  <td>johnDoe</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>John Doe</td>
+                  <td>Mojokerto</td>
+                  <td>johnDoe</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>John Doe</td>
+                  <td>Mojokerto</td>
+                  <td>johnDoe</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="box-contain">
+          <div class="box-header">
+            Hover Table
+            <div class="clearfix"></div>
+          </div>
+          <div class="box-body card-box table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nama</th>
+                  <th>Kota</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>John Doe</td>
+                  <td>Mojokerto</td>
+                  <td>johnDoe</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>John Doe</td>
+                  <td>Mojokerto</td>
+                  <td>johnDoe</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>John Doe</td>
+                  <td>Mojokerto</td>
+                  <td>johnDoe</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="box-contain">
+          <div class="box-header">
+            Bordered Table
+            <div class="clearfix"></div>
+          </div>
+          <div class="box-body card-box table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nama</th>
+                  <th>Kota</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>John Doe</td>
+                  <td>Mojokerto</td>
+                  <td>johnDoe</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>John Doe</td>
+                  <td>Mojokerto</td>
+                  <td>johnDoe</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>John Doe</td>
+                  <td>Mojokerto</td>
+                  <td>johnDoe</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="box-contain">
+          <div class="box-header">
+            Strip Table
+            <div class="clearfix"></div>
+          </div>
+          <div class="box-body card-box table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nama</th>
+                  <th>Kota</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>John Doe</td>
+                  <td>Mojokerto</td>
+                  <td>johnDoe</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>John Doe</td>
+                  <td>Mojokerto</td>
+                  <td>johnDoe</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>John Doe</td>
+                  <td>Mojokerto</td>
+                  <td>johnDoe</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="box-contain">
+          <div class="box-header">
+            <h3>Data Table</h3>
+            <div class="clearfix"></div>
+          </div>
+          <div class="box-body">
+              <table id="datatable-responsive" class="table table-hover table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Nama Barang</th>
+                    <th>Tipe Barang</th>
+                    <th>Jumlah</th>
+                    <th>Status</th>
+                    <th>Tanggal Masuk</th>
+                    <th>Tanggal Berakir</th>
+                    <th>Opsi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AA2931</td>
+                    <td>Kayu Jati</td>
+                    <td>Kayu</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2932</td>
+                    <td>Marmer</td>
+                    <td>Beton</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2933</td>
+                    <td>Kaca</td>
+                    <td>Kaca</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2931</td>
+                    <td>Kayu Jati</td>
+                    <td>Kayu</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2932</td>
+                    <td>Marmer</td>
+                    <td>Beton</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2933</td>
+                    <td>Kaca</td>
+                    <td>Kaca</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2931</td>
+                    <td>Kayu Jati</td>
+                    <td>Kayu</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2932</td>
+                    <td>Marmer</td>
+                    <td>Beton</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2933</td>
+                    <td>Kaca</td>
+                    <td>Kaca</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2931</td>
+                    <td>Kayu Jati</td>
+                    <td>Kayu</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2932</td>
+                    <td>Marmer</td>
+                    <td>Beton</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2933</td>
+                    <td>Kaca</td>
+                    <td>Kaca</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2931</td>
+                    <td>Kayu Jati</td>
+                    <td>Kayu</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2932</td>
+                    <td>Marmer</td>
+                    <td>Beton</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2933</td>
+                    <td>Kaca</td>
+                    <td>Kaca</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2931</td>
+                    <td>Kayu Jati</td>
+                    <td>Kayu</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2932</td>
+                    <td>Marmer</td>
+                    <td>Beton</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AA2933</td>
+                    <td>Kaca</td>
+                    <td>Kaca</td>
+                    <td>30021</td>
+                    <td>sementara</td>
+                    <td>2011/04/25</td>
+                    <td>2013/03/20</td>
+                    <td>
+                      <a class="label label-danger" href="javascript:;"><i class="fa fa-trash"></i></a>
+                      <a class="label label-warning" href="javascript:;"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+	</div>
+</div>
+<div class="clearfix"></div>
+<div class="footer">
+  <div class="wrapper">
+    Design by <a target="_blank" href="http://www.facebook.com/rino.syfox/">Simson Rinekso</a>
+  </div>
+</div>
+<script src="../assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../assets/plugins/reyno-togglein/reyno-togglein.js"></script>
+<script src="../assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Datatables -->
+<script src="../assets/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../assets/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../assets/plugins/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../assets/plugins/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="../assets/plugins/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="../assets/plugins/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="../assets/plugins/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="../assets/plugins/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="../assets/plugins/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="../assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../assets/plugins/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="../assets/plugins/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="../assets/plugins/jszip/dist/jszip.min.js"></script>
+<script src="../assets/plugins/pdfmake/build/pdfmake.min.js"></script>
+<script src="../assets/plugins/pdfmake/build/vfs_fonts.js"></script>
+<!-- jQuery custom content scroller -->
+<script src="../assets/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="assets/js/custom.js"></script>
+<script>
+$(document).ready(function(){
+  $('#datatable-responsive').DataTable({
+    keys: true,
+    dom: "Bfrtip",
+    buttons: [
+      {
+        extend: "copy",
+        className: "btn-sm"
+      },
+      {
+        extend: "csv",
+        className: "btn-sm"
+      },
+      {
+        extend: "excel",
+        className: "btn-sm"
+      },
+      {
+        extend: "pdfHtml5",
+        className: "btn-sm"
+      },
+      {
+        extend: "print",
+        className: "btn-sm"
+      },
+    ],
+  });
+
+});
+</script>
+</body>
+</html>
