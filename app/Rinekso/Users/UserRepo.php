@@ -14,7 +14,14 @@ class UserRepo extends BaseRepo
             ->with('jenjang')
             ->with('kelas')
             ->get();
-        
+    }
+    public function getSiswaId($id){
+        return $this->model
+            ->select('*')
+            ->where('id','=',$id)
+            ->with('jenjang')
+            ->with('kelas')
+            ->get();
     }
 }
 /**

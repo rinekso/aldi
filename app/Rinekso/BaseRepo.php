@@ -39,6 +39,23 @@ class BaseRepo
             ->get();
         return $proses;
     }
+    public function getDataWhere2($kolom,$value,$kolom2,$value2)
+    {
+        $proses = $this->model
+            ->where($kolom,'=',$value)
+            ->where($kolom2,'=',$value2)
+            ->get();
+        return $proses;
+    }
+    public function getDataWhere3($kolom,$value,$kolom2,$value2,$kolom3,$value3)
+    {
+        $proses = $this->model
+            ->where($kolom,'=',$value)
+            ->where($kolom2,'=',$value2)
+            ->where($kolom3,'=',$value3)
+            ->get();
+        return $proses;
+    }
     public function delete($id)
     {
         $res = $this->model->where('id','=',$id)
