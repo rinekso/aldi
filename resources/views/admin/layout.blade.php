@@ -19,8 +19,11 @@
 			<h4>Admin</h4>
 			<!-- <img src="/assets/images/logo.png"> -->
 		</div>
-		<a href="javascript:;" class="box pull-right">
-			<img src="/assets/images/photo.jpg">
+		<a href="{{url('/adm/logout')}}" class="pull-right">
+			<h4>
+			<i class="fa fa-logout"></i>Logout
+			<!-- <img src="/assets/images/photo.jpg"> -->
+			</h4>
 		</a>
 	</div>
 </div>

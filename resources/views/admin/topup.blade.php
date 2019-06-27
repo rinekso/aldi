@@ -16,7 +16,7 @@
             <div class="clearfix"></div>
           </div>
           <div class="box-body">
-              <div class="form-group">
+<!--               <div class="form-group">
                 <label class="control-label">Pilih Siswa</label>
                   <select name="id" class="select2_single form-control" tabindex="-1">
                     @foreach($siswa as $s)
@@ -25,6 +25,13 @@
                       @endif
                     @endforeach
                   </select>
+              </div>
+ -->
+              <div class="form-group">
+                <label class="control-label" for="name">
+                RFID
+                </label>
+                <input class="form-control" name="rfid" placeholder="RFID" required type="rfid">
               </div>
               <div class="form-group">
                 <label class="control-label" for="name">

@@ -18,6 +18,7 @@ class CreatePembayaranTable extends Migration
             $table->integer('id_kelas');
             $table->integer('id_periode');
             $table->integer('id_jenis_transaksi');
+            $table->integer('id_jenjang');
             $table->integer('nominal');
             $table->timestamps();
         });

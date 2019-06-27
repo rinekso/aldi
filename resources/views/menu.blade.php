@@ -1,26 +1,13 @@
 @extends('layout')
 @section('content')
-<div id="branding">
-	<div class="wrapper">
-		<div class="logo">
-			Pembayaran
-		</div>
-		<div id="search">
-			Saldo : 200.000
-		</div>
-		<div id="search">
-			Nama Pengguna
-		</div>
-	</div>
-</div>
 <div class="user">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10 centered">
 				<div class="box">
 					<div class="box-header">
-						<a href="pembayaran.html" class="btn btn-primary left">Kembali</a>
-						<h2>Pembayaran SPP</h2>
+						<a href="{{url('/')}}" class="btn btn-primary left">Kembali</a>
+						<h2>Pembayaran {{$nama}}</h2>
 					</div>
 					<div class="box-body">
 						<div class="tab">
@@ -36,27 +23,23 @@
 						  	<table>
 						  		<tr>
 						  			<td>Nama</td>
-						  			<td>: Dummy</td>
+						  			<td>: {{\Auth::User()->nama}}</td>
 						  		</tr>
 						  		<tr>
-						  			<td>NIS</td>
-						  			<td>: 2353123</td>
-						  		</tr>
-						  		<tr>
-						  			<td>Kelas</td>
-						  			<td>: 3 A</td>
+						  			<td>NIK</td>
+						  			<td>: {{\Auth::User()->nama}}</td>
 						  		</tr>
 						  		<tr>
 						  			<td>Tahun Ajaran</td>
-						  			<td>: 2018/2019</td>
+						  			<td>: {{\Auth::User()->tahun_ajaran}}</td>
 						  		</tr>
 						  		<tr>
 						  			<td>Tagihan</td>
-						  			<td>: 150.000 (1 bulan)</td>
+						  			<td>: {{$tagihan}} ({{$keterangan}})</td>
 						  		</tr>
 						  	</table>
 						  </p>
-						  <a href="#" class="btn btn-success">Bayar</a>
+						  <a href="{{url('bayar')}}" class="btn btn-success">Bayar</a>
 						</div>
 
 						<div id="Riwayat" class="tabcontent">
@@ -144,58 +127,11 @@
 							</div>
 						</div>
 						<div id="Mutasi" class="tabcontent">
-						  <p>
-						  	<br>
-						  	<b>Biodata</b><br>
-						  	<table>
-						  		<tr>
-						  			<td>Nama</td>
-						  			<td>: Dummy</td>
-						  		</tr>
-						  		<tr>
-						  			<td>NIS</td>
-						  			<td>: 2353123</td>
-						  		</tr>
-						  		<tr>
-						  			<td>Kelas</td>
-						  			<td>: 3 A</td>
-						  		</tr>
-						  		<tr>
-						  			<td>Tahun Ajaran</td>
-						  			<td>: 2018/2019</td>
-						  		</tr>
-						  	</table>
-						  </p>
 						  <table class="table table-hover table-strip">
 						  	<tr>
 						  		<th>Tanggal</th>
 						  		<th>Keterangan Transaksi</th>
 						  		<th>Saldo</th>
-						  	</tr>
-						  	<tr>
-						  		<td>12/10/2018</td>
-						  		<td>Top up</td>
-						  		<td>200.000</td>
-						  	</tr>
-						  	<tr>
-						  		<td>12/10/2018</td>
-						  		<td>Top up</td>
-						  		<td>200.000</td>
-						  	</tr>
-						  	<tr>
-						  		<td>12/10/2018</td>
-						  		<td>Top up</td>
-						  		<td>200.000</td>
-						  	</tr>
-						  	<tr>
-						  		<td>12/10/2018</td>
-						  		<td>Top up</td>
-						  		<td>200.000</td>
-						  	</tr>
-						  	<tr>
-						  		<td>12/10/2018</td>
-						  		<td>Top up</td>
-						  		<td>200.000</td>
 						  	</tr>
 						  </table>
 						  <div class="clearfix"></div>

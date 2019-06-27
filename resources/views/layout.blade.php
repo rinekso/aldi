@@ -12,6 +12,24 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
 </head>
 <body>
+	@if(\Auth::Check())
+<div id="branding">
+	<div class="wrapper">
+		<div class="logo">
+			Pembayaran
+		</div>
+		<div id="search">
+			<a href="{{url('logout')}}">Logout</a>
+		</div>
+		<div id="search">
+			Saldo : {{\Auth::User()->saldo}}
+		</div>
+		<div id="search">
+			{{\Auth::User()->nama}}
+		</div>
+	</div>
+</div>
+@endif
 
 @yield('content')
 

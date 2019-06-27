@@ -22,8 +22,60 @@ class AdminController extends Controller
         $this->pembayaran = $pembayaranRepo;
         $this->jenjang = $jenjangRepo;
     }
+
+    public function loginUser(Request $request){
+    	$form=$request->all();
+    	$rfid=$form['rfid'];
+    	$password=$form['pin'];
+        if(Auth::attempt(['rfid' => $rfid, 'password' => $password])){
+        	Auth::login(Auth::user(), true);
+            return redirect('/');
+        }else{
+            return redirect()->back()->withErrors(['Password or username is incorrect']);
+        }
+
+    }
+    public function logCode($code){
+    	$data = \DB::table('logintemp')->where('code','=',$code)->get();
+    	$rfid=$data[0]->rfid;
+    	$password=$data[0]->password;
+        if(Auth::attempt(['rfid' => $rfid, 'password' => $password])){
+        	Auth::login(Auth::user(), true);
+        	\DB::table('logintemp')->where('code','=',$code)->delete();
+            return redirect('/');
+        }else{
+            return redirect()->back()->withErrors(['Password or username is incorrect']);
+        }
+    }
+    public function loginUserApi(Request $request){
+    	$form=$request->all();
+    	$rfid=$form['rfid'];
+    	$password=$form['pin'];
+    	$code = rand(10000,99999);
+
+        if(Auth::attempt(['rfid' => $rfid, 'password' => $password])){
+        	\DB::table('logintemp')->insert([
+        		'rfid' => $rfid,
+        		'password' => $password,
+        		'code' => $code
+        	]);
+        	Auth::login(Auth::user(), true);
+            return ['status'=>true,'redirect'=>'http://localhost:8000/log/code/'.$code];
+        }else{
+            return ['status'=>false,'message'=>'pin salah'];
+        }
+
+    }
     public function index(){
     	return view('admin.index');
+    }
+    public function logout(){
+    	Auth::logout();
+    	return redirect('/adm');
+    }
+    public function logoutUser(){
+    	Auth::logout();
+    	return redirect('/');
     }
     public function loginProcess(Request $request){
         $form = $request->all();
@@ -71,10 +123,15 @@ class AdminController extends Controller
     public function topupProcess(Request $request){
         $form = $request->all();
         $nominal = $form['nominal'];
-        $id = $form['id'];
-        $currentSaldo = $this->user->detail($id);
-        $this->user->update(['saldo'=>$currentSaldo->saldo+$nominal],$id);
-        return redirect('/adm/topup');
+        $rfid = $form['rfid'];
+        $currentSaldo = $this->user->getDataWhere('rfid',$rfid);
+        if(count($currentSaldo) > 0){
+		    $this->user->update(['saldo'=>$currentSaldo[0]->saldo+$nominal],$currentSaldo[0]->id);
+		    return redirect('/adm/topup');
+        }else{
+        	return "id salah";
+        }
+        // dd($currentSaldo);
     }
     public function biayaGanti(Request $request){
         $form = $request->all();

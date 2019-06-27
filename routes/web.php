@@ -11,13 +11,14 @@
 |
 */
 
-Route::get('/', 'UserController@index');
-Route::post('menu', 'UserController@menu');
+Route::get('/', 'UserController@index')->middleware('auth');
+Route::get('menu', 'UserController@menu');
 Route::post('pembayaran', 'UserController@pembayaran');
 
 // admin
 Route::group([ 'prefix' => 'adm' , 'middleware' => ['admin']],function(){
 	Route::get('/','AdminController@index');
+	Route::get('logout','AdminController@logout');
 	Route::get('history','AdminController@history');
 	Route::get('siswa','SiswaController@index');
 	Route::get('siswa/tambah','SiswaController@tambah');
@@ -32,6 +33,12 @@ Route::group([ 'prefix' => 'adm' , 'middleware' => ['admin']],function(){
 // Auth::routes();
 
 Route::post('/login/process', 'AdminController@loginProcess');
-Route::get('/login', function(){
+Route::get('/login/adm', function(){
 	return view('admin.login');
+});
+Route::get('log/code/{code}','AdminController@logCode');
+Route::get('logout','AdminController@logoutUser');
+Route::post('/login/user', 'AdminController@loginUser');
+Route::get('/login', function(){
+	return view('index');
 });

@@ -22,6 +22,12 @@
               </div>
               <div class="form-group">
                 <label class="control-label" for="name">
+                RFID
+                </label>
+                <input class="form-control" name="rfid" placeholder="RFID" required type="text" value="{{$siswa[0]->rfid}}">
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="name">
                 NIK
                 </label>
                 <input class="form-control" name="nik" placeholder="NIK" required type="text" value="{{$siswa[0]->nik}}">

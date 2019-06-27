@@ -38,7 +38,7 @@ class SiswaController extends Controller
         $form['id_user_role'] = 2;
         $form['password'] = Hash::make($form['password']);
         $this->user->input($form);
-        return redirect('/adm/siswa');        
+        return redirect('/adm/siswa');
     }
     public function editAction(Request $request){
         $form = $request->all();

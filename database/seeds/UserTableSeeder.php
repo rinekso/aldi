@@ -21,6 +21,7 @@ class UserTableSeeder extends Seeder
     		'id_kelas' => 1,
     		'id_user_role' => 1,
     		'nama' => 'admin',
+            'rfid' => 'asd',
     		'nik' => 123,
     		'tahun_ajaran' => '2010/2011',
     		'saldo' => 0,
