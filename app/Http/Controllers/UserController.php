@@ -14,7 +14,9 @@ class UserController extends Controller
         $jenisTr = $this->jenis->getData();
     	return view('pembayaran',['jenis'=>$jenisTr]);
     }
-    public function menu(){
-    	return view('menu');
+    public function menu($menu){
+    	$nama = $this->jenis->getDataWhere('id_jenis_transaksi',$menu);
+    	// dd($nama);
+    	return view('menu',['nama'=>$nama[0]->nama_transaksi,'tagihan'=>0,'keterangan'=>""]);
     }
 }

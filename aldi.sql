@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2019 at 05:31 AM
+-- Generation Time: Jun 28, 2019 at 03:32 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.36
 
@@ -93,6 +93,19 @@ INSERT INTO `kelas` (`id_kelas`, `tingkat`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `logintemp`
+--
+
+CREATE TABLE `logintemp` (
+  `id` int(11) NOT NULL,
+  `rfid` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `code` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -114,7 +127,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2019_06_05_162656_create_transaksi_table', 1),
 (6, '2019_06_05_163059_create_pembayaran_table', 1),
 (7, '2019_06_05_163644_create_jenis_transaksi_table', 1),
-(8, '2019_06_05_163943_create_periode_table', 1);
+(8, '2019_06_05_163943_create_periode_table', 1),
+(9, '2019_06_07_134845_create_sessions_table', 2);
 
 -- --------------------------------------------------------
 
@@ -125,8 +139,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `pembayaran` (
   `id_pembayaran` int(10) UNSIGNED NOT NULL,
   `id_kelas` int(11) NOT NULL,
-  `id_jenjang` int(11) NOT NULL,
   `id_jenis_transaksi` int(11) NOT NULL,
+  `id_jenjang` int(11) NOT NULL,
   `nominal` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -136,11 +150,8 @@ CREATE TABLE `pembayaran` (
 -- Dumping data for table `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`id_pembayaran`, `id_kelas`, `id_jenjang`, `id_jenis_transaksi`, `nominal`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 100000, NULL, '2019-06-07 20:05:22'),
-(2, 2, 1, 1, 100000, NULL, NULL),
-(3, 3, 1, 1, 150000, NULL, NULL),
-(4, 1, 1, 5, 50000, NULL, NULL);
+INSERT INTO `pembayaran` (`id_pembayaran`, `id_kelas`, `id_jenis_transaksi`, `id_jenjang`, `nominal`, `created_at`, `updated_at`) VALUES
+(1, 3, 1, 2, 50000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -150,6 +161,7 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `id_kelas`, `id_jenjang`, `id_jenis_t
 
 CREATE TABLE `periode` (
   `id_periode` int(10) UNSIGNED NOT NULL,
+  `id_pembayaran` int(11) NOT NULL,
   `nama_periode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -197,6 +209,7 @@ CREATE TABLE `users` (
   `id_kelas` int(11) NOT NULL,
   `id_user_role` int(11) NOT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rfid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nik` int(11) NOT NULL,
   `tahun_ajaran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `saldo` int(11) NOT NULL,
@@ -210,10 +223,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `id_jenjang`, `id_kelas`, `id_user_role`, `nama`, `nik`, `tahun_ajaran`, `saldo`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 'admin', 123, '2010/2011', 0, '$2y$10$xV3PwKXFSrZA9FFCnz1wSOd6TIaCJdmyqLa32y8qL3SN9qjyWHNBS', 'ZT6j5pNEysPjwapAHJrRxI99yfyojIXkVK3hyXOg0z64q5NLBnzjC2ik7wjD', NULL, NULL),
-(4, 2, 3, 2, 'asd', 123, '2010/2011', 150000, '$2y$10$WH/UzfVKy633qW0YZJw16uBQ5CAxs8eAcjSuZLbnGmp.Lu497Vo6m', NULL, NULL, '2019-06-07 19:14:30'),
-(5, 2, 2, 2, 'dfg', 234, '2010/2011', 100000, '$2y$10$uXSD6Hi2hJg4izxH11oeCO0yvKqEW29aqRk0QwU7oWOLh4dGTmT9m', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `id_jenjang`, `id_kelas`, `id_user_role`, `nama`, `rfid`, `nik`, `tahun_ajaran`, `saldo`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 'admin', 'asd', 123, '2010/2011', 0, '$2y$10$heiXrjfjSbC3Ae09FeQVJexGZAxYBbRwIUuBg4.D5WxyRvR8byb/K', '2jh20CJun0IOPstwBuiEXnpUWCugz4DwDvN5PAS8MigVasl74t49yGpgTJXo', NULL, NULL),
+(2, 2, 3, 2, 'aldi', 'asd123', 123, '2019/2020', 101000, '$2y$10$loF36PO9EFndOTZcOIn.DOu2Axd2q0ntg6h8uXFu7u6CK6.e/14N2', 'qjV3T16DsikQDmagkbcmX22LKfeACx0KxS1lbkg2MEfvh3JayuCl5E41fxJ6', NULL, '2019-06-26 18:40:12'),
+(3, 1, 1, 2, 'siswa', '123', 123, '123', 2000000, '$2y$10$gHUnylagf0M2NA1IaHiJ1ePmYtgoFe/BixXQGfC.3duDK690wNvpK', 'IG89OEExqLIuv2LIv6z7LZaWya2BdTTnuBj8O2rWfLEcJvh7mWW4KMjk5RB6', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -257,6 +270,12 @@ ALTER TABLE `jenjang`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`);
+
+--
+-- Indexes for table `logintemp`
+--
+ALTER TABLE `logintemp`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `migrations`
@@ -317,16 +336,22 @@ ALTER TABLE `kelas`
   MODIFY `id_kelas` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `logintemp`
+--
+ALTER TABLE `logintemp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pembayaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `periode`
@@ -344,7 +369,7 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user_role`

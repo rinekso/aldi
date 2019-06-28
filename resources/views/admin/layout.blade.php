@@ -41,6 +41,9 @@
 		<li class="@if($title == 'topup') active @endif">
 			<a href="{{url('/adm/topup')}}"><i class="flaticon-monitor"></i><span>Top Up</span></a>
 		</li>
+		<li class="@if($title == 'periode') active @endif">
+			<a href="{{url('/adm/periode')}}"><i class="fa fa-calendar"></i><span>Periode</span></a>
+		</li>
 	</ul>
 </div>
 <div class="right-col">

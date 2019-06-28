@@ -142,4 +142,8 @@ class AdminController extends Controller
         $this->pembayaran->gantiBiaya($id_jenis,$id_kelas,$id_jenjang,$nominal);
         return redirect('/adm/topup');
     }
+
+    public function periode(){
+        return view('admin.periode');
+    }
 }

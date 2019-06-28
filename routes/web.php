@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'UserController@index')->middleware('auth');
+Route::get('bayar/{menu}', 'UserController@menu');
 Route::get('menu', 'UserController@menu');
 Route::post('pembayaran', 'UserController@pembayaran');
 
@@ -28,6 +29,8 @@ Route::group([ 'prefix' => 'adm' , 'middleware' => ['admin']],function(){
 	Route::get('topup','AdminController@topup');
 	Route::post('topup/process','AdminController@topupProcess');
 	Route::post('biaya/ganti','AdminController@biayaGanti');
+	Route::get('periode','AdminController@periode');
+	Route::get('periode/tambah','AdminController@periodeTambah');
 });
 
 // Auth::routes();

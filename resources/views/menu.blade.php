@@ -27,7 +27,7 @@
 						  		</tr>
 						  		<tr>
 						  			<td>NIK</td>
-						  			<td>: {{\Auth::User()->nama}}</td>
+						  			<td>: {{\Auth::User()->nik}}</td>
 						  		</tr>
 						  		<tr>
 						  			<td>Tahun Ajaran</td>
@@ -35,11 +35,13 @@
 						  		</tr>
 						  		<tr>
 						  			<td>Tagihan</td>
-						  			<td>: {{$tagihan}} ({{$keterangan}})</td>
+						  			<td>: {{$tagihan}} - {{$keterangan}}</td>
 						  		</tr>
 						  	</table>
 						  </p>
+						  @if($tagihan>0)
 						  <a href="{{url('bayar')}}" class="btn btn-success">Bayar</a>
+						  @endif
 						</div>
 
 						<div id="Riwayat" class="tabcontent">
