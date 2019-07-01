@@ -33,11 +33,21 @@ class UserController extends Controller
 		if(count($pembayaran) > 0){
 			$periode = $this->periode->getDataWhere('id_pembayaran',$pembayaran[0]->id_pembayaran);
 			if(count($periode) > 0){
-				$transaksi = $this->transaksi->getDataWhere3('id_periode',$periode[0]->id_periode,'id_pembayaran',$pembayaran[0]->id_pembayaran,'id_user',\Auth::User()->id);
-				if(count($transaksi) == 0){
-					$tagihan = $pembayaran[0]->nominal;
-					$keterangan = $periode[0]->nama_periode;
-					$idPeriode = $periode[0]->id_periode;
+				foreach($periode as $p){
+					$transaksi = $this->transaksi->getDataWhere3('id_periode',$p->id_periode,'id_pembayaran',$pembayaran[0]->id_pembayaran,'id_user',\Auth::User()->id);
+					if(count($transaksi) == 0){
+						if($menu == 1){
+							if(date('m') >= date('m',strtotime($p->nama_periode))){
+								$tagihan = $pembayaran[0]->nominal;
+								$keterangan = $p->nama_periode;
+								$idPeriode = $p->id_periode;
+							}
+						}else{
+							$tagihan = $pembayaran[0]->nominal;
+							$keterangan = $p->nama_periode;
+							$idPeriode = $p->id_periode;
+						}
+					}
 				}
 			}
 		}

@@ -155,7 +155,7 @@
 @section('js')
 <script type="text/javascript">
 @if(@$errors->first('text') != "")
-	alert({{$errors->first('text')}})
+	alert("{{$errors->first('text')}}");
 @endif
 function openCity(evt, cityName) {
   // Declare all variables

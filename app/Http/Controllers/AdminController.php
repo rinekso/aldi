@@ -155,7 +155,7 @@ class AdminController extends Controller
     public function detailPeriode($id){
         $jenis_transaksi = $this->jenisTransaksi->getData();
         $kelas = $this->kelas->getData();
-        $periode = $this->periode->getData();
+        $periode = $this->periode->getDataWhere('id_pembayaran',$id);
         $jenjang = $this->jenjang->getData();
         $pembayaran = $this->pembayaran->getDataSpec($id);
     	return view('admin.detailPeriode',['periode'=>$periode,'kelas'=>$kelas,'jenis_transaksi'=> $jenis_transaksi, 'jenjang'=>$jenjang,'pembayaran'=>$pembayaran]);
@@ -206,6 +206,6 @@ class AdminController extends Controller
         $id_jenjang = $form['id_jenjang'];
         $nominal = $form['nominal'];
         $this->pembayaran->gantiBiaya($id_jenis,$id_kelas,$id_jenjang,$nominal);
-        return redirect('/adm/topup');
+        return redirect('/adm/periode');
     }
 }
