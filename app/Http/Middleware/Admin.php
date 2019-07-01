@@ -17,7 +17,8 @@ class Admin
     public function handle($request, Closure $next)
     {
         // dd(Auth::check());
-        if(@auth()->user()->id_user_role == '1'){
+        $id = @\Auth::User()->id_user_role;
+        if($id < 3 && $id > 0){
             return $next($request);
         }
         return redirect('login/adm')->with('error','You have not admin access');

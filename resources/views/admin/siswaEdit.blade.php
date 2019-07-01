@@ -28,9 +28,9 @@
               </div>
               <div class="form-group">
                 <label class="control-label" for="name">
-                NIK
+                NIS
                 </label>
-                <input class="form-control" name="nik" placeholder="NIK" required type="text" value="{{$siswa[0]->nik}}">
+                <input class="form-control" name="nik" placeholder="NIS" required type="text" value="{{$siswa[0]->nik}}">
               </div>
               <div class="row">
                 <div class="col-md-6">

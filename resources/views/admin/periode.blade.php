@@ -1,4 +1,4 @@
-<?php $title = 'topup';?>
+<?php $title = 'periode';?>
 @extends('admin.layout')
 @section('css')
 
@@ -7,44 +7,107 @@
 @endsection
 @section('content')
     <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8 col-sm-12 col-xs-12">
+      <div class="col-md-7 col-sm-12 col-xs-12">
         <div class="box-contain">
-          <form action="{{url('/adm/topup/process')}}" method="post">
-          {{csrf_field()}}
           <div class="box-header">
-            Top Up
+            Daftar Biaya
             <div class="clearfix"></div>
           </div>
           <div class="box-body">
-<!--               <div class="form-group">
-                <label class="control-label">Pilih Siswa</label>
-                  <select name="id" class="select2_single form-control" tabindex="-1">
-                    @foreach($siswa as $s)
-                      @if($s->id_user_role==2)
-                        <option value="{{$s->id}}">{{$s->nama}}</option>
-                      @endif
+            <table class="table table-bordered table-hover">
+              <tr>
+                <td>Jenjang/Tingkat</td>
+                @foreach($jenis_transaksi as $j)
+                  <td>{{$j->nama_transaksi}}</td>
+                @endforeach
+              </tr>
+              @for($j = 0;$j < count($jenjang);$j++)
+                @for($i = 0;$i< count($kelas);$i++)
+                <tr>
+                  <td>{{$jenjang[$j]->nama_jenjang}} / {{$kelas[$i]->tingkat}}</td>
+                  @for($k = 0;$k < count($jenis_transaksi);$k++)
+                  <td>
+                    @if($daftar_biaya[$i][$j][$k]['id'] != 0)
+                    <a href="{{url('adm/periode/'.$daftar_biaya[$i][$j][$k]['id'])}}">
+                      {{$daftar_biaya[$i][$j][$k]['nominal']}}
+                    </a>
+                    @else
+                      {{$daftar_biaya[$i][$j][$k]['nominal']}}
+                    @endif
+                  </td>
+                  @endfor
+                </tr>
+                @endfor
+              @endfor
+            </table>
+          </div>
+          <div class="box-footer">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 col-sm-12 col-xs-12">
+        <div class="box-contain">
+        <form action="{{url('/adm/biaya/ganti')}}" method="post">
+        {{csrf_field()}}
+          <div class="box-header">
+            Ganti biaya
+            <div class="clearfix"></div>
+          </div>
+          <div class="box-body">
+              <div class="form-group">
+                <label class="control-label" for="name">
+                Jenis Pembayaran
+                </label>
+              <div class="ln_solid"></div>
+              @foreach($jenis_transaksi as $j)
+                <div class="col-md-4">
+                  <label>
+                    <input required type="radio" name="id_jenis_transaksi" value="{{$j->id_jenis_transaksi}}"> {{$j->nama_transaksi}}
+                  </label>
+                </div>
+              @endforeach
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label" for="name">
+                  Tingkat
+                  </label>
+                  <select name="id_kelas" class="form-control">
+                    @foreach($kelas as $j)
+                      <option value="{{$j->id_kelas}}">{{$j->tingkat}}</option>
                     @endforeach
                   </select>
+                </div>
               </div>
- -->
-              <div class="form-group">
-                <label class="control-label" for="name">
-                RFID
-                </label>
-                <input class="form-control" name="rfid" placeholder="RFID" required type="rfid">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label" for="name">
+                  Jenjang
+                  </label>
+                  <select name="id_jenjang" class="form-control">
+                    @foreach($jenjang as $j)
+                      <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
+                    @endforeach
+                  </select>
+                </div>
               </div>
-              <div class="form-group">
-                <label class="control-label" for="name">
-                Nominal
-                </label>
-                <input class="form-control" name="nominal" placeholder="Nominal" required type="number">                          
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label" for="name">
+                  Nominal
+                  </label>
+                  <input class="form-control" name="nominal" placeholder="Nominal" required type="number">                          
+                </div>
               </div>
+              <div class="clearfix"></div>
               <div class="ln_solid"></div>
 
           </div>
           <div class="box-footer">
-            <button id="send" type="submit" class="btn btn-success">Top Up</button>
+            <button id="send" type="submit" class="btn btn-success">Ganti</button>
           </div>
           </form>
         </div>
@@ -84,7 +147,14 @@ $(document).ready(function(){
 
   window.prettyPrint;
   prettyPrint();
+  nameHide();
 });
+function nameShow(){
+  $("#nameType").show();
+}
+function nameHide(){
+  $("#nameType").hide();
+}
 function onAddTag(tag) {
   alert("Added a email: " + tag);
 }

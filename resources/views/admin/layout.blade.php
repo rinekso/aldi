@@ -32,18 +32,22 @@
 		<li class="@if($title == 'home') active @endif">
 			<a href="{{url('/adm')}}"><i class="flaticon-house"></i><span>Home</span></a>
 		</li>
+		@if(\Auth::User()->id_user_role < 2)
 		<li class="@if($title == 'history') active @endif">
 			<a href="{{url('/adm/history')}}"><i class="flaticon-pie-chart"></i><span>History Transaksi</span></a>
 		</li>
 		<li class="@if($title == 'siswa') active @endif">
 		    <a href="{{url('/adm/siswa')}}"><i class="flaticon-edit"></i><span>Siswa</span></a>
 		</li>
+		@endif
 		<li class="@if($title == 'topup') active @endif">
 			<a href="{{url('/adm/topup')}}"><i class="flaticon-monitor"></i><span>Top Up</span></a>
 		</li>
+		@if(\Auth::User()->id_user_role < 2)
 		<li class="@if($title == 'periode') active @endif">
 			<a href="{{url('/adm/periode')}}"><i class="fa fa-calendar"></i><span>Periode</span></a>
 		</li>
+		@endif
 	</ul>
 </div>
 <div class="right-col">
@@ -52,12 +56,12 @@
 	</div>
 </div>
 <div class="clearfix"></div>
-  <div class="footer">
+<!--   <div class="footer">
     <div class="wrapper">
-      &copy; Copyright 2019 <!-- <a target="_blank" href="http://www.facebook.com/rino.syfox/">Simson Rinekso</a> -->
+      &copy; Copyright 2019 <a target="_blank" href="http://www.facebook.com/rino.syfox/">Simson Rinekso</a>
     </div>
   </div>
-<script src="/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+ --><script src="/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="/assets/plugins/reyno-togglein/reyno-togglein.js"></script>
 <script src="/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- jQuery custom content scroller -->

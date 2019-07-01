@@ -8,6 +8,11 @@ class PeriodeRepo extends BaseRepo
     {
         $this->model = $user;
     }
+    public function delete($id){
+        $res = $this->model->where('id_periode','=',$id)
+            ->delete();
+        return true;
+    }
 }
 /**
  * Created by PhpStorm.

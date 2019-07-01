@@ -31,6 +31,15 @@ class PembayaranRepo extends BaseRepo
         }
         return $proses;
     }
+    public function getDataSpec($id){
+        $result = $this->model
+            ->where('id_pembayaran','=',$id)
+            ->with('kelas')
+            ->with('jenjang')
+            ->with('jenisTransaksi')
+            ->get();
+        return $result;
+    }
 }
 /**
  * Created by PhpStorm.

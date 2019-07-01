@@ -12,9 +12,10 @@
 */
 
 Route::get('/', 'UserController@index')->middleware('auth');
-Route::get('bayar/{menu}', 'UserController@menu');
-Route::get('menu', 'UserController@menu');
-Route::post('pembayaran', 'UserController@pembayaran');
+Route::get('bayar/{menu}', 'UserController@menu')->middleware('auth');
+Route::post('bayar/{menu}/proses', 'UserController@bayar')->middleware('auth');
+Route::get('menu', 'UserController@menu')->middleware('auth');
+Route::post('pembayaran', 'UserController@pembayaran')->middleware('auth');
 
 // admin
 Route::group([ 'prefix' => 'adm' , 'middleware' => ['admin']],function(){
@@ -30,7 +31,10 @@ Route::group([ 'prefix' => 'adm' , 'middleware' => ['admin']],function(){
 	Route::post('topup/process','AdminController@topupProcess');
 	Route::post('biaya/ganti','AdminController@biayaGanti');
 	Route::get('periode','AdminController@periode');
-	Route::get('periode/tambah','AdminController@periodeTambah');
+	Route::post('periode/ganti','AdminController@periodeGanti');
+	Route::post('periode/tambah','AdminController@periodeTambah');
+	Route::get('periode/delete/{id}','AdminController@periodeDelete');
+	Route::get('periode/{id}','AdminController@detailPeriode');
 });
 
 // Auth::routes();

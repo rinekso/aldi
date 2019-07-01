@@ -117,8 +117,74 @@ class AdminController extends Controller
                 }
             }
         }
+
         // dd($daftarBiaya);
     	return view('admin.topup',['siswa'=>$siswa,'jenis_transaksi'=>$jenis_transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang,'daftar_biaya'=>$daftarBiaya]);
+    }
+    public function periode(){
+        $siswa = $this->user->getData();
+        $jenis_transaksi = $this->jenisTransaksi->getData();
+        $kelas = $this->kelas->getData();
+        $periode = $this->periode->getData();
+        $pembayaran = $this->pembayaran->getData();
+        $jenjang = $this->jenjang->GetData();
+
+        $daftarBiaya = [];
+        // dd($kelas[2]);
+        for($i=0;$i<count($kelas);$i++){
+            $daftarBiaya[$i] = [];
+            for($j=0;$j<count($jenjang);$j++)
+            {
+                $daftarBiaya[$i][$j] = [];
+                for($k=0;$k<count($jenis_transaksi);$k++){
+                    $dat = $this->pembayaran->getDataWhere3('id_kelas',$kelas[$i]->id_kelas,'id_jenjang',$jenjang[$j]->id_jenjang,'id_jenis_transaksi',$jenis_transaksi[$k]->id_jenis_transaksi);
+                    $nominal = 0;
+                    $id = 0;
+                    if(count($dat) > 0){
+                        $nominal = $dat[0]->nominal;
+                        $id = $dat[0]->id_pembayaran;
+                    }
+                    $daftarBiaya[$i][$j][$k]['nominal'] = $nominal;
+                    $daftarBiaya[$i][$j][$k]['id'] = $id;
+                }
+            }
+        }
+        // dd($daftarBiaya);
+    	return view('admin.periode',['siswa'=>$siswa,'jenis_transaksi'=>$jenis_transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang,'daftar_biaya'=>$daftarBiaya]);
+    }
+    public function detailPeriode($id){
+        $jenis_transaksi = $this->jenisTransaksi->getData();
+        $kelas = $this->kelas->getData();
+        $periode = $this->periode->getData();
+        $jenjang = $this->jenjang->getData();
+        $pembayaran = $this->pembayaran->getDataSpec($id);
+    	return view('admin.detailPeriode',['periode'=>$periode,'kelas'=>$kelas,'jenis_transaksi'=> $jenis_transaksi, 'jenjang'=>$jenjang,'pembayaran'=>$pembayaran]);
+    }
+    public function periodeDelete($id){
+        $periode = $this->periode->delete($id);
+        return redirect()->back();
+    }
+    public function periodeTambah(Request $request){
+    	$form = $request->all();
+    	$type = $form['type'];
+    	$tahun = $form['tahun'];
+    	$nama = $form['nama'];
+    	$id_pembayaran = $form['id_pembayaran'];
+		$input=[];
+		$input['tahun'] = $tahun;
+		$input['id_pembayaran'] = $id_pembayaran;
+    	if($type == 1){
+    		for ($i=1; $i < 13; $i++) { 
+				$monthNum  = $i;
+				$monthName = date("F", mktime(0, 0, 0, $monthNum, 10));
+    			$input['nama_periode'] = $monthName;
+	    		$this->periode->input($input);
+    		}
+    	}elseif($type == 0){
+			$input['nama_periode'] = $nama;
+    		$this->periode->input($input);
+    	}
+    	return redirect()->back();
     }
     public function topupProcess(Request $request){
         $form = $request->all();
@@ -141,9 +207,5 @@ class AdminController extends Controller
         $nominal = $form['nominal'];
         $this->pembayaran->gantiBiaya($id_jenis,$id_kelas,$id_jenjang,$nominal);
         return redirect('/adm/topup');
-    }
-
-    public function periode(){
-        return view('admin.periode');
     }
 }

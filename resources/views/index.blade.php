@@ -13,13 +13,13 @@
 			<div class="col-md-offset-3 col-md-6 centered">
 				<div class="box">
 					<div class="box-header">
-						<h2>Masukkan pin</h2>
+						<h2>Login</h2>
 					</div>
 					<div class="box-content">
 						<form action="{{url('login/user')}}" method="post">
 							{{csrf_field()}}
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="ID SmartCard" name="rfid">
+								<input type="password" class="form-control" placeholder="ID SmartCard" name="rfid">
 								<i class="fa fa-check"></i>
 							</div>
 							<div class="form-group">

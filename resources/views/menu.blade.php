@@ -26,7 +26,7 @@
 						  			<td>: {{\Auth::User()->nama}}</td>
 						  		</tr>
 						  		<tr>
-						  			<td>NIK</td>
+						  			<td>NIS</td>
 						  			<td>: {{\Auth::User()->nik}}</td>
 						  		</tr>
 						  		<tr>
@@ -35,12 +35,16 @@
 						  		</tr>
 						  		<tr>
 						  			<td>Tagihan</td>
-						  			<td>: {{$tagihan}} - {{$keterangan}}</td>
+						  			<td>: {{$tagihan}} - {{$nama}}/{{$keterangan}}</td>
 						  		</tr>
 						  	</table>
 						  </p>
 						  @if($tagihan>0)
-						  <a href="{{url('bayar')}}" class="btn btn-success">Bayar</a>
+						  <form action="{{url('/bayar/'.$idJenisTr.'/proses')}}" method="post">
+						  	{{csrf_field()}}
+						  	<input type="hidden" value="{{$id_periode}}" name="id_periode">
+							<button type="submit" class="btn btn-lg btn-success">Bayar</button>
+						  </form>
 						  @endif
 						</div>
 
@@ -150,6 +154,9 @@
 @endsection('content')
 @section('js')
 <script type="text/javascript">
+@if(@$errors->first('text') != "")
+	alert({{$errors->first('text')}})
+@endif
 function openCity(evt, cityName) {
   // Declare all variables
   var i, tabcontent, tablinks;
