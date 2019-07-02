@@ -25,6 +25,7 @@ Route::group([ 'prefix' => 'adm' , 'middleware' => ['admin']],function(){
 	Route::get('siswa','SiswaController@index');
 	Route::get('siswa/tambah','SiswaController@tambah');
 	Route::get('siswa/edit/{id}','SiswaController@edit');
+	Route::get('siswa/delete/{id}','SiswaController@delete');
 	Route::post('siswa/tambah/process','SiswaController@tambahAction');
 	Route::post('siswa/edit/process','SiswaController@editAction');
 	Route::get('topup','AdminController@topup');

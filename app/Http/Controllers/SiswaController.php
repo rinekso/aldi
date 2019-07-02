@@ -30,7 +30,11 @@ class SiswaController extends Controller
         $siswa = $this->user->getSiswaId($id);
         $jenjang = $this->jenjang->getData();
         $kelas = $this->kelas->getData();
-    	return view('admin.siswaEdit',['jenjang'=>$jenjang,'kelas'=>$kelas,'siswa'=>$siswa]);
+        return view('admin.siswaEdit',['jenjang'=>$jenjang,'kelas'=>$kelas,'siswa'=>$siswa]);
+    }
+    public function delete($id){
+        $this->user->delete($id);
+    	return redirect()->bakc();
     }
     public function tambahAction(Request $request){
         $form = $request->all();
