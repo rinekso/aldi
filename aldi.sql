@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 28, 2019 at 03:32 PM
+-- Generation Time: Jul 02, 2019 at 06:23 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.36
 
@@ -103,6 +103,13 @@ CREATE TABLE `logintemp` (
   `code` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `logintemp`
+--
+
+INSERT INTO `logintemp` (`id`, `rfid`, `password`, `code`) VALUES
+(2, 'asd123', '123', '89071');
+
 -- --------------------------------------------------------
 
 --
@@ -151,7 +158,10 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `id_kelas`, `id_jenis_transaksi`, `id_jenjang`, `nominal`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, 2, 50000, NULL, NULL);
+(1, 3, 1, 2, 200000, NULL, '2019-07-01 13:02:31'),
+(2, 3, 4, 2, 50000, NULL, NULL),
+(3, 2, 4, 2, 50000, NULL, NULL),
+(4, 3, 2, 2, 100000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -163,9 +173,42 @@ CREATE TABLE `periode` (
   `id_periode` int(10) UNSIGNED NOT NULL,
   `id_pembayaran` int(11) NOT NULL,
   `nama_periode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tahun` int(30) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `periode`
+--
+
+INSERT INTO `periode` (`id_periode`, `id_pembayaran`, `nama_periode`, `tahun`, `created_at`, `updated_at`) VALUES
+(38, 1, 'January', 2019, NULL, NULL),
+(39, 1, 'February', 2019, NULL, NULL),
+(40, 1, 'March', 2019, NULL, NULL),
+(41, 1, 'April', 2019, NULL, NULL),
+(42, 1, 'May', 2019, NULL, NULL),
+(43, 1, 'June', 2019, NULL, NULL),
+(44, 1, 'July', 2019, NULL, NULL),
+(45, 1, 'August', 2019, NULL, NULL),
+(46, 1, 'September', 2019, NULL, NULL),
+(47, 1, 'October', 2019, NULL, NULL),
+(48, 1, 'November', 2019, NULL, NULL),
+(49, 1, 'December', 2019, NULL, NULL),
+(50, 1, 'January', 2020, NULL, NULL),
+(51, 1, 'February', 2020, NULL, NULL),
+(52, 1, 'March', 2020, NULL, NULL),
+(53, 1, 'April', 2020, NULL, NULL),
+(54, 1, 'May', 2020, NULL, NULL),
+(55, 1, 'June', 2020, NULL, NULL),
+(56, 1, 'July', 2020, NULL, NULL),
+(57, 1, 'August', 2020, NULL, NULL),
+(58, 1, 'September', 2020, NULL, NULL),
+(59, 1, 'October', 2020, NULL, NULL),
+(60, 1, 'November', 2020, NULL, NULL),
+(61, 1, 'December', 2020, NULL, NULL),
+(62, 2, 'kalender tahunan', 2019, NULL, NULL),
+(63, 4, 'uts', 2019, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -197,6 +240,15 @@ CREATE TABLE `transaksi` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `id_pembayaran`, `id_periode`, `id_user`, `created_at`, `updated_at`) VALUES
+(1, 1, 38, 2, NULL, NULL),
+(2, 1, 61, 2, NULL, NULL),
+(3, 1, 56, 2, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -224,9 +276,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `id_jenjang`, `id_kelas`, `id_user_role`, `nama`, `rfid`, `nik`, `tahun_ajaran`, `saldo`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 'admin', 'asd', 123, '2010/2011', 0, '$2y$10$heiXrjfjSbC3Ae09FeQVJexGZAxYBbRwIUuBg4.D5WxyRvR8byb/K', '2jh20CJun0IOPstwBuiEXnpUWCugz4DwDvN5PAS8MigVasl74t49yGpgTJXo', NULL, NULL),
-(2, 2, 3, 2, 'aldi', 'asd123', 123, '2019/2020', 101000, '$2y$10$loF36PO9EFndOTZcOIn.DOu2Axd2q0ntg6h8uXFu7u6CK6.e/14N2', 'qjV3T16DsikQDmagkbcmX22LKfeACx0KxS1lbkg2MEfvh3JayuCl5E41fxJ6', NULL, '2019-06-26 18:40:12'),
-(3, 1, 1, 2, 'siswa', '123', 123, '123', 2000000, '$2y$10$gHUnylagf0M2NA1IaHiJ1ePmYtgoFe/BixXQGfC.3duDK690wNvpK', 'IG89OEExqLIuv2LIv6z7LZaWya2BdTTnuBj8O2rWfLEcJvh7mWW4KMjk5RB6', NULL, NULL);
+(1, 1, 1, 1, 'admin', 'asd', 123, '2010/2011', 0, '$2y$10$heiXrjfjSbC3Ae09FeQVJexGZAxYBbRwIUuBg4.D5WxyRvR8byb/K', 'LwguajLfYakGALErpVYSHoG2DtkjgXQbI9S8ASEVTGaR3QbRWE3sxphGswUj', NULL, NULL),
+(2, 2, 3, 2, 'aldi', 'asd123', 123, '2019/2020', 51000, '$2y$10$loF36PO9EFndOTZcOIn.DOu2Axd2q0ntg6h8uXFu7u6CK6.e/14N2', 'HuSF6Dsgewmb6iBwDkIlHZKQa94xQdseXAAXkyabSA74t6GdOAzRJeAWoG5t', NULL, '2019-07-01 13:17:12'),
+(3, 1, 1, 2, 'siswa', '123', 123, '123', 2000000, '$2y$10$gHUnylagf0M2NA1IaHiJ1ePmYtgoFe/BixXQGfC.3duDK690wNvpK', 'IG89OEExqLIuv2LIv6z7LZaWya2BdTTnuBj8O2rWfLEcJvh7mWW4KMjk5RB6', NULL, NULL),
+(4, 1, 1, 2, 'simson', '954BD7FC', 123, '2019/2020', 100000, '$2y$10$KswZgKVI9Us4hLpOiKZKnOc.LqkE88.PUECtvISt4AD9JWa6z.MaK', 'LbdbX40PaDUYJSAgXdY0dLlWoWgOoPcQHIytKzTNI2orl5h4NeXYGKirjgEQ', NULL, NULL),
+(5, 1, 1, 2, 'topup', 'asd', 123, '2010/2011', 0, '$2y$10$heiXrjfjSbC3Ae09FeQVJexGZAxYBbRwIUuBg4.D5WxyRvR8byb/K', '2G9Lwfy6KppBVYbDvMTbEKiON3WkLW0tJDIX0cjf3iYysDGpcxrtkddpJQVg', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -247,7 +301,8 @@ CREATE TABLE `user_role` (
 
 INSERT INTO `user_role` (`id_user_role`, `nama_role`, `created_at`, `updated_at`) VALUES
 (1, 'admin', NULL, NULL),
-(2, 'user', NULL, NULL);
+(2, 'admin_topup', NULL, NULL),
+(3, 'user', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -339,7 +394,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `logintemp`
 --
 ALTER TABLE `logintemp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -351,31 +406,31 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pembayaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `periode`
 --
 ALTER TABLE `periode`
-  MODIFY `id_periode` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_periode` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `id_user_role` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user_role` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
