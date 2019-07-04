@@ -1,8 +1,11 @@
 <?php namespace App\Rinekso;
 
+use Carbon\Carbon;
+
 class BaseRepo
 {
     protected $model;
+    public $timestamps = true;
 
     public function __construct($model = null)
     {
@@ -10,6 +13,7 @@ class BaseRepo
     }
     public function input($input)
     {
+        $input['created_at'] = Carbon::now();
         $proses = $this->model->insert($input);
         if($proses)
             return true;
@@ -17,6 +21,7 @@ class BaseRepo
     }
     public function update($input,$id)
     {
+        $input['updated_at'] = Carbon::now();
         $this->model->where('id','=',$id)
             ->update($input);
         return true;

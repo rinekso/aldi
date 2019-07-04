@@ -34,9 +34,10 @@
                   <tr>
                     <td>{{$s->nik}}</td>
                     <td>{{$s->nama}}</td>
-                    <td>{{$s->kelas->tingkat}} - {{$s->jenjang->nama_jenjang}}</td>
+                    <td>{{$s->kelas->tingkat}}/{{$s->jenjang->nama_jenjang}}</td>
                     <td>{{$s->saldo}}</td>
                     <td>
+                      <a class="label label-success" href="{{url('/adm/siswa/mutasi/'.$s->id)}}"><i class="fa fa-list"></i></a>
                       <a class="label label-danger" href="{{url('/adm/siswa/delete/'.$s->id)}}"><i class="fa fa-trash"></i></a>
                       <a class="label label-warning" href="{{url('/adm/siswa/edit/'.$s->id)}}"><i class="fa fa-edit"></i></a>
                     </td>

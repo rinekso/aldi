@@ -5,6 +5,13 @@ use Illuminate\Database\Eloquent\Model;
 class Transaksi extends Model
 {
     protected $table = 'transaksi';
+    public $timestamps = true;
+    public function pembayaran(){
+        return $this->hasOne('App\Rinekso\Pembayaran\Pembayaran','id_pembayaran','id_pembayaran');
+    }
+    public function user(){
+        return $this->hasOne('App\Rinekso\Users\User','id','id_user');
+    }
 }
 /**
  * Created by PhpStorm.

@@ -33,9 +33,9 @@
 			<a href="{{url('/adm')}}"><i class="flaticon-house"></i><span>Home</span></a>
 		</li>
 		@if(\Auth::User()->id_user_role < 2)
-		<li class="@if($title == 'history') active @endif">
+<!-- 		<li class="@if($title == 'history') active @endif">
 			<a href="{{url('/adm/history')}}"><i class="flaticon-pie-chart"></i><span>History Transaksi</span></a>
-		</li>
+		</li> -->
 		<li class="@if($title == 'siswa') active @endif">
 		    <a href="{{url('/adm/siswa')}}"><i class="flaticon-edit"></i><span>Siswa</span></a>
 		</li>
@@ -46,6 +46,11 @@
 		@if(\Auth::User()->id_user_role < 2)
 		<li class="@if($title == 'periode') active @endif">
 			<a href="{{url('/adm/periode')}}"><i class="fa fa-calendar"></i><span>Periode</span></a>
+		</li>
+		@endif
+		@if(\Auth::User()->id_user_role < 2)
+		<li class="@if($title == 'laporan') active @endif">
+			<a href="{{url('/adm/laporan')}}"><i class="flaticon-book"></i><span>Laporan</span></a>
 		</li>
 		@endif
 	</ul>

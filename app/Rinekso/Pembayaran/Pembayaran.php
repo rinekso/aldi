@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class Pembayaran extends Model
 {
     protected $table = 'pembayaran';
+    public $timestamps = true;
+
     public function jenisTransaksi(){
     	return $this->hasOne('App\Rinekso\JenisTransaksi\JenisTransaksi','id_jenis_transaksi','id_jenis_transaksi');
     }

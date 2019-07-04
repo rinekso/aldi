@@ -12,7 +12,8 @@
 				</div>
 				<div class="box-body" style="height: 500px;">
           <!-- <div id="echart_line" style="height:350px;"></div>           -->
-          <h1>Welcome Admin</h1>
+          <h1 style="text-align: center;">Welcome Admin</h1>
+          <img src="{{url('/assets/images/logo.jpg')}}" width="200" style="margin: auto; display: block;">
 				</div>
 			</div>
 		</div>

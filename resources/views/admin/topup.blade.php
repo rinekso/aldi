@@ -69,6 +69,10 @@
 <!-- select2 -->
 <script src="/assets/plugins/select2/select2.full.js"></script>
 <script>
+@if(@$errors->first('text') != "")
+  alert("{{$errors->first('text')}}");
+@endif
+
 $(document).ready(function(){
   $('#tags_1').tagsInput({
     defaultText: 'add email', 

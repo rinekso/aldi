@@ -10,10 +10,12 @@ use App\Rinekso\Kelas\KelasRepo;
 use App\Rinekso\Periode\PeriodeRepo;
 use App\Rinekso\Pembayaran\PembayaranRepo;
 use App\Rinekso\Jenjang\JenjangRepo;
+use App\Rinekso\Transaksi\TransaksiRepo;
+use App\Rinekso\Topup\TopupRepo;
 
 class AdminController extends Controller
 {
-    public function __construct(UserRepo $user,JenisTransaksiRepo $jenisTransaksiRepo, KelasRepo $kelas, PeriodeRepo $periodeRepo,PembayaranRepo $pembayaranRepo, JenjangRepo $jenjangRepo)
+    public function __construct(UserRepo $user,JenisTransaksiRepo $jenisTransaksiRepo, KelasRepo $kelas, PeriodeRepo $periodeRepo,PembayaranRepo $pembayaranRepo, JenjangRepo $jenjangRepo, TransaksiRepo $transaksiRepo, TopupRepo $topupRepo)
     {
         $this->user = $user;
         $this->jenisTransaksi = $jenisTransaksiRepo;
@@ -21,6 +23,8 @@ class AdminController extends Controller
         $this->periode = $periodeRepo;
         $this->pembayaran = $pembayaranRepo;
         $this->jenjang = $jenjangRepo;
+        $this->transaksi = $transaksiRepo;
+        $this->topup = $topupRepo;
     }
 
     public function loginUser(Request $request){
@@ -192,10 +196,17 @@ class AdminController extends Controller
         $rfid = $form['rfid'];
         $currentSaldo = $this->user->getDataWhere('rfid',$rfid);
         if(count($currentSaldo) > 0){
+            $rand = rand(10000,99999);
+            $input = [
+                'id_user'=>$currentSaldo[0]->id,
+                'nominal' => $nominal,
+                'kode' => $currentSaldo[0]->id_kelas."-".$currentSaldo[0]->id_jenjang."-".$rand
+            ];
+            $this->topup->input($input);
 		    $this->user->update(['saldo'=>$currentSaldo[0]->saldo+$nominal],$currentSaldo[0]->id);
-		    return redirect('/adm/topup');
+		    return redirect()->back()->withErrors(["text"=>"Berhasil topup"]);
         }else{
-        	return "id salah";
+		    return redirect()->back()->withErrors(["text"=>"id salah"]);
         }
         // dd($currentSaldo);
     }
@@ -207,5 +218,156 @@ class AdminController extends Controller
         $nominal = $form['nominal'];
         $this->pembayaran->gantiBiaya($id_jenis,$id_kelas,$id_jenjang,$nominal);
         return redirect('/adm/periode');
+    }
+    public function laporanPembayaran(Request $request){
+        $jenis_transaksi = $this->jenisTransaksi->getData();
+        $kelas = $this->kelas->getData();
+        $periode = $this->periode->getData();
+        $pembayaran = $this->pembayaran->getData();
+        $jenjang = $this->jenjang->GetData();
+
+        $form = $request->all();
+        $id_jenis_transaksi = $form['id_jenis_transaksi'];
+        $id_kelas = $form['id_kelas'];
+        $id_jenjang = $form['id_jenjang'];
+        $rentang = $form['rentang'];
+
+        $result = [];
+        $laporan = [];
+        $laporan['name'] = "pembayaran";
+        $laporan['jenis']=$this->jenisTransaksi->getDataWhere('id_jenis_transaksi',$id_jenis_transaksi);
+        $laporan['kelas']=$this->kelas->getDataWhere('id_kelas',$id_kelas);
+        $laporan['jenjang']=$this->jenjang->getDataWhere('id_jenjang',$id_jenjang);
+        $userTr = $this->user->getDataWhere2('id_kelas',$id_kelas,'id_jenjang',$id_jenjang);
+        foreach ($userTr as $key => $u) {
+            switch ($rentang) {
+                case 1:
+                    for ($i=0; $i < 12; $i++) { 
+                        $result[$i] = $this->transaksi->getDataReport('id_user',$u->id,$i+1,$id_jenis_transaksi);
+                        $result[$i]->name = 'bulan '.($i+1);
+                    }
+                    break;
+                case 2:
+                    $result[0] = $this->transaksi->getDataReportSemester('id_user',$u->id,1,6,$id_jenis_transaksi);
+                    $result[0]->name = 'bulan 1-6';
+                    $result[1] = $this->transaksi->getDataReportSemester('id_user',$u->id,7,12,$id_jenis_transaksi);
+                    $result[1]->name = 'bulan 7-12';
+                    break;
+                
+                case 3:
+                    $result[0] = $this->transaksi->getDataWhere('id_user',$u->id);
+                    $result[0]->name = 'tahunan';
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        }
+        $data = ['jenis_transaksi'=>$jenis_transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang,'result'=>$result,'laporan'=>$laporan];
+        
+        // dd($result);
+        return view('admin.laporan',$data);
+    }
+    public function laporanTopup(Request $request){
+        $jenis_transaksi = $this->jenisTransaksi->getData();
+        $kelas = $this->kelas->getData();
+        $periode = $this->periode->getData();
+        $pembayaran = $this->pembayaran->getData();
+        $jenjang = $this->jenjang->GetData();
+
+        $form = $request->all();
+        $id_kelas = $form['id_kelas'];
+        $id_jenjang = $form['id_jenjang'];
+        $rentang = $form['rentang'];
+
+        $result = [];
+        $laporan = [];
+        $laporan['name'] = "topup";
+        // $laporan['jenis']=$this->jenisTransaksi->getDataWhere('id_jenis_transaksi',$id_jenis_transaksi);
+        // $laporan['kelas']=$this->kelas->getDataWhere('id_kelas',$id_kelas);
+        // $laporan['jenjang']=$this->jenjang->getDataWhere('id_jenjang',$id_jenjang);
+        if($id_kelas == 0 && $id_jenjang != 0)
+            $userTr = $this->user->getDataWhere('id_jenjang',$id_jenjang);
+        elseif($id_kelas != 0 && $id_jenjang == 0)
+            $userTr = $this->user->getDataWhere('id_kelas',$id_kelas);
+        elseif($id_kelas == 0 && $id_jenjang == 0)
+            $userTr = $this->user->getData();
+        else
+            $userTr = $this->user->getDataWhere('id_jenjang',$id_jenjang,'id_kelas',$id_kelas);
+
+        foreach ($userTr as $key => $u) {
+            switch ($rentang) {
+                case 1:
+                    for ($i=0; $i < 12; $i++) { 
+                        $result[$i] = $this->topup->getDataReport('id_user',$u->id,$i+1);
+                        $result[$i]->name = 'bulan '.($i+1);
+                    }
+                    break;
+                case 2:
+                    $result[0] = $this->topup->getDataReportSemester('id_user',$u->id,1,6);
+                    $result[0]->name = 'bulan 1-6';
+                    $result[1] = $this->topup->getDataReportSemester('id_user',$u->id,7,12);
+                    $result[1]->name = 'bulan 7-12';
+                    break;
+                
+                case 3:
+                    $result[0] = $this->topup->getDataWhere('id_user',$u->id);
+                    $result[0]->name = 'tahunan';
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        }
+        $data = ['jenis_transaksi'=>$jenis_transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang,'result'=>$result,'laporan'=>$laporan];
+        
+        // dd($result);
+        return view('admin.laporan',$data);
+    }
+    public function mutasi($id){
+        $mutasi = [];
+        $user = $this->user->getSiswaId($id);
+        // dd($user);
+		$trm = $this->transaksi->getMutasi('id_user',$id);
+		foreach($trm as $key => $t){
+			$mutasi[$key]['kode'] = $t->kode;
+			$mutasi[$key]['id_user'] = $t->id_user;
+			$mutasi[$key]['nominal'] = $t->pembayaran->nominal;
+			$mutasi[$key]['status'] = 'keluar';
+			$mutasi[$key]['keterangan'] = $t->pembayaran->jenisTransaksi->nama_transaksi;
+			$mutasi[$key]['date'] = $t->created_at;
+		}
+
+		$topup = $this->topup->getDataWhere('id_user',$id);
+		$i = $key+1;
+		// dd(count($trm));
+		foreach($topup as $k => $t){
+			$mutasi[$k+$i]['kode'] = $t->kode;
+			$mutasi[$k+$i]['id_user'] = $t->id_user;
+			$mutasi[$k+$i]['nominal'] = $t->nominal;
+			$mutasi[$k+$i]['status'] = 'masuk';
+			$mutasi[$k+$i]['keterangan'] = 'topup';
+			$mutasi[$k+$i]['date'] = $t->created_at;
+
+			$i++;
+		}
+        usort($mutasi, array($this, "date_compare"));
+        return view('admin.siswaMutasi',['mutasi'=>$mutasi,'user'=>$user]);
+    }
+    public function date_compare($a, $b)
+    {
+        $t1 = strtotime($a['date']);
+        $t2 = strtotime($b['date']);
+        return $t1 - $t2;
+    }
+    public function laporan(){
+        $jenis_transaksi = $this->jenisTransaksi->getData();
+        $kelas = $this->kelas->getData();
+        $periode = $this->periode->getData();
+        $pembayaran = $this->pembayaran->getData();
+        $jenjang = $this->jenjang->GetData();
+    	return view('admin.laporan',['jenis_transaksi'=>$jenis_transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang]);
     }
 }

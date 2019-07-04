@@ -135,10 +135,23 @@
 						<div id="Mutasi" class="tabcontent">
 						  <table class="table table-hover table-strip">
 						  	<tr>
+						  		<th>No</th>
+						  		<th>Kode</th>
+						  		<th>Status</th>
+						  		<th>Keterangan</th>
+						  		<th>Nominal</th>
 						  		<th>Tanggal</th>
-						  		<th>Keterangan Transaksi</th>
-						  		<th>Saldo</th>
+							  </tr>
+						  	@foreach($mutasi as $k=>$m)
+						  	<tr>
+						  		<td>{{$k+1}}</td>
+						  		<td>{{$m['kode']}}</td>
+						  		<td>{{$m['status']}}</td>
+						  		<td>{{$m['keterangan']}}</td>
+						  		<td>{{$m['nominal']}}</td>
+						  		<td>{{$m['date']}}</td>
 						  	</tr>
+						  	@endforeach
 						  </table>
 						  <div class="clearfix"></div>
 						</div>

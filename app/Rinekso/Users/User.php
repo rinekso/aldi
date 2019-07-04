@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     protected $table = 'users';
+    public $timestamps = true;
 
     public function userRole(){
     	return $this->hasOne('App\Rinekso\UserRole\UserRole','id_user_role','id_user_role');

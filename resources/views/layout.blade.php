@@ -16,7 +16,7 @@
 <div id="branding">
 	<div class="wrapper">
 		<div class="logo">
-			Pembayaran
+			<img src="{{url('/assets/images/logo.jpg')}}">
 		</div>
 		<div id="search">
 			<a href="{{url('logout
