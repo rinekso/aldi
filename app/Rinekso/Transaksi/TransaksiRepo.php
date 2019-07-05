@@ -22,7 +22,7 @@ class TransaksiRepo extends BaseRepo
             ->whereHas('pembayaran',function($query) use ($id_jenis){
                 $query->where('id_jenis_transaksi','=',$id_jenis);
             })
-            ->with('pembayaran.jenis_transaksi')
+            ->with('pembayaran.jenisTransaksi')
             ->with('user')
             ->get();
         return $proses;
