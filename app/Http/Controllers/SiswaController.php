@@ -34,7 +34,7 @@ class SiswaController extends Controller
     }
     public function delete($id){
         $this->user->delete($id);
-    	return redirect()->bakc();
+    	return redirect()->back();
     }
     public function tambahAction(Request $request){
         $form = $request->all();

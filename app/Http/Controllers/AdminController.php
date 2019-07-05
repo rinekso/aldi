@@ -331,6 +331,7 @@ class AdminController extends Controller
         $user = $this->user->getSiswaId($id);
         // dd($user);
 		$trm = $this->transaksi->getMutasi('id_user',$id);
+        $k=0;
 		foreach($trm as $key => $t){
 			$mutasi[$key]['kode'] = $t->kode;
 			$mutasi[$key]['id_user'] = $t->id_user;
@@ -338,10 +339,11 @@ class AdminController extends Controller
 			$mutasi[$key]['status'] = 'keluar';
 			$mutasi[$key]['keterangan'] = $t->pembayaran->jenisTransaksi->nama_transaksi;
 			$mutasi[$key]['date'] = $t->created_at;
+            $k++;
 		}
 
 		$topup = $this->topup->getDataWhere('id_user',$id);
-		$i = $key+1;
+		$i = $k+1;
 		// dd(count($trm));
 		foreach($topup as $k => $t){
 			$mutasi[$k+$i]['kode'] = $t->kode;
