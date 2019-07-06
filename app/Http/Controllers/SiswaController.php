@@ -38,10 +38,12 @@ class SiswaController extends Controller
     }
     public function tambahAction(Request $request){
         $form = $request->all();
+        // dd($form['nik']);
         unset($form['_token']);
-        $form['id_user_role'] = 2;
+        $form['id_user_role'] = 3;
         $form['password'] = Hash::make($form['password']);
-        $this->user->input($form);
+        $f = $this->user->input($form);
+        // dd($f);
         return redirect('/adm/siswa');
     }
     public function editAction(Request $request){

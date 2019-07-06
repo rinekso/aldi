@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2019 at 04:40 AM
+-- Generation Time: Jul 06, 2019 at 01:45 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.36
 
@@ -247,7 +247,8 @@ CREATE TABLE `topup` (
 --
 
 INSERT INTO `topup` (`id`, `id_user`, `kode`, `nominal`, `created_at`, `updated_at`) VALUES
-(3, 2, '3-2-30508', 300000, '2019-07-04 01:18:27', '2019-07-04 08:18:27');
+(3, 2, '3-2-30508', 300000, '2019-07-04 01:18:27', '2019-07-04 08:18:27'),
+(4, 2, '3-2-25051', 500000, '2019-07-04 20:49:11', '2019-07-05 03:49:11');
 
 -- --------------------------------------------------------
 
@@ -272,7 +273,14 @@ CREATE TABLE `transaksi` (
 INSERT INTO `transaksi` (`id_transaksi`, `kode`, `id_pembayaran`, `id_periode`, `id_user`, `created_at`, `updated_at`) VALUES
 (7, '3-2-96912', 1, 52, 2, '2019-07-03 19:51:48', NULL),
 (8, '3-2-73031', 1, 56, 2, '2019-07-03 23:39:44', NULL),
-(9, '3-2-33538', 1, 55, 2, '2019-07-03 23:39:48', NULL);
+(9, '3-2-33538', 1, 55, 2, '2019-07-03 23:39:48', NULL),
+(10, '3-2-21631', 1, 54, 2, '2019-07-04 20:45:27', NULL),
+(11, '3-2-98244', 1, 53, 2, '2019-07-04 20:51:08', NULL),
+(12, '3-2-87448', 1, 51, 2, '2019-07-04 20:51:12', NULL),
+(13, '3-2-39814', 1, 50, 2, '2019-07-04 20:51:14', NULL),
+(14, '3-2-32554', 1, 44, 2, '2019-07-04 20:51:17', NULL),
+(15, '3-2-89269', 1, 43, 2, '2019-07-04 20:51:19', NULL),
+(16, '3-2-59707', 1, 42, 2, '2019-07-04 20:51:21', NULL);
 
 -- --------------------------------------------------------
 
@@ -287,7 +295,7 @@ CREATE TABLE `users` (
   `id_user_role` int(11) NOT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `rfid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nik` int(11) NOT NULL,
+  `nik` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tahun_ajaran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `saldo` int(11) NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -301,11 +309,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `id_jenjang`, `id_kelas`, `id_user_role`, `nama`, `rfid`, `nik`, `tahun_ajaran`, `saldo`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 'admin', 'asd', 123, '2010/2011', 0, '$2y$10$heiXrjfjSbC3Ae09FeQVJexGZAxYBbRwIUuBg4.D5WxyRvR8byb/K', '9BxTYRP7jiQ15EZaIPgx3cml4bHN0PXDPad6IR9m9A2cToC4U6tSSiGEgL5E', NULL, NULL),
-(2, 2, 3, 3, 'aldi', 'asd123', 123, '2019/2020', 900000, '$2y$10$loF36PO9EFndOTZcOIn.DOu2Axd2q0ntg6h8uXFu7u6CK6.e/14N2', 'os8AvJfsgqv5Bcu1kXR8vZrXk1MkU0iPWSduc53huKrP1HXVkYQ1TrjZn2Yr', NULL, '2019-07-04 01:18:27'),
-(3, 1, 1, 3, 'siswa', '123', 123, '123', 2000000, '$2y$10$gHUnylagf0M2NA1IaHiJ1ePmYtgoFe/BixXQGfC.3duDK690wNvpK', 'IG89OEExqLIuv2LIv6z7LZaWya2BdTTnuBj8O2rWfLEcJvh7mWW4KMjk5RB6', NULL, NULL),
-(4, 1, 1, 3, 'simson', '954BD7FC', 123, '2019/2020', 100000, '$2y$10$KswZgKVI9Us4hLpOiKZKnOc.LqkE88.PUECtvISt4AD9JWa6z.MaK', 'LbdbX40PaDUYJSAgXdY0dLlWoWgOoPcQHIytKzTNI2orl5h4NeXYGKirjgEQ', NULL, NULL),
-(5, 1, 1, 2, 'topup', 'asd', 123, '2010/2011', 0, '$2y$10$heiXrjfjSbC3Ae09FeQVJexGZAxYBbRwIUuBg4.D5WxyRvR8byb/K', '2G9Lwfy6KppBVYbDvMTbEKiON3WkLW0tJDIX0cjf3iYysDGpcxrtkddpJQVg', NULL, NULL);
+(1, 1, 1, 1, 'admin', 'asd', '123', '2010/2011', 0, '$2y$10$heiXrjfjSbC3Ae09FeQVJexGZAxYBbRwIUuBg4.D5WxyRvR8byb/K', 'KYDWas3IU0wBrLuk5P5f4y6Sv3XMnT3bLrFGPFqB0DGBzE3T4pK3UNcPhllx', NULL, NULL),
+(2, 2, 3, 3, 'aldi', 'asd123', '123', '2019/2020', 0, '$2y$10$loF36PO9EFndOTZcOIn.DOu2Axd2q0ntg6h8uXFu7u6CK6.e/14N2', 'cqpcLtz4JbFsPqPSLHlCBxnOXvbRmczJuKO3DiOz0y0tDoZNSXNWcF127RW9', NULL, '2019-07-04 20:51:21'),
+(4, 1, 1, 3, 'simson rinekso', '954BD7FC', '123', '2019/2020', 100000, '$2y$10$KswZgKVI9Us4hLpOiKZKnOc.LqkE88.PUECtvISt4AD9JWa6z.MaK', 'LbdbX40PaDUYJSAgXdY0dLlWoWgOoPcQHIytKzTNI2orl5h4NeXYGKirjgEQ', NULL, '2019-07-04 20:47:21'),
+(8, 1, 1, 2, 'topup', 'asd123', '123', '2019/2020', 0, '$2y$10$heiXrjfjSbC3Ae09FeQVJexGZAxYBbRwIUuBg4.D5WxyRvR8byb/K', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -449,19 +456,19 @@ ALTER TABLE `periode`
 -- AUTO_INCREMENT for table `topup`
 --
 ALTER TABLE `topup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_role`

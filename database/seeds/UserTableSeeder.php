@@ -16,11 +16,22 @@ class UserTableSeeder extends Seeder
         DB::table('jenjang')->truncate();
         DB::table('kelas')->truncate();
     	DB::table('jenis_transaksi')->truncate();
+        DB::table('users')->insert([
+            'id_jenjang' => 1,
+            'id_kelas' => 1,
+            'id_user_role' => 1,
+            'nama' => 'admin',
+            'rfid' => 'asd',
+            'nik' => 123,
+            'tahun_ajaran' => '2010/2011',
+            'saldo' => 0,
+            'password' => \Illuminate\Support\Facades\Hash::make('123'),
+        ]);
     	DB::table('users')->insert([
     		'id_jenjang' => 1,
     		'id_kelas' => 1,
-    		'id_user_role' => 1,
-    		'nama' => 'admin',
+    		'id_user_role' => 2,
+    		'nama' => 'topup',
             'rfid' => 'asd',
     		'nik' => 123,
     		'tahun_ajaran' => '2010/2011',
@@ -47,6 +58,12 @@ class UserTableSeeder extends Seeder
         ]);
         DB::table('jenjang')->insert([
             'nama_jenjang' => 'sma',
+        ]);
+        DB::table('jenjang')->insert([
+            'nama_jenjang' => 'smk',
+        ]);
+        DB::table('jenjang')->insert([
+            'nama_jenjang' => 'mts',
         ]);
         DB::table('jenis_transaksi')->insert([
             'nama_transaksi' => 'SPP',
