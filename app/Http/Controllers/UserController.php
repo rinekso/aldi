@@ -10,6 +10,8 @@ use App\Rinekso\Periode\PeriodeRepo;
 use App\Rinekso\Transaksi\TransaksiRepo;
 use App\Rinekso\Topup\TopupRepo;
 use App\Rinekso\Users\UserRepo;
+use PDF;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -35,18 +37,34 @@ class UserController extends Controller
 		$pembayaran = $this->pembayaran->getDataWhere3('id_jenis_transaksi',$jenis_transaksi[0]->id_jenis_transaksi,
 			'id_kelas',\Auth::User()->id_kelas,'id_jenjang',\Auth::User()->id_jenjang);
 		if(count($pembayaran) > 0){
-			$periode = $this->periode->getDataWhere('id_pembayaran',$pembayaran[0]->id_pembayaran);
+			if($menu == 1)
+				$periode = $this->spp($pembayaran[0]->id_pembayaran);
+			else
+				$periode = $this->periode->getDataWhere('id_pembayaran',$pembayaran[0]->id_pembayaran);
+
 			if(count($periode) > 0){
-				foreach($periode as $p){
-					$transaksi = $this->transaksi->getDataWhere3('id_periode',$p->id_periode,'id_pembayaran',$pembayaran[0]->id_pembayaran,'id_user',\Auth::User()->id);
-					if(count($transaksi) == 0){
-						if($menu == 1){
-							if(date('m') >= date('m',strtotime($p->nama_periode))){
-								$tagihan = $pembayaran[0]->nominal;
-								$keterangan = $p->nama_periode;
-								$idPeriode = $p->id_periode;
+				if($menu == 1){
+					foreach ($periode as $k => $p) {
+						foreach ($p as $key => $pp) {
+							$transaksi = $this->transaksi->getDataWhere3('id_periode',$pp->id_periode,'id_pembayaran',$pembayaran[0]->id_pembayaran,'id_user',\Auth::User()->id);
+							if(count($transaksi) == 0){
+								$periode[$k][$key]->paid = false;
+								if(date('Y') >= $pp->tahun){
+									if(date('m') >= date('m',strtotime($pp->nama_periode))){
+										$tagihan = $pembayaran[0]->nominal;
+										$keterangan = $pp->nama_periode." ".$pp->tahun;
+										$idPeriode = $pp->id_periode;
+									}
+								}
+							}else{
+								$periode[$k][$key]->paid = true;
 							}
-						}else{
+						}
+					}
+				}else{
+					foreach($periode as $p){
+						$transaksi = $this->transaksi->getDataWhere3('id_periode',$p->id_periode,'id_pembayaran',$pembayaran[0]->id_pembayaran,'id_user',\Auth::User()->id);
+						if(count($transaksi) == 0){
 							$tagihan = $pembayaran[0]->nominal;
 							$keterangan = $p->nama_periode;
 							$idPeriode = $p->id_periode;
@@ -82,7 +100,58 @@ class UserController extends Controller
 		}
         usort($mutasi, array($this, "date_compare"));
 
-    	return view('menu',['idJenisTr'=>$menu,'id_periode'=>$idPeriode,'nama'=>$jenis_transaksi[0]->nama_transaksi,'tagihan'=>$tagihan,'keterangan'=>$keterangan,'mutasi'=>$mutasi]);
+    	return view('menu',['idJenisTr'=>$menu,'id_periode'=>$idPeriode,'nama'=>$jenis_transaksi[0]->nama_transaksi,'tagihan'=>$tagihan,'keterangan'=>$keterangan, 'periode'=>$periode,'mutasi'=>$mutasi]);
+    }
+    public function spp($id_pembayaran){
+    	$d = $this->periode->getYear($id_pembayaran);
+    	$result = [];
+    	foreach ($d as $key => $dd) {
+	    	$a = $this->periode->getDataWhere2('tahun',$dd->tahun,'id_pembayaran',$id_pembayaran);
+	    	array_push($result, $a);
+    	}
+    	return $result;
+    }
+    public function pdf($input){
+    	$pdf = \App::make('dompdf.wrapper');
+    	$pdf->loadHTML($this->bukti($input));
+		$output = $pdf->output();
+		file_put_contents("bukti/".$input['kode'].".pdf",$output);
+    }
+    public function bukti($input){
+		$output = "
+		<h1>Laporan transaksi</h1>
+		<table border=1 cellpadding=20>
+			<tr>
+				<th>Kode</th>
+				<td>".$input['kode']."</td>
+			</tr>
+			<tr>
+				<th>NIK</th>
+				<td>".\Auth::User()->nik."</td>
+			</tr>
+			<tr>
+				<th>Oleh</th>
+				<td>".\Auth::User()->nama."</td>
+			</tr>
+			<tr>
+				<th>Jenis Pembayaran</th>
+				<td>".$input['jenis_transaksi']."</td>
+			</tr>
+			<tr>
+				<th>Periode</th>
+				<td>".$input['periode']."</td>
+			</tr>
+			<tr>
+				<th>Nominal</th>
+				<td>".$input['nominal']."</td>
+			</tr>
+			<tr>
+				<th>Tanggal</th>
+				<td>".Carbon::now()."</td>
+			</tr>
+		</table>";
+
+    	return $output;
     }
     public function bayar($menu, Request $request){
 		$tagihan = 0;
@@ -103,9 +172,14 @@ class UserController extends Controller
 			$saldo = \Auth::User()->saldo;
 			$this->user->update(['saldo'=>($saldo-$pembayaran[0]->nominal)],\Auth::User()->id);
 			$this->transaksi->input($input);
+			$input['jenis_transaksi'] = $jenis_transaksi[0]->nama_transaksi;
+			$input['nominal'] = $pembayaran[0]->nominal;
+			$periode = $this->periode->getDataWhere('id_periode',$request->id_periode)[0];
+			$input['periode'] = $periode->nama_periode." ".$periode->tahun;
+			$this->pdf($input);
 			\Auth::User()->saldo = ($saldo-$pembayaran[0]->nominal);
 			
-			return redirect()->back();
+			return redirect()->back()->withErrors(["text"=>"Berhasil dibayar"]);
 		}
 		return redirect()->back()->withErrors(["text"=>"terjadi kesalahan"]);
     }

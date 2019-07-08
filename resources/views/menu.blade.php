@@ -12,7 +12,9 @@
 					<div class="box-body">
 						<div class="tab">
 						  <button class="tablinks active" onclick="openCity(event, 'Bayar')">Bayar</button>
+						  @if($nama == "SPP")
 						  <button class="tablinks" onclick="openCity(event, 'Riwayat')">Riwayat</button>
+						  @endif
 						  <button class="tablinks" onclick="openCity(event, 'Mutasi')">Mutasi</button>
 						</div>
 
@@ -48,90 +50,44 @@
 						  @endif
 						</div>
 
+					  @if($nama == "SPP")
 						<div id="Riwayat" class="tabcontent">
 							<br>
 							<div class="col-md-12">
-								Tahun Ajaran : 
-								<select>
-									<option>2017/2018</option>
-									<option>2018/2019</option>
-									<option>2019/2020</option>
+								Tahun : 
+								<select onchange="changeTahun()" id="tahun">
+									@foreach($periode as $key=>$p)
+									<option value="{{$key}}">{{$p[0]->tahun}}</option>
+									@endforeach
 								</select>
 							</div>
 							<br>
-							<div class="col-md-3">
-								<a href="#" class="bg-success">
-									Januari
-									<div class="ket bg-primary">Lunas</div>
-								</a>
-							</div>
-							<div class="col-md-3">
-								<a href="#" class="bg-success">
-									Februari
-									<div class="ket bg-primary">Lunas</div>
-								</a>
-							</div>
-							<div class="col-md-3">
-								<a href="#" class="bg-success">
-									Maret
-									<div class="ket bg-primary">Lunas</div>
-								</a>
-							</div>
-							<div class="col-md-3">
-								<a href="#" class="bg-success">
-									April
-									<div class="ket bg-primary">Lunas</div>
-								</a>
-							</div>
-							<div class="col-md-3">
-								<a href="#" class="bg-success">
-									Mei
-									<div class="ket bg-primary">Lunas</div>
-								</a>
-							</div>
-							<div class="col-md-3">
-								<a href="#" class="bg-success">
-									Juni
-									<div class="ket bg-primary">Lunas</div>
-								</a>
-							</div>
-							<div class="col-md-3">
-								<a href="#" class="bg-success">
-									Juli
-									<div class="ket bg-danger">Bayar</div>
-								</a>
-							</div>
-							<div class="col-md-3">
-								<a href="#" class="bg-success">
-									Agustus
-									<div class="ket bg-danger">Bayar</div>
-								</a>
-							</div>
-							<div class="col-md-3">
-								<a href="#" class="bg-success">
-									September
-									<div class="ket bg-danger">Bayar</div>
-								</a>
-							</div>
-							<div class="col-md-3">
-								<a href="#" class="bg-success">
-									Oktober
-									<div class="ket bg-danger">Bayar</div>
-								</a>
-							</div>
-							<div class="col-md-3">
-								<a href="#" class="bg-success">
-									November
-									<div class="ket bg-danger">Bayar</div>
-								</a>
-							</div>
-							<div class="col-md-3">
-								<a href="#" class="bg-success">
-									Desember
-									<div class="ket bg-danger">Bayar</div>
-								</a>
-							</div>
+							@foreach($periode as $key=>$per)
+								<div class="con" id="tahun{{$key}}">
+								@foreach($per as $p)
+								  <form action="{{url('/bayar/'.$idJenisTr.'/proses')}}" method="post">
+								  	{{csrf_field()}}
+								  	<input type="hidden" value="{{$p->id_periode}}" name="id_periode">
+										<div class="col-md-3">
+										@if($p->paid)
+											<a href="#" class="bg-success">
+												{{$p->nama_periode}}
+												<div class="ket bg-primary">Lunas</div>
+											</a>
+										@else
+										<button type="submit" class="bg-success" style="border:none;display: block; width: 100%;">
+												{{$p->nama_periode}}
+												<div class="ket bg-danger">Bayar</div>
+										</button>
+										@endif
+										</div>
+								  </form>
+								@endforeach
+								</div>
+							@endforeach
 						</div>
+					 @endif
+
 						<div id="Mutasi" class="tabcontent">
 						  <table class="table table-hover table-strip">
 						  	<tr>
@@ -170,6 +126,14 @@
 @if(@$errors->first('text') != "")
 	alert("{{$errors->first('text')}}");
 @endif
+$(".con").hide();
+$("#tahun"+0).show();
+function changeTahun(){
+	var thn = $("#tahun").val();
+	$(".con").hide();
+	$("#tahun"+thn).show();
+	// console.log(thn);
+}
 function openCity(evt, cityName) {
   // Declare all variables
   var i, tabcontent, tablinks;

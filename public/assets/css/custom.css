@@ -718,7 +718,7 @@ ul.menu-contain li.active a{
 .tabcontent table td{
 	padding: 3px;
 }
-#Riwayat a{
+#Riwayat a, #Riwayat button{
 	display: block;
 	width: 100%;
 	height: auto;
@@ -728,10 +728,11 @@ ul.menu-contain li.active a{
 	padding-bottom: 0;
 	color: #fff;
 }
-#Riwayat a:hover{
-	color: #333;
+#Riwayat a:hover, #Riwayat button:hover{
+	color: #eee;
+	background-color: #c1e2b3;
 }
-#Riwayat a:hover .ket{
+#Riwayat a:hover .ket, #Riwayat button:hover.ket{
 	color: #fff;
 }
 .ket{

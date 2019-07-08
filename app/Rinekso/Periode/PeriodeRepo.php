@@ -13,6 +13,13 @@ class PeriodeRepo extends BaseRepo
             ->delete();
         return true;
     }
+    public function getYear(){
+    	$res = $this->model
+    		->select("tahun")
+    		->groupBy("tahun")
+    		->get();
+    	return $res;
+    }
 }
 /**
  * Created by PhpStorm.

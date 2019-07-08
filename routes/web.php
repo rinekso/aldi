@@ -15,6 +15,7 @@ Route::get('/', 'UserController@index')->middleware('auth');
 Route::get('bayar/{menu}', 'UserController@menu')->middleware('auth');
 Route::post('bayar/{menu}/proses', 'UserController@bayar')->middleware('auth');
 Route::get('menu', 'UserController@menu')->middleware('auth');
+Route::get('pdf', 'UserController@pdf')->middleware('auth');
 Route::post('pembayaran', 'UserController@pembayaran')->middleware('auth');
 
 // admin
