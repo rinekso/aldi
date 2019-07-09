@@ -286,7 +286,7 @@ class AdminController extends Controller
         }
         $data = ['jenis_transaksi'=>$jenis_transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang,'result'=>$result,'laporan'=>$laporan];
         
-        dd($result);
+        // dd($result);
         return view('admin.laporan',$data);
     }
     public function laporanTopup(Request $request){
