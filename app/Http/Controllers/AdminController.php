@@ -239,16 +239,19 @@ class AdminController extends Controller
         $laporan['kelas']=$this->kelas->getDataWhere('id_kelas',$id_kelas);
         $laporan['jenjang']=$this->jenjang->getDataWhere('id_jenjang',$id_jenjang);
         $userTr = $this->user->getDataWhere2('id_kelas',$id_kelas,'id_jenjang',$id_jenjang);
+        $in = 0;
         foreach ($userTr as $key => $u) {
             switch ($rentang) {
                 case 1:
                     for ($i=0; $i < 12; $i++) { 
-                        if($key == 0)
+                        if($in == 0)
                             $result[$i] = [];
                         $data = $this->transaksi->getDataReport('id_user',$u->id,$i+1,$id_jenis_transaksi);
-                        foreach ($data as $key => $d) {
-                            $d['name'] = 'bulan '.($i+1);
-                            array_push($result[$i], $d);
+                        if(count($data) > 0){
+                            foreach ($data as $key => $d) {
+                                $d['name'] = 'bulan '.($i+1);
+                                array_push($result[$i], $d);
+                            }
                         }
                     }
                     break;
@@ -283,6 +286,7 @@ class AdminController extends Controller
                     # code...
                     break;
             }
+            $in++;
         }
         $data = ['jenis_transaksi'=>$jenis_transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang,'result'=>$result,'laporan'=>$laporan];
         
