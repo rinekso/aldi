@@ -243,20 +243,40 @@ class AdminController extends Controller
             switch ($rentang) {
                 case 1:
                     for ($i=0; $i < 12; $i++) { 
-                        $result[$i] = $this->transaksi->getDataReport('id_user',$u->id,$i+1,$id_jenis_transaksi);
-                        $result[$i]->name = 'bulan '.($i+1);
+                        if($key == 0)
+                            $result[$i] = [];
+                        $data = $this->transaksi->getDataReport('id_user',$u->id,$i+1,$id_jenis_transaksi);
+                        foreach ($data as $key => $d) {
+                            $d['name'] = 'bulan '.($i+1);
+                            array_push($result[$i], $d);
+                        }
                     }
                     break;
                 case 2:
-                    $result[0] = $this->transaksi->getDataReportSemester('id_user',$u->id,1,6,$id_jenis_transaksi);
-                    $result[0]->name = 'bulan 1-6';
-                    $result[1] = $this->transaksi->getDataReportSemester('id_user',$u->id,7,12,$id_jenis_transaksi);
-                    $result[1]->name = 'bulan 7-12';
+                    $data = $this->transaksi->getDataReportSemester('id_user',$u->id,1,6,$id_jenis_transaksi);
+                    if($key == 0){
+                        $result[0] = [];
+                        $result[1] = [];
+                    }
+                    foreach ($data as $key => $d) {
+                        $d['name'] = 'bulan 1-6';
+                        array_push($result[0], $d);
+                    }
+                    $data = $this->transaksi->getDataReportSemester('id_user',$u->id,7,12,$id_jenis_transaksi);
+                    foreach ($data as $key => $d) {
+                        $d['name'] = 'bulan 7-12';
+                        array_push($result[1], $d);
+                    }
                     break;
                 
                 case 3:
-                    $result[0] = $this->transaksi->getDataReportTahunan('id_user',$u->id,$id_jenis_transaksi);
-                    $result[0]->name = 'tahunan';
+                    if($key == 0)
+                        $result[0] = [];
+                    $data = $this->transaksi->getDataReportTahunan('id_user',$u->id,$id_jenis_transaksi);
+                    foreach ($data as $key => $d) {
+                        $d['name'] = 'tahunan';
+                        array_push($result[0], $d);
+                    }
                     break;
                 
                 default:
@@ -266,7 +286,7 @@ class AdminController extends Controller
         }
         $data = ['jenis_transaksi'=>$jenis_transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang,'result'=>$result,'laporan'=>$laporan];
         
-        // dd($data);
+        dd($result);
         return view('admin.laporan',$data);
     }
     public function laporanTopup(Request $request){

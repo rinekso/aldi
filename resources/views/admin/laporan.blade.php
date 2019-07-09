@@ -149,7 +149,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="box-contain">
             <div class="box-header">
-              Laporan {{$laporan['jenis'][0]->nama_transaksi}} - Kelas {{$laporan['kelas'][0]->tingkat}} / {{$laporan['jenjang'][0]->nama_jenjang}} - ({{$result[$i]->name}})
+              Laporan {{$laporan['jenis'][0]->nama_transaksi}} - Kelas {{$laporan['kelas'][0]->tingkat}} / {{$laporan['jenjang'][0]->nama_jenjang}} - ({{$result[$i][0]['name']}})
               <div class="clearfix"></div>
             </div>
             <div class="box-body">
