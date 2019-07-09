@@ -12,9 +12,7 @@
 					<div class="box-body">
 						<div class="tab">
 						  <button class="tablinks active" onclick="openCity(event, 'Bayar')">Bayar</button>
-						  @if($nama == "SPP")
 						  <button class="tablinks" onclick="openCity(event, 'Riwayat')">Riwayat</button>
-						  @endif
 						  <button class="tablinks" onclick="openCity(event, 'Mutasi')">Mutasi</button>
 						</div>
 
@@ -28,7 +26,7 @@
 						  			<td>: {{\Auth::User()->nama}}</td>
 						  		</tr>
 						  		<tr>
-						  			<td>NIS</td>
+						  			<td>NIK</td>
 						  			<td>: {{\Auth::User()->nik}}</td>
 						  		</tr>
 						  		<tr>
@@ -50,14 +48,15 @@
 						  @endif
 						</div>
 
-					  @if($nama == "SPP")
 						<div id="Riwayat" class="tabcontent">
 							<br>
 							<div class="col-md-12">
 								Tahun : 
 								<select onchange="changeTahun()" id="tahun">
 									@foreach($periode as $key=>$p)
-									<option value="{{$key}}">{{$p[0]->tahun}}</option>
+										@if(@$p[0]->tahun != "")
+											<option value="{{$key}}">{{$p[0]->tahun}}</option>
+										@endif
 									@endforeach
 								</select>
 							</div>
@@ -86,7 +85,6 @@
 								</div>
 							@endforeach
 						</div>
-					 @endif
 
 						<div id="Mutasi" class="tabcontent">
 						  <table class="table table-hover table-strip">

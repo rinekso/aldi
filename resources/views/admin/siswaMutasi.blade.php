@@ -10,6 +10,7 @@
 @section('content')
     <div class="title-page">
       Mutasi Siswa {{$user[0]->nama}} - Kelas {{$user[0]->id_kelas}}/{{$user[0]->jenjang->nama_jenjang}}
+      <h3 style="float: right;">Saldo Siswa : {{$user[0]->saldo}}</h3>
     </div>
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -67,14 +68,6 @@ $(document).ready(function(){
     keys: true,
     dom: "Bfrtip",
     buttons: [
-      {
-        extend: "copy",
-        className: "btn-sm"
-      },
-      {
-        extend: "csv",
-        className: "btn-sm"
-      },
       {
         extend: "excel",
         className: "btn-sm"

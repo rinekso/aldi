@@ -29,6 +29,7 @@ class UserController extends Controller
     }
     public function menu($menu){
 		$tagihan = 0;
+		$periode=[];
 		$keterangan = "";
 		$idPeriode = 0;
 		$jenis_transaksi = $this->jenis->getDataWhere('id_jenis_transaksi',$menu);
@@ -37,13 +38,12 @@ class UserController extends Controller
 		$pembayaran = $this->pembayaran->getDataWhere3('id_jenis_transaksi',$jenis_transaksi[0]->id_jenis_transaksi,
 			'id_kelas',\Auth::User()->id_kelas,'id_jenjang',\Auth::User()->id_jenjang);
 		if(count($pembayaran) > 0){
-			if($menu == 1)
+			// if($menu == 1)
 				$periode = $this->spp($pembayaran[0]->id_pembayaran);
-			else
-				$periode = $this->periode->getDataWhere('id_pembayaran',$pembayaran[0]->id_pembayaran);
+			// else
+			// 	$periode = $this->periode->getDataWhere('id_pembayaran',$pembayaran[0]->id_pembayaran);
 
 			if(count($periode) > 0){
-				if($menu == 1){
 					foreach ($periode as $k => $p) {
 						foreach ($p as $key => $pp) {
 							$transaksi = $this->transaksi->getDataWhere3('id_periode',$pp->id_periode,'id_pembayaran',$pembayaran[0]->id_pembayaran,'id_user',\Auth::User()->id);
@@ -61,16 +61,6 @@ class UserController extends Controller
 							}
 						}
 					}
-				}else{
-					foreach($periode as $p){
-						$transaksi = $this->transaksi->getDataWhere3('id_periode',$p->id_periode,'id_pembayaran',$pembayaran[0]->id_pembayaran,'id_user',\Auth::User()->id);
-						if(count($transaksi) == 0){
-							$tagihan = $pembayaran[0]->nominal;
-							$keterangan = $p->nama_periode;
-							$idPeriode = $p->id_periode;
-						}
-					}
-				}
 			}
 		}
 
@@ -99,7 +89,7 @@ class UserController extends Controller
 			$i++;
 		}
         usort($mutasi, array($this, "date_compare"));
-
+        // dd($periode);
     	return view('menu',['idJenisTr'=>$menu,'id_periode'=>$idPeriode,'nama'=>$jenis_transaksi[0]->nama_transaksi,'tagihan'=>$tagihan,'keterangan'=>$keterangan, 'periode'=>$periode,'mutasi'=>$mutasi]);
     }
     public function spp($id_pembayaran){

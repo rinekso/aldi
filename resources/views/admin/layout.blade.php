@@ -45,7 +45,7 @@
 		</li>
 		@if(\Auth::User()->id_user_role < 2)
 		<li class="@if($title == 'periode') active @endif">
-			<a href="{{url('/adm/periode')}}"><i class="fa fa-calendar"></i><span>Periode</span></a>
+			<a href="{{url('/adm/periode')}}"><i class="fa fa-calendar"></i><span>Biaya</span></a>
 		</li>
 		@endif
 		@if(\Auth::User()->id_user_role < 2)
