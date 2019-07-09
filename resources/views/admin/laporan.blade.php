@@ -193,7 +193,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="box-contain">
             <div class="box-header">
-              Laporan Topup - ({{$result[$i]->name}})
+              Laporan Topup - ({{$result[$i][0]['name']}})
               <div class="clearfix"></div>
             </div>
             <div class="box-body">

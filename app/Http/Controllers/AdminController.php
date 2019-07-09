@@ -320,30 +320,62 @@ class AdminController extends Controller
         else
             $userTr = $this->user->getDataWhere('id_jenjang',$id_jenjang,'id_kelas',$id_kelas);
 
+        $in = 0;
         foreach ($userTr as $key => $u) {
             switch ($rentang) {
                 case 1:
                     for ($i=0; $i < 12; $i++) { 
-                        $result[$i] = $this->topup->getDataReport('id_user',$u->id,$i+1);
-                        $result[$i]->name = 'bulan '.($i+1);
+                        if($in == 0)
+                            $result[$i] = [];
+                        $data = $this->topup->getDataReport('id_user',$u->id,$i+1);
+                        if(count($data) > 0){
+                            foreach ($data as $key => $d) {
+                                $d['name'] = 'bulan '.($i+1);
+                                array_push($result[$i], $d);
+                            }
+                        }
                     }
                     break;
                 case 2:
-                    $result[0] = $this->topup->getDataReportSemester('id_user',$u->id,1,6);
-                    $result[0]->name = 'bulan 1-6';
-                    $result[1] = $this->topup->getDataReportSemester('id_user',$u->id,7,12);
-                    $result[1]->name = 'bulan 7-12';
+                        if($in == 0){
+                            $result[0] = [];
+                            $result[1] = [];
+                        }
+                    $data = $this->topup->getDataReportSemester('id_user',$u->id,1,6);
+                        if(count($data) > 0){
+                            foreach ($data as $key => $d) {
+                                $d['name'] = 'bulan 1-6';
+                                array_push($result[0], $d);
+                            }
+                        }
+                    $data = $this->topup->getDataReportSemester('id_user',$u->id,7,12);
+                        if(count($data) > 0){
+                            foreach ($data as $key => $d) {
+                                $d['name'] = 'bulan 7-12';
+                                array_push($result[1], $d);
+                            }
+                        }
                     break;
                 
                 case 3:
-                    $result[0] = $this->topup->getDataWhere('id_user',$u->id);
-                    $result[0]->name = 'tahunan';
+                    if($in == 0)
+                        $result[0] = [];
+                    $data = $this->topup->getDataReportTahunan('id_user',$u->id);
+                        if(count($data) > 0){
+                            foreach ($data as $key => $d) {
+                                $d['name'] = 'tahunan';
+                                array_push($result[0], $d);
+                            }
+                        }else{
+                            // dd($u->id);
+                        }
                     break;
                 
                 default:
                     # code...
                     break;
             }
+            $in++;
         }
         $data = ['jenis_transaksi'=>$jenis_transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang,'result'=>$result,'laporan'=>$laporan];
         

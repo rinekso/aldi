@@ -15,15 +15,22 @@ class TopupRepo extends BaseRepo
     }
     public function getDataReport($kolom,$value,$month){
         $proses = $this->model
-            // ->where($kolom,'=',$value)
+            ->where($kolom,'=',$value)
             ->whereMonth('created_at','=',$month)
+            ->with('user')
+            ->get();
+        return $proses;
+    }
+    public function getDataReportTahunan($kolom,$value){
+        $proses = $this->model
+            ->where($kolom,'=',$value)
             ->with('user')
             ->get();
         return $proses;
     }
     public function getDataReportSemester($kolom,$value,$startMonth,$endMonth){
         $proses = $this->model
-            // ->where($kolom,'=',$value)
+            ->where($kolom,'=',$value)
             ->whereMonth('created_at','>=',$startMonth)
             ->whereMonth('created_at','<=',$endMonth)
             ->with('user')
