@@ -157,8 +157,11 @@
                   <thead>
                     <tr>
                       <th>No</th>
+                      <th>NIK</th>
                       <th>Nama</th>
+                      <th>Kode</th>
                       <th>Pembayaran</th>
+                      <th>Periode</th>
                       <th>Nominal</th>
                       <th>Tanggal</th>
                     </tr>
@@ -167,8 +170,11 @@
                       @foreach($result[$i] as $k=>$ru)
                       <tr>
                         <td>{{$k+1}}</td>
+                        <td>{{$ru->user->nik}}</td>
                         <td>{{$ru->user->nama}}</td>
+                        <td>{{$ru->kode}}</td>
                         <td>{{$laporan['jenis'][0]->nama_transaksi}}</td>
+                        <td>{{$ru->periode->nama_periode}} {{$ru->periode->tahun}}</td>
                         <td>{{$ru->pembayaran->nominal}}</td>
                         <td>{{$ru->created_at}}</td>
                       </tr>

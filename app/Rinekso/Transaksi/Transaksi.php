@@ -9,6 +9,9 @@ class Transaksi extends Model
     public function pembayaran(){
         return $this->hasOne('App\Rinekso\Pembayaran\Pembayaran','id_pembayaran','id_pembayaran');
     }
+    public function periode(){
+        return $this->hasOne('App\Rinekso\Periode\Periode','id_periode','id_periode');
+    }
     public function user(){
         return $this->hasOne('App\Rinekso\Users\User','id','id_user');
     }

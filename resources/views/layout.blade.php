@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>E-Card</title>
+	<title>E-Payment</title>
 	<link rel="stylesheet" type="text/css" href="/assets/plugins/flaticon/flaticon.css">
 	<link rel="stylesheet" type="text/css" href="/assets/plugins/nivo-slider/nivo-slider.css">
 	<link rel="stylesheet" type="text/css" href="/assets/plugins/nivo-slider/themes/default/default.css">
@@ -16,7 +16,10 @@
 <div id="branding">
 	<div class="wrapper">
 		<div class="logo">
-			<img src="{{url('/assets/images/logo.jpg')}}">
+			<img src="{{url('/assets/images/logo.jpg')}}" style="float: left; margin-right: 10px;">
+			<span style="margin-top: 10px; display: block;">
+				E-Payment Yayasan Nurul Amanah			
+			</span>
 		</div>
 		<div id="search">
 			<a href="{{url('logout
@@ -30,6 +33,7 @@
 		</div>
 	</div>
 </div>
+
 @endif
 
 @yield('content')

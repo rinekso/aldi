@@ -3,7 +3,10 @@
 <div id="branding">
 	<div class="wrapper">
 		<div class="logo">
-			Pembayaran
+			<img src="{{url('/assets/images/logo.jpg')}}" style="float: left; margin-right: 10px;">
+			<span style="margin-top: 10px; display: block;">
+				E-Payment Yayasan Nurul Amanah			
+			</span>
 		</div>
 	</div>
 </div>

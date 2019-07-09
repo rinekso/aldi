@@ -255,7 +255,7 @@ class AdminController extends Controller
                     break;
                 
                 case 3:
-                    $result[0] = $this->transaksi->getDataWhere('id_user',$u->id);
+                    $result[0] = $this->transaksi->getDataReportTahunan('id_user',$u->id,$id_jenis_transaksi);
                     $result[0]->name = 'tahunan';
                     break;
                 
@@ -266,7 +266,7 @@ class AdminController extends Controller
         }
         $data = ['jenis_transaksi'=>$jenis_transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang,'result'=>$result,'laporan'=>$laporan];
         
-        // dd($result);
+        // dd($data);
         return view('admin.laporan',$data);
     }
     public function laporanTopup(Request $request){
