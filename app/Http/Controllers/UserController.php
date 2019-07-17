@@ -54,6 +54,7 @@ class UserController extends Controller
 										$tagihan = $pembayaran[0]->nominal;
 										$keterangan = $pp->nama_periode." ".$pp->tahun;
 										$idPeriode = $pp->id_periode;
+										break;
 									}
 								}
 							}else{

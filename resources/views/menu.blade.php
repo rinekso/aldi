@@ -74,7 +74,7 @@
 												<div class="ket bg-primary">Lunas</div>
 											</a>
 										@else
-										<button type="submit" class="bg-success" style="border:none;display: block; width: 100%;">
+										<button type="submit" class="bg-success" onclick="return confirm('apa anda yakin?')" style="border:none;display: block; width: 100%;">
 												{{$p->nama_periode}}
 												<div class="ket bg-danger">Bayar</div>
 										</button>
