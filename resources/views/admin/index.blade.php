@@ -5,15 +5,28 @@
     <link href="/assets/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" rel="stylesheet"/>
 @endsection
 @section('content')
-		<div class="col-md-12">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="box-contain">
+        <div class="box-header">
+          Status SPP
+          <div class="clearfix"></div>
+        </div>
+        <div class="box-body">
+
+          <div id="echart_pie2" style="height:350px;"></div>
+
+        </div>
+      </div>
+    </div>
+		<div class="col-md-6">
 			<div class="box-contain">
 				<div class="box-header">
-					
+					Topup per tahun
 				</div>
-				<div class="box-body" style="height: 500px;">
-          <!-- <div id="echart_line" style="height:350px;"></div>           -->
-          <h1 style="text-align: center;">Welcome Admin</h1>
-          <img src="{{url('/assets/images/logo.jpg')}}" width="200" style="margin: auto; display: block;">
+				<div class="box-body">
+          <div id="echart_line" style="height:350px;"></div>          
+<!--           <h1 style="text-align: center;">Welcome Admin</h1>
+          <img src="{{url('/assets/images/logo.jpg')}}" width="200" style="margin: auto; display: block;"> -->
 				</div>
 			</div>
 		</div>
@@ -32,7 +45,7 @@
 <!-- jQuery custom content scroller -->
 <script src="/assets/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 <!-- <script src="/admin/assets/js/custom.js"></script> -->
-<!-- <script>
+<script>
 $(document).ready(function(){
         //echart
       var theme = {
@@ -246,12 +259,65 @@ $(document).ready(function(){
               fontFamily: 'Arial, Verdana, sans-serif'
           }
       };
+      var echartPie = echarts.init(document.getElementById('echart_pie2'), theme);
+
+      echartPie.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+          x: 'center',
+          y: 'bottom',
+          data: ['Belum Bayar', 'Sudah Bayar']
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            magicType: {
+              show: true,
+              type: ['pie', 'funnel'],
+              option: {
+                funnel: {
+                  x: '25%',
+                  width: '50%',
+                  funnelAlign: 'left',
+                  max: 1548
+                }
+              }
+            },
+            restore: {
+              show: true,
+              title: "Restore"
+            },
+            saveAsImage: {
+              show: true,
+              title: "Save Image"
+            }
+          }
+        },
+        calculable: true,
+        series: [{
+          name: 'Most Seen',
+          type: 'pie',
+          radius: '55%',
+          center: ['50%', '48%'],
+          data: [{
+            value: 1000,
+            name: 'Belum Bayar'
+          }, {
+            value: 500,
+            name: 'Sudah Bayar'
+          }]
+        }]
+      });
+
         var echartLine = echarts.init(document.getElementById('echart_line'), theme);
 
       echartLine.setOption({
         title: {
           text: '',
-          subtitle: 'Siswa, Pembayaran',
+          subtitle: 'Topup',
         },
         tooltip: {
           trigger: 'axis'
@@ -259,7 +325,7 @@ $(document).ready(function(){
         legend: {
           x: 220,
           y: 40,
-          data: ['Siswa','Pembayaran']
+          data: ['Topup']
         },
         toolbox: {
           show: true,
@@ -292,7 +358,7 @@ $(document).ready(function(){
           type: 'value'
         }],
         series: [{
-          name: 'Siswa',
+          name: 'Topup',
           type: 'line',
           smooth: true,
           itemStyle: {
@@ -302,23 +368,69 @@ $(document).ready(function(){
               }
             }
           },
-          data: [1002, 1221, 2341, 5344, 2360, 1830, 2710, 1000, 2394, 1756, 2947, 984]
-        },{
-          name: 'Pembayaran',
-          type: 'line',
-          smooth: true,
-          itemStyle: {
-            normal: {
-              areaStyle: {
-                type: 'default'
-              }
-            }
-          },
-          data: [2372, 1723, 544, 1234, 1125, 1432, 1435, 2654, 1432, 2335, 1321, 1242]
+          data: [1002, 1221, 2341, 5344, 2360, 1830, 2710]
         }]
       });
 
+      // var echartPie = echarts.init(document.getElementById('echart_pie'), theme);
+      // echartPie.setOption({
+      //   tooltip: {
+      //     trigger: 'item',
+      //     formatter: "{a} <br/>{b} : {c} ({d}%)"
+      //   },
+      //   legend: {
+      //     x: 'center',
+      //     y: 'bottom',
+      //     data: ['Berita', 'Profil Perusahaan', 'Info Investor', 'Layanan']
+      //   },
+      //   toolbox: {
+      //     show: true,
+      //     feature: {
+      //       magicType: {
+      //         show: true,
+      //         type: ['pie', 'funnel'],
+      //         option: {
+      //           funnel: {
+      //             x: '25%',
+      //             width: '50%',
+      //             funnelAlign: 'left',
+      //             max: 1548
+      //           }
+      //         }
+      //       },
+      //       restore: {
+      //         show: true,
+      //         title: "Restore"
+      //       },
+      //       saveAsImage: {
+      //         show: true,
+      //         title: "Save Image"
+      //       }
+      //     }
+      //   },
+      //   calculable: true,
+      //   series: [{
+      //     name: 'Most Seen',
+      //     type: 'pie',
+      //     radius: '55%',
+      //     center: ['50%', '48%'],
+      //     data: [{
+      //       value: 1000,
+      //       name: 'Berita'
+      //     }, {
+      //       value: 500,
+      //       name: 'Profil Perusahaan'
+      //     }, {
+      //       value: 234,
+      //       name: 'Investor'
+      //     }, {
+      //       value: 345,
+      //       name: 'Layanan'
+      //     }]
+      //   }]
+      // });
+
 });
 </script>
- -->
+
 @endsection
