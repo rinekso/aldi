@@ -71,7 +71,9 @@ class AdminController extends Controller
 
     }
     public function index(){
-    	return view('admin.index');
+        $data = $this->user->getSiswa();
+        // dd($data);
+        return view('admin.index',['siswa'=>$data]);
     }
     public function logout(){
     	Auth::logout();

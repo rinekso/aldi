@@ -15,6 +15,7 @@
 
           <div id="echart_pie2" style="height:350px;"></div>
 
+          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modalBelum">Belum Bayar</button>
         </div>
       </div>
     </div>
@@ -30,6 +31,42 @@
 				</div>
 			</div>
 		</div>
+<div id="modalBelum" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Daftar Siswa Yang Belum Bayar</h4>
+      </div>
+      <div class="modal-body">
+              <table id="datatable-responsive" class="table table-hover table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th>NIK</th>
+                    <th>Nama Siswa</th>
+                    <th>Kelas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($siswa as $s)
+                  <tr>
+                    <td>{{$s->nik}}</td>
+                    <td>{{$s->nama}}</td>
+                    <td>{{$s->kelas->tingkat}}/{{$s->jenjang->nama_jenjang}}</td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 @endsection
 @section('js')
 <!--[if !(gte IE 8)]><!-->
