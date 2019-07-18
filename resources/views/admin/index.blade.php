@@ -13,7 +13,49 @@
         </div>
         <div class="box-body">
 
+          <div id="echart_pie" style="height:350px;"></div>
+
+          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modalBelum">Belum Bayar</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="box-contain">
+        <div class="box-header">
+          Status UTS
+          <div class="clearfix"></div>
+        </div>
+        <div class="box-body">
+
           <div id="echart_pie2" style="height:350px;"></div>
+
+          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modalBelum">Belum Bayar</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="box-contain">
+        <div class="box-header">
+          Status UAS
+          <div class="clearfix"></div>
+        </div>
+        <div class="box-body">
+
+          <div id="echart_pie3" style="height:350px;"></div>
+
+          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modalBelum">Belum Bayar</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="box-contain">
+        <div class="box-header">
+          Status Kalender
+          <div class="clearfix"></div>
+        </div>
+        <div class="box-body">
+
+          <div id="echart_pie4" style="height:350px;"></div>
 
           <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modalBelum">Belum Bayar</button>
         </div>
@@ -296,7 +338,10 @@ $(document).ready(function(){
               fontFamily: 'Arial, Verdana, sans-serif'
           }
       };
-      var echartPie = echarts.init(document.getElementById('echart_pie2'), theme);
+      var echartPie = echarts.init(document.getElementById('echart_pie'), theme);
+      var echartPie2 = echarts.init(document.getElementById('echart_pie2'), theme);
+      var echartPie3 = echarts.init(document.getElementById('echart_pie3'), theme);
+      var echartPie4 = echarts.init(document.getElementById('echart_pie4'), theme);
 
       echartPie.setOption({
         tooltip: {
@@ -348,8 +393,158 @@ $(document).ready(function(){
           }]
         }]
       });
+      echartPie2.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+          x: 'center',
+          y: 'bottom',
+          data: ['Belum Bayar', 'Sudah Bayar']
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            magicType: {
+              show: true,
+              type: ['pie', 'funnel'],
+              option: {
+                funnel: {
+                  x: '25%',
+                  width: '50%',
+                  funnelAlign: 'left',
+                  max: 1548
+                }
+              }
+            },
+            restore: {
+              show: true,
+              title: "Restore"
+            },
+            saveAsImage: {
+              show: true,
+              title: "Save Image"
+            }
+          }
+        },
+        calculable: true,
+        series: [{
+          name: 'Most Seen',
+          type: 'pie',
+          radius: '55%',
+          center: ['50%', '48%'],
+          data: [{
+            value: 1000,
+            name: 'Belum Bayar'
+          }, {
+            value: 500,
+            name: 'Sudah Bayar'
+          }]
+        }]
+      });
+      echartPie3.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+          x: 'center',
+          y: 'bottom',
+          data: ['Belum Bayar', 'Sudah Bayar']
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            magicType: {
+              show: true,
+              type: ['pie', 'funnel'],
+              option: {
+                funnel: {
+                  x: '25%',
+                  width: '50%',
+                  funnelAlign: 'left',
+                  max: 1548
+                }
+              }
+            },
+            restore: {
+              show: true,
+              title: "Restore"
+            },
+            saveAsImage: {
+              show: true,
+              title: "Save Image"
+            }
+          }
+        },
+        calculable: true,
+        series: [{
+          name: 'Most Seen',
+          type: 'pie',
+          radius: '55%',
+          center: ['50%', '48%'],
+          data: [{
+            value: 1000,
+            name: 'Belum Bayar'
+          }, {
+            value: 500,
+            name: 'Sudah Bayar'
+          }]
+        }]
+      });
+      echartPie4.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+          x: 'center',
+          y: 'bottom',
+          data: ['Belum Bayar', 'Sudah Bayar']
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            magicType: {
+              show: true,
+              type: ['pie', 'funnel'],
+              option: {
+                funnel: {
+                  x: '25%',
+                  width: '50%',
+                  funnelAlign: 'left',
+                  max: 1548
+                }
+              }
+            },
+            restore: {
+              show: true,
+              title: "Restore"
+            },
+            saveAsImage: {
+              show: true,
+              title: "Save Image"
+            }
+          }
+        },
+        calculable: true,
+        series: [{
+          name: 'Most Seen',
+          type: 'pie',
+          radius: '55%',
+          center: ['50%', '48%'],
+          data: [{
+            value: 1000,
+            name: 'Belum Bayar'
+          }, {
+            value: 500,
+            name: 'Sudah Bayar'
+          }]
+        }]
+      });
 
-        var echartLine = echarts.init(document.getElementById('echart_line'), theme);
+      var echartLine = echarts.init(document.getElementById('echart_line'), theme);
 
       echartLine.setOption({
         title: {
