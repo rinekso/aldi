@@ -5,7 +5,7 @@
     <link href="/assets/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" rel="stylesheet"/>
 @endsection
 @section('content')
-    <div class="col-md-6 col-sm-6 col-xs-12">
+<!--     <div class="col-md-4 col-sm-6 col-xs-12">
       <div class="box-contain">
         <div class="box-header">
           Status SPP
@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="col-md-4 col-sm-6 col-xs-12">
       <div class="box-contain">
         <div class="box-header">
           Status UTS
@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="col-md-4 col-sm-6 col-xs-12">
       <div class="box-contain">
         <div class="box-header">
           Status UAS
@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="col-md-4 col-sm-6 col-xs-12">
       <div class="box-contain">
         <div class="box-header">
           Status Kalender
@@ -61,19 +61,19 @@
         </div>
       </div>
     </div>
-		<div class="col-md-6">
+ -->		<div class="col-md-8">
 			<div class="box-contain">
 				<div class="box-header">
 					Topup per tahun
 				</div>
 				<div class="box-body">
           <div id="echart_line" style="height:350px;"></div>          
-<!--           <h1 style="text-align: center;">Welcome Admin</h1>
-          <img src="{{url('/assets/images/logo.jpg')}}" width="200" style="margin: auto; display: block;"> -->
+          <h1 style="text-align: center;">Welcome Admin</h1>
+          <img src="{{url('/assets/images/logo.jpg')}}" width="200" style="margin: auto; display: block;">
 				</div>
-			</div>
+<!-- 			</div>
 		</div>
-<div id="modalBelum" class="modal fade" role="dialog">
+ --><!-- <div id="modalBelum" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -109,7 +109,7 @@
 
   </div>
 </div>
-@endsection
+ -->@endsection
 @section('js')
 <!--[if !(gte IE 8)]><!-->
 <script src="/assets/js/wow.min.js"></script>
