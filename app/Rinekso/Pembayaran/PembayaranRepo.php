@@ -8,6 +8,7 @@ class PembayaranRepo extends BaseRepo
     public function __construct(Pembayaran $user)
     {
         $this->model = $user;
+        $this->kelas = 0;
     }
     public function gantiBiaya($id_jenis,$id_kelas,$id_jenjang,$nominal){
         $proses = $this->model
@@ -50,6 +51,14 @@ class PembayaranRepo extends BaseRepo
             ->where('id_pembayaran','=',$id)
             ->with('kelas')
             ->with('jenjang')
+            ->get();
+        return $result;
+    }
+    public function getDataByUser($id_kelas,$id_jenjang){
+        $this->kelas = $id_kelas;
+        $result = $this->model
+            ->whereIn('id_kelas',[$id_kelas,0])
+            ->whereIn('id_jenjang',[$id_jenjang,0])
             ->get();
         return $result;
     }

@@ -16,13 +16,13 @@ class CreatePembayaranTable extends Migration
         Schema::create('pembayaran',function(Blueprint $table){
             $table->increments('id_pembayaran');
             $table->integer('id_kelas');
-            $table->integer('id_periode');
+            // $table->integer('id_periode');
             $table->integer('id_jenjang');
-            $table->integer('nama');
-            $table->integer('keterangan');
+            $table->string('nama');
+            $table->string('keterangan');
             $table->integer('nominal');
             $table->integer('periode');
-            $table->integer('tahun');
+            $table->integer('tahun')->nullable();
             $table->integer('bulan_start');
             $table->timestamps();
         });

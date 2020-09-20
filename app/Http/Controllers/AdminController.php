@@ -231,6 +231,7 @@ class AdminController extends Controller
     }
     public function pembayaranTambah(Request $request){
         $form = $request->all();
+        // dd($form);
         $r = $this->inputPembayaran($form);
         if($r){
             return redirect()->back();

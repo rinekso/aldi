@@ -10,7 +10,7 @@
 					</div>
 					<div class="box-body">
 						@foreach($jenis as $j)
-						<a href="{{url('bayar/'.$j->id_jenis_transaksi)}}" class="btn btn-primary btn-col">{{$j->nama_transaksi}}</a>
+						<a href="{{url('bayar/'.$j->id_pembayaran)}}" class="btn btn-primary btn-col">{{$j->nama}}</a>
 						@endforeach
 					</div>
 				</div>

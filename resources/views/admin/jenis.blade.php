@@ -121,7 +121,7 @@
                     <option selected disabled>pilih periode</option>
                     <option value="1">bulanan</option>
                     <option value="3">3 bulanan</option>
-                    <option value="6">1 semester</option>
+                    <option value="6">semester</option>
                     <option value="12">tahunan</option>
                     <option value="13">sekali</option>
                   </select>

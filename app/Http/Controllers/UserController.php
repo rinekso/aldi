@@ -24,7 +24,7 @@ class UserController extends Controller
 		$this->topup = $topupRepo;
 	}
     public function index(){
-        $jenisTr = $this->jenis->getData();
+        $jenisTr = $this->pembayaran->getDataByUser(\Auth::User()->id_kelas,\Auth::User()->id_jenjang);
     	return view('pembayaran',['jenis'=>$jenisTr]);
     }
     public function menu($menu){
@@ -32,35 +32,28 @@ class UserController extends Controller
 		$periode=[];
 		$keterangan = "";
 		$idPeriode = 0;
-		$jenis_transaksi = $this->jenis->getDataWhere('id_jenis_transaksi',$menu);
+		$pembayaran = $this->pembayaran->getDataWhere('id_pembayaran',$menu);
 		$mutasi = [];
 		$trm = $this->transaksi->getMutasi('id_user',\Auth::User()->id);
-		$pembayaran = $this->pembayaran->getDataWhere3('id_jenis_transaksi',$jenis_transaksi[0]->id_jenis_transaksi,
-			'id_kelas',\Auth::User()->id_kelas,'id_jenjang',\Auth::User()->id_jenjang);
-		if(count($pembayaran) > 0){
-			// if($menu == 1)
-				$periode = $this->spp($pembayaran[0]->id_pembayaran);
-			// else
-			// 	$periode = $this->periode->getDataWhere('id_pembayaran',$pembayaran[0]->id_pembayaran);
+		if(date('Y') >= $pembayaran->tahun){
+			$diff = abs(strtotime(date('Y')) - strtotime($pembayaran->tahun));
 
-			if(count($periode) > 0){
-					foreach ($periode as $k => $p) {
-						foreach ($p as $key => $pp) {
-							$transaksi = $this->transaksi->getDataWhere3('id_periode',$pp->id_periode,'id_pembayaran',$pembayaran[0]->id_pembayaran,'id_user',\Auth::User()->id);
-							if(count($transaksi) == 0){
-								$periode[$k][$key]->paid = false;
-								if(date('Y') >= $pp->tahun){
-									if(date('m') >= date('m',strtotime($pp->nama_periode))){
-										$tagihan = $pembayaran[0]->nominal;
-										$keterangan = $pp->nama_periode." ".$pp->tahun;
-										$idPeriode = $pp->id_periode;
-									}
-								}
-							}else{
-								$periode[$k][$key]->paid = true;
-							}
-						}
-					}
+			$diffYears = floor($diff / (365*60*60*24));
+
+			$transaksi = $this->transaksi->getDataWhere2('id_pembayaran',$pembayaran[0]->id_pembayaran,'id_user',\Auth::User()->id);
+			if(count($transaksi) == 0){
+				$periode[0]->paid = false;
+				if(date('m') >= $pembayaran->periode){
+					$tagihan = $pembayaran[0]->nominal;
+					$dateObj   = DateTime::createFromFormat('!m', $pembayaran->bulan_start);
+					$monthName = $dateObj->format('F');
+					$keterangan = $monthName." ".$pembayaran->tahun;
+					$idPeriode = $pembayaran->id_periode;
+				}
+			}else{
+				$jml = count($transaksi);
+				$year = $transaksi[$jml-1]->create_at->year;
+				$periode[$k]->paid = true;
 			}
 		}
 
@@ -90,7 +83,7 @@ class UserController extends Controller
 		}
         usort($mutasi, array($this, "date_compare"));
         // dd($periode);
-    	return view('menu',['idJenisTr'=>$menu,'id_periode'=>$idPeriode,'nama'=>$jenis_transaksi[0]->nama_transaksi,'tagihan'=>$tagihan,'keterangan'=>$keterangan, 'periode'=>$periode,'mutasi'=>$mutasi]);
+    	return view('menu',['idJenisTr'=>$menu,'id_periode'=>$idPeriode,'nama'=>$pembayaran[0]->nama,'tagihan'=>$tagihan,'keterangan'=>$keterangan, 'periode'=>$periode,'mutasi'=>$mutasi]);
     }
     public function spp($id_pembayaran){
     	$d = $this->periode->getYear($id_pembayaran);

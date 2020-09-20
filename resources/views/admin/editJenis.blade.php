@@ -74,7 +74,7 @@
                   <select name="periode" required id="periode" class="form-control" onchange="periodeChange()">
                     <option @if($data->periode == 1) selected @endif value="1">bulanan</option>
                     <option @if($data->periode == 3) selected @endif value="3">3 bulanan</option>
-                    <option @if($data->periode == 6) selected @endif value="6">1 semester</option>
+                    <option @if($data->periode == 6) selected @endif value="6">semester</option>
                     <option @if($data->periode == 12) selected @endif value="12">tahunan</option>
                     <option @if($data->periode == 13) selected @endif value="13">sekali</option>
                   </select>
