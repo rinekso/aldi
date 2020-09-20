@@ -139,7 +139,7 @@
           </form>
         </div>
       </div>
-      @if(count(@$result) !=0)
+      @if( count(@$result) !=0)
       <?php
       $jml = count($result);
       ?>

@@ -27,6 +27,13 @@ class TransaksiRepo extends BaseRepo
             ->get();
         return $proses;
     }
+    public function getDataAllRelation(){
+        $result = $this->model
+            ->with('kelas')
+            ->with('jenjang')
+            ->get();
+        return $result;
+    }
     public function getDataReportTahunan($kolom,$value,$id_jenis){
         $proses = $this->model
             ->where($kolom,'=',$value)

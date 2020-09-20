@@ -1,6 +1,7 @@
 <?php namespace App\Rinekso\Pembayaran;
 
 use App\Rinekso\BaseRepo;
+use Carbon\Carbon;
 
 class PembayaranRepo extends BaseRepo
 {
@@ -31,12 +32,31 @@ class PembayaranRepo extends BaseRepo
         }
         return $proses;
     }
+    public function updateCustom($input,$id)
+    {
+        $input['updated_at'] = Carbon::now();
+        $this->model->where('id_pembayaran','=',$id)
+            ->update($input);
+        return true;
+    }
+    public function deleteCustom($id)
+    {
+        $res = $this->model->where('id_pembayaran','=',$id)
+            ->delete();
+        return true;
+    }
     public function getDataSpec($id){
         $result = $this->model
             ->where('id_pembayaran','=',$id)
             ->with('kelas')
             ->with('jenjang')
-            ->with('jenisTransaksi')
+            ->get();
+        return $result;
+    }
+    public function getDataAllRelation(){
+        $result = $this->model
+            ->with('kelas')
+            ->with('jenjang')
             ->get();
         return $result;
     }

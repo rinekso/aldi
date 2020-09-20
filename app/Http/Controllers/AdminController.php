@@ -31,6 +31,7 @@ class AdminController extends Controller
     	$form=$request->all();
     	$rfid=$form['rfid'];
     	$password=$form['pin'];
+        // dd($form);
         if(Auth::attempt(['rfid' => $rfid, 'password' => $password])){
         	Auth::login(Auth::user(), true);
             return redirect('/');
@@ -99,7 +100,7 @@ class AdminController extends Controller
     }
     public function topup(){
         $siswa = $this->user->getData();
-        $jenis_transaksi = $this->jenisTransaksi->getData();
+        // $jenis_transaksi = $this->jenisTransaksi->getData();
         $kelas = $this->kelas->getData();
         $periode = $this->periode->getData();
         $pembayaran = $this->pembayaran->getData();
@@ -107,23 +108,23 @@ class AdminController extends Controller
 
         $daftarBiaya = [];
         // dd($kelas[2]);
-        for($i=0;$i<count($kelas);$i++){
-            $daftarBiaya[$i] = [];
-            for($j=0;$j<count($jenjang);$j++)
-            {
-                $daftarBiaya[$i][$j] = [];
-                for($k=0;$k<count($jenis_transaksi);$k++){
-                    $dat = $this->pembayaran->getDataWhere3('id_kelas',$kelas[$i]->id_kelas,'id_jenjang',$jenjang[$j]->id_jenjang,'id_jenis_transaksi',$jenis_transaksi[$k]->id_jenis_transaksi);
-                    $nominal = 0;
-                    if(count($dat) > 0)
-                        $nominal = $dat[0]->nominal;
-                    $daftarBiaya[$i][$j][$k] = $nominal;
-                }
-            }
-        }
+        // for($i=0;$i<count($kelas);$i++){
+        //     $daftarBiaya[$i] = [];
+        //     for($j=0;$j<count($jenjang);$j++)
+        //     {
+        //         $daftarBiaya[$i][$j] = [];
+        //         for($k=0;$k<count($jenis_transaksi);$k++){
+        //             $dat = $this->pembayaran->getDataWhere3('id_kelas',$kelas[$i]->id_kelas,'id_jenjang',$jenjang[$j]->id_jenjang,'id_jenis_transaksi',$jenis_transaksi[$k]->id_jenis_transaksi);
+        //             $nominal = 0;
+        //             if(count($dat) > 0)
+        //                 $nominal = $dat[0]->nominal;
+        //             $daftarBiaya[$i][$j][$k] = $nominal;
+        //         }
+        //     }
+        // }
 
         // dd($daftarBiaya);
-    	return view('admin.topup',['siswa'=>$siswa,'jenis_transaksi'=>$jenis_transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang,'daftar_biaya'=>$daftarBiaya]);
+    	return view('admin.topup',['siswa'=>$siswa,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang]);
     }
     public function periode(){
         $siswa = $this->user->getData();
@@ -219,6 +220,65 @@ class AdminController extends Controller
         $this->pembayaran->gantiBiaya($id_jenis,$id_kelas,$id_jenjang,$nominal);
         return redirect('/adm/periode');
     }
+    public function jenis(){
+        $transaksi = $this->transaksi->getData();
+        $kelas = $this->kelas->getData();
+        $periode = $this->periode->getData();
+        $pembayaran = $this->pembayaran->getDataAllRelation();
+        $jenjang = $this->jenjang->getData();
+        // dd($transaksi);
+        return view('admin.jenis',['transaksi'=>$transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang]);
+    }
+    public function pembayaranTambah(Request $request){
+        $form = $request->all();
+        $r = $this->inputPembayaran($form);
+        if($r){
+            return redirect()->back();
+        }else{
+            dd("input pembayaran salah");
+        }
+    }
+    public function pembayaranDelete($id){
+        $this->pembayaran->deleteCustom($id);
+        return redirect()->back();
+    }
+    public function pembayaranEditTampilan($id){
+        $kelas = $this->kelas->getData();
+        $jenjang = $this->jenjang->getData();
+        $result = $this->pembayaran->getDataWhere('id_pembayaran',$id);
+        return view('admin.editJenis',['data'=>$result[0],'kelas' => $kelas,'jenjang'=>$jenjang]);
+    }
+    public function pembayaranEdit(Request $req){
+        $form = $req->all();
+        $inputPembayaran = [
+            'id_kelas'              => $form['id_kelas'],
+            'id_jenjang'            => $form['id_jenjang'],
+            'nama'                  => $form['nama'],
+            'keterangan'            => $form['keterangan'],
+            'nominal'               => $form['nominal'],
+            'periode'               => $form['periode'],
+            'tahun'                 => date('Y'),
+            'bulan_start'           => $form['start']
+        ];
+        $re = $this->pembayaran->updateCustom($inputPembayaran,$form['id']);
+        if($re) 
+        return redirect('/adm/jenis');
+        else
+            dd("Edit gagal");
+    }
+    private function inputPembayaran($form){
+        $inputPembayaran = [
+            'id_kelas'              => $form['id_kelas'],
+            'id_jenjang'            => $form['id_jenjang'],
+            'nama'                  => $form['nama'],
+            'keterangan'            => $form['keterangan'],
+            'nominal'               => $form['nominal'],
+            'periode'               => $form['periode'],
+            'tahun'                 => date('Y'),
+            'bulan_start'           => $form['start']
+        ];
+        return $this->pembayaran->input($inputPembayaran);
+    } 
     public function laporanPembayaran(Request $request){
         $jenis_transaksi = $this->jenisTransaksi->getData();
         $kelas = $this->kelas->getData();

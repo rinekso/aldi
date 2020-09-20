@@ -37,20 +37,23 @@
 			<a href="{{url('/adm/history')}}"><i class="flaticon-pie-chart"></i><span>History Transaksi</span></a>
 		</li> -->
 		<li class="@if($title == 'siswa') active @endif">
-		    <a href="{{url('/adm/siswa')}}"><i class="flaticon-edit"></i><span>Siswa</span></a>
+		    <a href="{{url('/adm/siswa')}}"><i class="flaticon-avatar"></i><span>Siswa</span></a>
 		</li>
 		@endif
 		<li class="@if($title == 'topup') active @endif">
-			<a href="{{url('/adm/topup')}}"><i class="flaticon-monitor"></i><span>Top Up</span></a>
+			<a href="{{url('/adm/topup')}}"><i class="flaticon-download"></i><span>Top Up</span></a>
 		</li>
 		@if(\Auth::User()->id_user_role < 2)
+		<li class="@if($title == 'jenis') active @endif">
+			<a href="{{url('/adm/jenis')}}"><i class="flaticon-share"></i><span>Jenis Pembayaran</span></a>
+		</li>
 		<li class="@if($title == 'periode') active @endif">
-			<a href="{{url('/adm/periode')}}"><i class="fa fa-calendar"></i><span>Biaya</span></a>
+			<a href="{{url('/adm/periode')}}"><i class="flaticon-copy"></i><span>Biaya</span></a>
 		</li>
 		@endif
 		@if(\Auth::User()->id_user_role < 2)
 		<li class="@if($title == 'laporan') active @endif">
-			<a href="{{url('/adm/laporan')}}"><i class="flaticon-book"></i><span>Laporan</span></a>
+			<a href="{{url('/adm/laporan')}}"><i class="flaticon-pie-chart"></i><span>Laporan</span></a>
 		</li>
 		@endif
 	</ul>

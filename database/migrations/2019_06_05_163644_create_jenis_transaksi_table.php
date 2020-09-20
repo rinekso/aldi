@@ -16,6 +16,7 @@ class CreateJenisTransaksiTable extends Migration
         Schema::create('jenis_transaksi',function(Blueprint $table){
             $table->increments('id_jenis_transaksi');
             $table->string('nama_transaksi');
+            $table->string('keterangan_transaksi')->nullable();
             $table->timestamps();
         });
     }

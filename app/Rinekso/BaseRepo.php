@@ -33,6 +33,13 @@ class BaseRepo
             ->get();
         return $proses;
     }
+    public function getDataLast()
+    {
+        $proses = $this->model->select('*')
+            ->orderBy("created_at","desc")
+            ->first();
+        return $proses;
+    }
     public function detail($id)
     {
         return $this->model->find($id);

@@ -17,9 +17,13 @@ class CreatePembayaranTable extends Migration
             $table->increments('id_pembayaran');
             $table->integer('id_kelas');
             $table->integer('id_periode');
-            $table->integer('id_jenis_transaksi');
             $table->integer('id_jenjang');
+            $table->integer('nama');
+            $table->integer('keterangan');
             $table->integer('nominal');
+            $table->integer('periode');
+            $table->integer('tahun');
+            $table->integer('bulan_start');
             $table->timestamps();
         });
     }
