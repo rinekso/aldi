@@ -21,5 +21,14 @@ class KelasTableSeeder extends Seeder
         DB::table('kelas')->insert([
             'tingkat' => 3,
         ]);
+        DB::table('kelas')->insert([
+            'tingkat' => 4,
+        ]);
+        DB::table('kelas')->insert([
+            'tingkat' => 5,
+        ]);
+        DB::table('kelas')->insert([
+            'tingkat' => 6,
+        ]);
     }
 }

@@ -44,15 +44,16 @@
 			<a href="{{url('/adm/topup')}}"><i class="flaticon-download"></i><span>Top Up</span></a>
 		</li>
 		@if(\Auth::User()->id_user_role < 2)
-		<li class="@if($title == 'jenis') active @endif">
-			<a href="{{url('/adm/jenis')}}"><i class="flaticon-share"></i><span>Jenis Pembayaran</span></a>
+		<li class="@if($title == 'jenjang') active @endif">
+			<a href="{{url('/adm/jenjang')}}"><i class="flaticon-star"></i><span>Jenjang</span></a>
 		</li>
-		<li class="@if($title == 'periode') active @endif">
+		<li class="@if($title == 'jenis') active @endif">
+			<a href="{{url('/adm/jenis')}}"><i class="flaticon-settings-1"></i><span>Jenis Pembayaran</span></a>
+		</li>
+<!-- 		<li class="@if($title == 'periode') active @endif">
 			<a href="{{url('/adm/periode')}}"><i class="flaticon-copy"></i><span>Biaya</span></a>
 		</li>
-		@endif
-		@if(\Auth::User()->id_user_role < 2)
-		<li class="@if($title == 'laporan') active @endif">
+ -->		<li class="@if($title == 'laporan') active @endif">
 			<a href="{{url('/adm/laporan')}}"><i class="flaticon-pie-chart"></i><span>Laporan</span></a>
 		</li>
 		@endif

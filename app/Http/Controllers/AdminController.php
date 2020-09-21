@@ -226,7 +226,7 @@ class AdminController extends Controller
         $periode = $this->periode->getData();
         $pembayaran = $this->pembayaran->getDataAllRelation();
         $jenjang = $this->jenjang->getData();
-        // dd($transaksi);
+        // dd($pembayaran);
         return view('admin.jenis',['transaksi'=>$transaksi,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang]);
     }
     public function pembayaranTambah(Request $request){
@@ -279,6 +279,50 @@ class AdminController extends Controller
             'bulan_start'           => $form['start']
         ];
         return $this->pembayaran->input($inputPembayaran);
+    } 
+    public function jenjang(){
+        $kelas = $this->kelas->getData();
+        $jenjang = $this->jenjang->getData();
+        return view('admin.jenjang',['kelas' => $kelas,'jenjang' => $jenjang]);
+    }
+    public function jenjangTambah(Request $request){
+        $form = $request->all();
+        // dd($form);
+        $r = $this->inputjenjang($form);
+        if($r){
+            return redirect()->back();
+        }else{
+            dd("input jenjang salah");
+        }
+    }
+    public function jenjangDelete($id){
+        $this->jenjang->deleteCustom($id);
+        return redirect()->back();
+    }
+    public function jenjangEditTampilan($id){
+        $kelas = $this->kelas->getData();
+        $jenjang = $this->jenjang->getData();
+        $result = $this->jenjang->getDataWhere('id_jenjang',$id);
+        return view('admin.editJenjang',['data'=>$result[0],'kelas' => $kelas,'jenjang'=>$jenjang]);
+    }
+    public function jenjangEdit(Request $req){
+        $form = $req->all();
+        $inputjenjang = [
+            'nama_jenjang'      => $form['nama_jenjang'],
+            'max_tingkat'        => $form['max_tingkat'],
+        ];
+        $re = $this->jenjang->updateCustom($inputjenjang,$form['id']);
+        if($re) 
+            return redirect('/adm/jenjang');
+        else
+            dd("Edit gagal");
+    }
+    private function inputjenjang($form){
+        $inputjenjang = [
+            'nama_jenjang'      => $form['nama_jenjang'],
+            'max_tingkat'        => $form['max_tingkat'],
+        ];
+        return $this->jenjang->input($inputjenjang);
     } 
     public function laporanPembayaran(Request $request){
         $jenis_transaksi = $this->jenisTransaksi->getData();

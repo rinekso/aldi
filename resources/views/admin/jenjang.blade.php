@@ -1,4 +1,4 @@
-<?php $title = 'jenis';?>
+<?php $title = 'jenjang';?>
 @extends('admin.layout')
 @section('css')
 
@@ -16,42 +16,25 @@
       <div class="col-md-7 col-sm-12 col-xs-12">
         <div class="box-contain">
           <div class="box-header">
-            Data jenis Pembayaran
+            Data Jenjang
           </div>
           <div class="box-body">
             <table id="datatable-responsive" class="table table-hover table-bordered">
               <thead>
                 <tr>
-                  <th>Nama Pembayaran</th>
-                  <th>Nominal</th>
-                  <th>Mulai Pembayaran</th>
-                  <th>Jenjang</th>
-                  <th>Kelas</th>
-                  <th>Keterangan</th>
+                  <th>Nama Jenjang</th>
+                  <th>Maksimum Tingkatan</th>
                   <th>Opsi</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($pembayaran as $p)
+                @foreach($jenjang as $j)
                 <tr>
-                  <td>{{$p->nama}}</td>
-                  <td align="right">Rp. {{number_format($p->nominal,0,",",".")}}</td>
-                  <td>{{date('F', mktime(0, 0, 0, $p->bulan_start, 10))}} {{$p->tahun}}</td>
-                  @if(!empty($p->jenjang))
-                    <td>{{$p->jenjang->nama_jenjang}}</td>
-                  @else
-                    <td>Semua Jenjang</td>
-                  @endif
-                  @if(!empty($p->kelas))
-                    <td>{{$p->kelas->tingkat}}</td>
-                  @else
-                    <td>Semua Kelas</td>
-                  @endif
-                  <td>{{substr($p->keterangan,0,30)}}</td>
+                  <td>{{$j->nama_jenjang}}</td>
+                  <td>{{$j->max_tingkat}}</td>
                   <td>
-                    <a class="label label-success" href="{{url('/adm/pembayaran/laporan/'.$p->id_pembayaran)}}" title="laporan" data-toggle="tooltip" data-placement="top"><i class="fa fa-list"></i></a>
-                    <a class="label label-warning" href="{{url('/adm/pembayaran/edit/'.$p->id_pembayaran)}}" title="edit" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i></a>
-                    <a class="label label-danger" href="{{url('/adm/pembayaran/delete/'.$p->id_pembayaran)}}" title="hapus" data-toggle="tooltip" data-placement="top" onclick="return confirm('are you sure?')"><i class="fa fa-trash"></i></a>
+                    <a class="label label-warning" href="{{url('/adm/jenjang/edit/'.$j->id_jenjang)}}" title="edit" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i></a>
+                    <a class="label label-danger" href="{{url('/adm/jenjang/delete/'.$j->id_jenjang)}}" title="hapus" data-toggle="tooltip" data-placement="top" onclick="return confirm('are you sure?')"><i class="fa fa-trash"></i></a>
                   </td>
                 </tr>
                 @endforeach
@@ -62,16 +45,16 @@
       </div>
       <div class="col-md-5 col-sm-12 col-xs-12">
         <div class="box-contain">
-        <form action="{{url('/adm/pembayaran/tambah')}}" method="post">
+        <form action="{{url('/adm/jenjang/tambah')}}" method="post">
         {{csrf_field()}}
           <div class="box-header">
-            Tambah Jenis Pembayaran
+            Tambah Jenjang
             <div class="clearfix"></div>
           </div>
           <div class="box-body">
               <div class="form-group">
                 <label class="control-label" for="name">
-                Jenis Pembayaran
+                Jenjang
                 </label>
                 <div class="ln_solid"></div>
               </div>
@@ -81,88 +64,21 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="control-label" for="name">
-                  Nama Pembayaran
+                  Nama Jenjang
                   </label>
-                  <input class="form-control" name="nama" placeholder="Nama Pembayaran" required type="text">                          
+                  <input class="form-control" name="nama_jenjang" placeholder="Nama jenjang" required type="text">                          
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="control-label" for="name">
-                  Jenjang
+                  Maksimal Tingkat
                   </label>
-                  <select name="id_jenjang" id="jenjang" class="form-control" onchange="jenjangChange()">
-                    <option value="0">Semua jenjang</option>
-                    @foreach($jenjang as $j)
-                      <option value="{{$j->id_jenjang}}"  data-max="{{$j->max_tingkat}}">{{$j->nama_jenjang}}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label class="control-label" for="name">
-                  Tingkat
-                  </label>
-                  <select name="id_kelas" id="kelas" class="form-control">
-                    <option value="0">Semua tingkat</option>
+                  <select name="max_tingkat" class="form-control">
                     @foreach($kelas as $j)
-                      <option value="{{$j->id_kelas}}" >{{$j->tingkat}}</option>
+                      <option value="{{$j->tingkat}}">{{$j->tingkat}}</option>
                     @endforeach
                   </select>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="control-label" for="name">
-                  Periode
-                  </label>
-                  <select name="periode" required id="periode" class="form-control" onchange="periodeChange()">
-                    <option selected disabled>pilih periode</option>
-                    <option value="1">bulanan</option>
-                    <option value="3">3 bulanan</option>
-                    <option value="6">semester</option>
-                    <option value="12">tahunan</option>
-                    <option value="13">sekali</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-12" id="calendar">
-                <span>klik bulan dimana pembayaran dimulai</span>
-                <input type="hidden" name="start" id="startPembayaran">
-                <table class="table table-bordered">
-                  <tr>
-                    <td onclick="changePeriodeStart(1)">Januari</td>
-                    <td onclick="changePeriodeStart(2)">Februari</td>
-                    <td onclick="changePeriodeStart(3)">Maret</td>
-                    <td onclick="changePeriodeStart(4)">April</td>
-                    <td onclick="changePeriodeStart(5)">Mei</td>
-                    <td onclick="changePeriodeStart(6)">Juni</td>
-                  </tr>
-                  <tr>
-                    <td onclick="changePeriodeStart(7)">Juli</td>
-                    <td onclick="changePeriodeStart(8)">Agustus</td>
-                    <td onclick="changePeriodeStart(9)">September</td>
-                    <td onclick="changePeriodeStart(10)">Oktober</td>
-                    <td onclick="changePeriodeStart(11)">November</td>
-                    <td onclick="changePeriodeStart(12)">Desember</td>
-                  </tr>
-                </table>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="control-label" for="name">
-                  Nominal
-                  </label>
-                  <input class="form-control" name="nominal" placeholder="Nominal" required type="number">                          
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="control-label" for="name">
-                  Keterangan
-                  </label>
-                  <textarea class="form-control" name="keterangan" placeholder="keterangan" style="resize: none;"></textarea>
                 </div>
               </div>
               <div class="clearfix"></div>
@@ -217,11 +133,8 @@ function periodeChange(){
   showCalendar();
   changePeriodeStart(1);
 }
-function jenjangChange(){
-  hideKelas();
-}
 function changePeriodeStart(month){
-  $("#startPembayaran").val(month);
+  $("#startjenjang").val(month);
   var devide = $("#periode").val();
   removeClassCalender();
   if(devide == 13){
@@ -252,17 +165,6 @@ function removeClassCalender(){
   var coundTd = $("#calendar tr td").length;
   for (var i = 0; i < coundTd; i++) {
     $("#calendar tr td:eq("+i+")").removeAttr("class");
-  }
-}
-function hideKelas(){
-  var val = $("#jenjang").val();
-  var max = Number($("#jenjang option[value="+val+"]").attr('data-max'));
-  var coundTd = $("#kelas option").length;
-  for (var i = 0; i < coundTd; i++) {
-    if(i<=max)
-      $("#kelas option:eq("+i+")").show();
-    else
-      $("#kelas option:eq("+i+")").hide();
   }
 }
 function showCalendar(){

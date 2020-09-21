@@ -35,7 +35,6 @@
                     <th>NIK</th>
                     <th>Nama Siswa</th>
                     <th>Kelas</th>
-                    <th>Tahun</th>
                     <th>Saldo</th>
                     <th>Opsi</th>
                   </tr>

@@ -13,10 +13,16 @@ class JenjangTableSeeder extends Seeder
     {
     	DB::table('jenjang')->truncate();
         DB::table('jenjang')->insert([
+            'nama_jenjang' => 'sd',
+            'max_tingkat' => 6
+        ]);
+        DB::table('jenjang')->insert([
             'nama_jenjang' => 'smp',
+            'max_tingkat' => 3
         ]);
         DB::table('jenjang')->insert([
             'nama_jenjang' => 'sma',
+            'max_tingkat' => 3
         ]);
     }
 }
