@@ -22,16 +22,20 @@
             <table id="datatable-responsive" class="table table-hover table-bordered">
               <thead>
                 <tr>
+                  <th>No</th>
                   <th>Nama Jenjang</th>
                   <th>Maksimum Tingkatan</th>
+                  <th>Jenjang Berikutnya</th>
                   <th>Opsi</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($jenjang as $j)
+                @foreach($jenjang as $key=>$j)
                 <tr>
+                  <td>{{$key+1}}</td>
                   <td>{{$j->nama_jenjang}}</td>
                   <td>{{$j->max_tingkat}}</td>
+                  <td>@if($j->next_jenjang > 0) {{$j->Jenjang->nama_jenjang}} @else Tidak ada @endif</td>
                   <td>
                     <a class="label label-warning" href="{{url('/adm/jenjang/edit/'.$j->id_jenjang)}}" title="edit" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i></a>
                     <a class="label label-danger" href="{{url('/adm/jenjang/delete/'.$j->id_jenjang)}}" title="hapus" data-toggle="tooltip" data-placement="top" onclick="return confirm('are you sure?')"><i class="fa fa-trash"></i></a>
@@ -77,6 +81,19 @@
                   <select name="max_tingkat" class="form-control">
                     @foreach($kelas as $j)
                       <option value="{{$j->tingkat}}">{{$j->tingkat}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label" for="name">
+                  Jenjang Selanjutnya
+                  </label>
+                  <select name="next_jenjang" class="form-control">
+                    <option selected>Tidak ada</option>
+                    @foreach($jenjang as $j)
+                      <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
                     @endforeach
                   </select>
                 </div>

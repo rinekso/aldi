@@ -22,6 +22,11 @@ class JenjangRepo extends BaseRepo
             ->delete();
         return true;
     }
+    public function getDataAll(){
+    	return $this->model
+    		->with('jenjang')
+    		->get();
+    }
 }
 /**
  * Created by PhpStorm.

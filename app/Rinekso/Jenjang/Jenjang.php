@@ -9,6 +9,9 @@ class Jenjang extends Model
     public function users(){
         return $this->belongsToMany('App\Rinekso\User\User','id_jenjang','id_jenjang');
     }
+    public function jenjang(){
+    	return $this->hasOne('App\Rinekso\Jenjang\Jenjang','id_jenjang','next_jenjang');
+    }
 }
 /**
  * Created by PhpStorm.

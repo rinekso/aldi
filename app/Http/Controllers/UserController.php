@@ -44,11 +44,11 @@ class UserController extends Controller
 			if(count($transaksi) == 0){
 				$periode[0]->paid = false;
 				if(date('m') >= $pembayaran->periode){
-					$tagihan = $pembayaran[0]->nominal;
-					$dateObj   = DateTime::createFromFormat('!m', $pembayaran->bulan_start);
-					$monthName = $dateObj->format('F');
-					$keterangan = $monthName." ".$pembayaran->tahun;
-					$idPeriode = $pembayaran->id_periode;
+					$tagihan 	= $pembayaran[0]->nominal;
+					$dateObj   	= DateTime::createFromFormat('!m', $pembayaran->bulan_start);
+					$monthName 	= $dateObj->format('F');
+					$keterangan	= $monthName." ".$pembayaran->tahun;
+					$idPeriode 	= $pembayaran->id_periode;
 				}
 			}else{
 				$jml = count($transaksi);

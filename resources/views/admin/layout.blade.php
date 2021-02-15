@@ -47,6 +47,9 @@
 		<li class="@if($title == 'jenjang') active @endif">
 			<a href="{{url('/adm/jenjang')}}"><i class="flaticon-star"></i><span>Jenjang</span></a>
 		</li>
+		<li class="@if($title == 'ajaran') active @endif">
+			<a href="{{url('/adm/ajaran')}}"><i class="flaticon-copy"></i><span>Tahun Ajaran</span></a>
+		</li>
 		<li class="@if($title == 'jenis') active @endif">
 			<a href="{{url('/adm/jenis')}}"><i class="flaticon-settings-1"></i><span>Jenis Pembayaran</span></a>
 		</li>

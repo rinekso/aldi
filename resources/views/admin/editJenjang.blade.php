@@ -51,6 +51,19 @@
                   </select>
                 </div>
               </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label" for="name">
+                  Jenjang Selanjutnya
+                  </label>
+                  <select name="next_jenjang" class="form-control">
+                    <option @if($data->next_jenjang == 0) selected @endif>Tidak ada</option>
+                    @foreach($jenjang as $j)
+                      <option @if($j->id_jenjang == $data->next_jenjang) selected @endif value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
               <div class="clearfix"></div>
               <div class="ln_solid"></div>
           </div>

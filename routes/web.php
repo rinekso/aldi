@@ -44,6 +44,12 @@ Route::group([ 'prefix' => 'adm' , 'middleware' => ['admin']],function(){
 	Route::get('jenjang/edit/{id}','AdminController@jenjangEditTampilan');
 	Route::post('jenjang/edit','AdminController@jenjangEdit');
 	Route::get('jenjang/delete/{id}','AdminController@jenjangDelete');
+
+	Route::get('ajaran','AdminController@ajaran');
+	Route::post('ajaran/tambah','AdminController@ajaranTambah');
+	Route::get('ajaran/edit/{id}','AdminController@ajaranEditTampilan');
+	Route::post('ajaran/edit','AdminController@ajaranEdit');
+	Route::get('ajaran/delete/{id}','AdminController@ajaranDelete');
 	
 	Route::get('topup','AdminController@topup');
 	Route::post('topup/process','AdminController@topupProcess');

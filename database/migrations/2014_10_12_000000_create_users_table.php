@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('nama');
             $table->string('rfid');
             $table->integer('nik');
-            $table->string('tahun_ajaran')->nullable();
             $table->integer('saldo');
             $table->string('password');
             $table->rememberToken();

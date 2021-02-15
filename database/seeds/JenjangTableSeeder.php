@@ -14,15 +14,18 @@ class JenjangTableSeeder extends Seeder
     	DB::table('jenjang')->truncate();
         DB::table('jenjang')->insert([
             'nama_jenjang' => 'sd',
-            'max_tingkat' => 6
+            'max_tingkat' => 6,
+            'next_jenjang' => 2
         ]);
         DB::table('jenjang')->insert([
             'nama_jenjang' => 'smp',
-            'max_tingkat' => 3
+            'max_tingkat' => 3,
+            'next_jenjang' => 3
         ]);
         DB::table('jenjang')->insert([
             'nama_jenjang' => 'sma',
-            'max_tingkat' => 3
+            'max_tingkat' => 3,
+            'next_jenjang' => 0
         ]);
     }
 }

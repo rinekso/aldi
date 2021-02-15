@@ -11,13 +11,14 @@
 
 namespace Symfony\Component\HttpKernel\Tests\EventListener;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\EventListener\TranslatorListener;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class TranslatorListenerTest extends \PHPUnit_Framework_TestCase
+class TranslatorListenerTest extends TestCase
 {
     private $listener;
     private $translator;
@@ -44,13 +45,15 @@ class TranslatorListenerTest extends \PHPUnit_Framework_TestCase
     public function testDefaultLocaleIsUsedOnExceptionsInOnKernelRequest()
     {
         $this->translator
-            ->expects($this->at(0))
+            ->expects($this->exactly(2))
             ->method('setLocale')
-            ->will($this->throwException(new \InvalidArgumentException()));
-        $this->translator
-            ->expects($this->at(1))
-            ->method('setLocale')
-            ->with($this->equalTo('en'));
+            ->withConsecutive(
+                ['fr'],
+                ['en']
+            )
+            ->willReturnOnConsecutiveCalls(
+                $this->throwException(new \InvalidArgumentException())
+            );
 
         $event = new GetResponseEvent($this->createHttpKernel(), $this->createRequest('fr'), HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
@@ -81,13 +84,15 @@ class TranslatorListenerTest extends \PHPUnit_Framework_TestCase
     public function testDefaultLocaleIsUsedOnExceptionsInOnKernelFinishRequest()
     {
         $this->translator
-            ->expects($this->at(0))
+            ->expects($this->exactly(2))
             ->method('setLocale')
-            ->will($this->throwException(new \InvalidArgumentException()));
-        $this->translator
-            ->expects($this->at(1))
-            ->method('setLocale')
-            ->with($this->equalTo('en'));
+            ->withConsecutive(
+                ['fr'],
+                ['en']
+            )
+            ->willReturnOnConsecutiveCalls(
+                $this->throwException(new \InvalidArgumentException())
+            );
 
         $this->setMasterRequest($this->createRequest('fr'));
         $event = new FinishRequestEvent($this->createHttpKernel(), $this->createRequest('de'), HttpKernelInterface::SUB_REQUEST);
@@ -112,6 +117,6 @@ class TranslatorListenerTest extends \PHPUnit_Framework_TestCase
         $this->requestStack
             ->expects($this->any())
             ->method('getParentRequest')
-            ->will($this->returnValue($request));
+            ->willReturn($request);
     }
 }

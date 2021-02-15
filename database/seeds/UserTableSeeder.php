@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class UserTableSeeder extends Seeder
 {
@@ -11,11 +12,27 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-    	// DB::table('users')->truncate();
+    	DB::table('users')->truncate();
         DB::table('user_role')->truncate();
-     //    DB::table('jenjang')->truncate();
+        DB::table('tahun_ajaran')->truncate();
      //    DB::table('kelas')->truncate();
+        DB::table('pembayaran')->truncate();
     	DB::table('jenis_transaksi')->truncate();
+        $dt = new DateTime('2019-01-12 11:52:01');
+        DB::table('tahun_ajaran')->insert([
+            'nama' => '2019/2020',
+            'created_at' => $dt->format('Y-m-d h:i:s')
+        ]);
+        DB::table('pembayaran')->insert([
+            'id_kelas' => 0,
+            'id_jenjang' => 0,
+            'nama' => 'UTS',
+            'keterangan' => 'bayar UTS',
+            'nominal' => 50000,
+            'periode' => 6,
+            'tahun' => 2020,
+            'bulan_start' => 3,
+        ]);
         DB::table('users')->insert([
             'id_jenjang' => 1,
             'id_kelas' => 1,

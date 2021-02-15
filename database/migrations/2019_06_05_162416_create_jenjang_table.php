@@ -17,6 +17,7 @@ class CreateJenjangTable extends Migration
             $table->increments('id_jenjang');
             $table->string('nama_jenjang');
             $table->integer('max_tingkat');
+            $table->integer('next_jenjang')->nullable();
             $table->timestamps();
         });
     }

@@ -282,7 +282,7 @@ class AdminController extends Controller
     } 
     public function jenjang(){
         $kelas = $this->kelas->getData();
-        $jenjang = $this->jenjang->getData();
+        $jenjang = $this->jenjang->getDataAll();
         return view('admin.jenjang',['kelas' => $kelas,'jenjang' => $jenjang]);
     }
     public function jenjangTambah(Request $request){
@@ -310,6 +310,7 @@ class AdminController extends Controller
         $inputjenjang = [
             'nama_jenjang'      => $form['nama_jenjang'],
             'max_tingkat'        => $form['max_tingkat'],
+            'next_jenjang'        => $form['next_jenjang'],
         ];
         $re = $this->jenjang->updateCustom($inputjenjang,$form['id']);
         if($re) 
@@ -321,6 +322,7 @@ class AdminController extends Controller
         $inputjenjang = [
             'nama_jenjang'      => $form['nama_jenjang'],
             'max_tingkat'        => $form['max_tingkat'],
+            'next_jenjang'        => $form['next_jenjang'],
         ];
         return $this->jenjang->input($inputjenjang);
     } 

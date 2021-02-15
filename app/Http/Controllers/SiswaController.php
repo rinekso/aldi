@@ -7,7 +7,9 @@ use App\Rinekso\Jenjang\JenjangRepo;
 use App\Rinekso\Kelas\KelasRepo;
 use App\Rinekso\Users\UserRepo;
 use Illuminate\Support\Facades\Hash;
-require_once 'assets\plugins\PhpExcelReader\Excel\reader.php';
+use Maatwebsite\Excel\Facades\Excel;
+
+include 'assets\plugins\PhpExcelReader\Excel\reader.php';
 
 class SiswaController extends Controller
 {
@@ -51,15 +53,14 @@ class SiswaController extends Controller
         $file = $request->file('data');
         $extension = $file->getClientOriginalExtension();
         // dd($extension);
-        if($extension == "xls" || $extension == "xlsx"){
+        if($extension == "xls" || $extension == "xlsx" || $extension == "csv"){
             $tujuan_upload = 'data_file';
 
             $name = "import_data_siswa_".rand(10000,99999).".".$file->getClientOriginalExtension();
 
             $result = $file->move($tujuan_upload,$name);
             if($result){
-                readExcel("/data_file/".$name);
-
+                $this->readExcel(\URL::to('/')."/data_file/".$name);
             }
         }else{
             dd("file extensi salah");
@@ -67,17 +68,17 @@ class SiswaController extends Controller
 
     }
     private function readExcel($fileName){
-        $data = new Spreadsheet_Excel_Reader();
+        Excel::import(new SiswaImport, public_path($fileName));
+        // $data = new \Spreadsheet_Excel_Reader();
+        // $data->setOutputEncoding('CP1251');
+        // $data->read($fileName);
+        // error_reporting(E_ALL ^ E_NOTICE);
 
-        $data->setOutputEncoding('CP1251');
-        $data->read($fileName);
-        error_reporting(E_ALL ^ E_NOTICE);
-
-        for ($i = 1; $i <= $data->sheets[0]['numRows']; $i++) {
-            for ($j = 1; $j <= $data->sheets[0]['numCols']; $j++) {
-                echo "\"".$data->sheets[0]['cells'][$i][$j]."\",";
-            }
-        }
+        // for ($i = 1; $i <= $data->sheets[0]['numRows']; $i++) {
+        //     for ($j = 1; $j <= $data->sheets[0]['numCols']; $j++) {
+        //         echo "\"".$data->sheets[0]['cells'][$i][$j]."\",";
+        //     }
+        // }
     }
     public function editAction(Request $request){
         $form = $request->all();
