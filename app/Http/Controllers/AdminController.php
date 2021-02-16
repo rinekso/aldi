@@ -26,7 +26,9 @@ class AdminController extends Controller
         $this->transaksi = $transaksiRepo;
         $this->topup = $topupRepo;
     }
-
+    public function toLogin(){
+        return view('admin.login');
+    }
     public function loginUser(Request $request){
     	$form=$request->all();
     	$rfid=$form['rfid'];
@@ -125,6 +127,9 @@ class AdminController extends Controller
 
         // dd($daftarBiaya);
     	return view('admin.topup',['siswa'=>$siswa,'kelas' => $kelas,'periode' => $periode,'pembayaran' => $pembayaran,'jenjang' => $jenjang]);
+    }
+    public function ajaran(){
+        return 'hellow';
     }
     public function periode(){
         $siswa = $this->user->getData();
@@ -259,7 +264,8 @@ class AdminController extends Controller
             'nominal'               => $form['nominal'],
             'periode'               => $form['periode'],
             'tahun'                 => date('Y'),
-            'bulan_start'           => $form['start']
+            'bulan_start'           => $form['start'],
+            'tanggal_start'         => $form['tanggal_start']
         ];
         $re = $this->pembayaran->updateCustom($inputPembayaran,$form['id']);
         if($re) 
@@ -276,7 +282,8 @@ class AdminController extends Controller
             'nominal'               => $form['nominal'],
             'periode'               => $form['periode'],
             'tahun'                 => date('Y'),
-            'bulan_start'           => $form['start']
+            'bulan_start'           => $form['start'],
+            'tanggal_start'         => $form['tanggal_start']
         ];
         return $this->pembayaran->input($inputPembayaran);
     } 
@@ -334,7 +341,7 @@ class AdminController extends Controller
         $jenjang = $this->jenjang->GetData();
 
         $form = $request->all();
-        $id_jenis_transaksi = $form['id_jenis_transaksi'];
+        $id_pembayaran = $form['id_pembayaran'];
         $id_kelas = $form['id_kelas'];
         $id_jenjang = $form['id_jenjang'];
         $rentang = $form['rentang'];
@@ -342,7 +349,7 @@ class AdminController extends Controller
         $result = [];
         $laporan = [];
         $laporan['name'] = "pembayaran";
-        $laporan['jenis']=$this->jenisTransaksi->getDataWhere('id_jenis_transaksi',$id_jenis_transaksi);
+        $laporan['pembayaran']=$this->pembayaran->getDataWhere('id_pembayaran',$id_pembayaran);
         $laporan['kelas']=$this->kelas->getDataWhere('id_kelas',$id_kelas);
         $laporan['jenjang']=$this->jenjang->getDataWhere('id_jenjang',$id_jenjang);
         $userTr = $this->user->getDataWhere2('id_kelas',$id_kelas,'id_jenjang',$id_jenjang);
@@ -353,7 +360,7 @@ class AdminController extends Controller
                     for ($i=0; $i < 12; $i++) { 
                         if($in == 0)
                             $result[$i] = [];
-                        $data = $this->transaksi->getDataReport('id_user',$u->id,$i+1,$id_jenis_transaksi);
+                        $data = $this->transaksi->getDataReport('id_user',$u->id,$i+1,$id_pembayaran);
                         if(count($data) > 0){
                             foreach ($data as $key => $d) {
                                 $d['name'] = 'bulan '.($i+1);
@@ -363,7 +370,7 @@ class AdminController extends Controller
                     }
                     break;
                 case 2:
-                    $data = $this->transaksi->getDataReportSemester('id_user',$u->id,1,6,$id_jenis_transaksi);
+                    $data = $this->transaksi->getDataReportSemester('id_user',$u->id,1,6,$id_pembayaran);
                     if($key == 0){
                         $result[0] = [];
                         $result[1] = [];
@@ -372,7 +379,7 @@ class AdminController extends Controller
                         $d['name'] = 'bulan 1-6';
                         array_push($result[0], $d);
                     }
-                    $data = $this->transaksi->getDataReportSemester('id_user',$u->id,7,12,$id_jenis_transaksi);
+                    $data = $this->transaksi->getDataReportSemester('id_user',$u->id,7,12,$id_pembayaran);
                     foreach ($data as $key => $d) {
                         $d['name'] = 'bulan 7-12';
                         array_push($result[1], $d);
@@ -382,7 +389,7 @@ class AdminController extends Controller
                 case 3:
                     if($key == 0)
                         $result[0] = [];
-                    $data = $this->transaksi->getDataReportTahunan('id_user',$u->id,$id_jenis_transaksi);
+                    $data = $this->transaksi->getDataReportTahunan('id_user',$u->id,$id_pembayaran);
                     foreach ($data as $key => $d) {
                         $d['name'] = 'tahunan';
                         array_push($result[0], $d);

@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->integer('id_kelas');
             $table->integer('id_user_role');
             $table->string('nama');
-            $table->string('rfid');
+            $table->string('rfid')->nullable();
             $table->integer('nik');
             $table->integer('saldo');
             $table->string('password');

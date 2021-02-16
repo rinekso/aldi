@@ -7,9 +7,6 @@ class Pembayaran extends Model
     protected $table = 'pembayaran';
     public $timestamps = true;
 
-    public function jenisTransaksi(){
-    	return $this->hasOne('App\Rinekso\JenisTransaksi\JenisTransaksi','id_jenis_transaksi','id_jenis_transaksi');
-    }
     public function jenjang(){
     	return $this->hasOne('App\Rinekso\Jenjang\Jenjang','id_jenjang','id_jenjang');
     }

@@ -36,7 +36,7 @@
                 <tr>
                   <td>{{$p->nama}}</td>
                   <td align="right">Rp. {{number_format($p->nominal,0,",",".")}}</td>
-                  <td>{{date('F', mktime(0, 0, 0, $p->bulan_start, 10))}} {{$p->tahun}}</td>
+                  <td>{{$p->tanggal_start}} {{date('F', mktime(0, 0, 0, $p->bulan_start, 10))}} {{$p->tahun}}</td>
                   @if(!empty($p->jenjang))
                     <td>{{$p->jenjang->nama_jenjang}}</td>
                   @else
@@ -123,7 +123,7 @@
                     <option value="3">3 bulanan</option>
                     <option value="6">semester</option>
                     <option value="12">tahunan</option>
-                    <option value="13">sekali</option>
+                    <option value="0">sekali</option>
                   </select>
                 </div>
               </div>
@@ -148,6 +148,13 @@
                     <td onclick="changePeriodeStart(12)">Desember</td>
                   </tr>
                 </table>
+
+                <div class="form-group">
+                  <label class="control-label" for="name">
+                  Tanggal Mulai Pembayaran
+                  </label>
+                  <input class="form-control" name="tanggal_start" placeholder="Tanggal" required type="number">                          
+                </div>
               </div>
               <div class="col-md-12">
                 <div class="form-group">

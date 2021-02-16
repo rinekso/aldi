@@ -8,8 +8,8 @@ use App\Rinekso\Kelas\KelasRepo;
 use App\Rinekso\Users\UserRepo;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
-
-include 'assets\plugins\PhpExcelReader\Excel\reader.php';
+use App\Imports\SiswaImport;
+use App\Exports\ContohExport;
 
 class SiswaController extends Controller
 {
@@ -23,6 +23,9 @@ class SiswaController extends Controller
         $data = $this->user->getSiswa();
         // dd($data);
     	return view('admin.siswa',['siswa'=>$data]);
+    }
+    public function toIndex(){
+        return view('index');
     }
     public function tambah(){
         $jenjang = $this->jenjang->getData();
@@ -60,25 +63,19 @@ class SiswaController extends Controller
 
             $result = $file->move($tujuan_upload,$name);
             if($result){
-                $this->readExcel(\URL::to('/')."/data_file/".$name);
+                if($this->readExcel("data_file/".$name))
+                    return redirect('/adm/siswa');
             }
         }else{
             dd("file extensi salah");
         }
 
     }
+    public function exportExample(){
+        return Excel::download(new ContohExport, 'ContohStruktur.xlsx');
+    }
     private function readExcel($fileName){
-        Excel::import(new SiswaImport, public_path($fileName));
-        // $data = new \Spreadsheet_Excel_Reader();
-        // $data->setOutputEncoding('CP1251');
-        // $data->read($fileName);
-        // error_reporting(E_ALL ^ E_NOTICE);
-
-        // for ($i = 1; $i <= $data->sheets[0]['numRows']; $i++) {
-        //     for ($j = 1; $j <= $data->sheets[0]['numCols']; $j++) {
-        //         echo "\"".$data->sheets[0]['cells'][$i][$j]."\",";
-        //     }
-        // }
+        return Excel::import(new SiswaImport, public_path($fileName));
     }
     public function editAction(Request $request){
         $form = $request->all();

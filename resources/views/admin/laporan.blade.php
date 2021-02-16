@@ -21,10 +21,10 @@
                 Jenis Pembayaran
                 </label>
               <div class="ln_solid"></div>
-              @foreach($jenis_transaksi as $j)
+              @foreach($pembayaran as $j)
                 <div class="col-md-4">
                   <label>
-                    <input required type="radio" name="id_jenis_transaksi" value="{{$j->id_jenis_transaksi}}"> {{$j->nama_transaksi}}
+                    <input required type="radio" name="id_pembayaran" value="{{$j->id_pembayaran}}"> {{$j->nama}}
                   </label>
                 </div>
               @endforeach
@@ -35,11 +35,11 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="control-label" for="name">
-                  Tingkat
+                  Jenjang
                   </label>
-                  <select name="id_kelas" class="form-control">
-                    @foreach($kelas as $j)
-                      <option value="{{$j->id_kelas}}">{{$j->tingkat}}</option>
+                  <select name="id_jenjang" class="form-control">
+                    @foreach($jenjang as $j)
+                      <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -47,11 +47,11 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="control-label" for="name">
-                  Jenjang
+                  Tingkat
                   </label>
-                  <select name="id_jenjang" class="form-control">
-                    @foreach($jenjang as $j)
-                      <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
+                  <select name="id_kelas" class="form-control">
+                    @foreach($kelas as $j)
+                      <option value="{{$j->id_kelas}}">{{$j->tingkat}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -93,12 +93,12 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="control-label" for="name">
-                  Tingkat
+                  Jenjang
                   </label>
-                  <select name="id_kelas" class="form-control">
+                  <select name="id_jenjang" class="form-control">
                     <option value="0">semua</option>
-                    @foreach($kelas as $j)
-                      <option value="{{$j->id_kelas}}">{{$j->tingkat}}</option>
+                    @foreach($jenjang as $j)
+                      <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -106,12 +106,12 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="control-label" for="name">
-                  Jenjang
+                  Tingkat
                   </label>
-                  <select name="id_jenjang" class="form-control">
+                  <select name="id_kelas" class="form-control">
                     <option value="0">semua</option>
-                    @foreach($jenjang as $j)
-                      <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
+                    @foreach($kelas as $j)
+                      <option value="{{$j->id_kelas}}">{{$j->tingkat}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -139,13 +139,13 @@
           </form>
         </div>
       </div>
-      @if( count(@$result) !=0)
+      @if(!empty($result))
       <?php
-      $jml = count($result);
+      $jml = count(@$result);
       ?>
         @if(@$laporan['name'] == 'pembayaran')
         @for($i=0;$i < $jml; $i++)
-        @if(count($result[$i])!==0)
+        @if(count(@$result[$i])!==0)
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="box-contain">
             <div class="box-header">
@@ -189,7 +189,7 @@
         @endif
         @if(@$laporan['name'] == 'topup')
         @for($i=0;$i < $jml; $i++)
-        @if(count($result[$i])!==0)
+        @if(count(@$result[$i])!==0)
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="box-contain">
             <div class="box-header">

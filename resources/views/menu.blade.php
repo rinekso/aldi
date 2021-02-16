@@ -7,7 +7,7 @@
 				<div class="box">
 					<div class="box-header">
 						<a href="{{url('/')}}" class="btn btn-primary left">Kembali</a>
-						<h2>Pembayaran {{$nama}}</h2>
+						<h2>Pembayaran {{$pembayaran->nama}}</h2>
 					</div>
 					<div class="box-body">
 						<div class="tab">
@@ -30,19 +30,14 @@
 						  			<td>: {{\Auth::User()->nik}}</td>
 						  		</tr>
 						  		<tr>
-						  			<td>Tahun Ajaran</td>
-						  			<td>: {{\Auth::User()->tahun_ajaran}}</td>
-						  		</tr>
-						  		<tr>
 						  			<td>Tagihan</td>
-						  			<td>: {{$tagihan}} - {{$nama}}/{{$keterangan}}</td>
+						  			<td>: {{$tagihan}} - {{$pembayaran->nama}} / {{$keterangan}}</td>
 						  		</tr>
 						  	</table>
 						  </p>
 						  @if($tagihan>0)
 						  <form action="{{url('/bayar/'.$idJenisTr.'/proses')}}" method="post">
 						  	{{csrf_field()}}
-						  	<input type="hidden" value="{{$id_periode}}" name="id_periode">
 							<button type="submit" class="btn btn-lg btn-success">Bayar</button>
 						  </form>
 						  @endif
@@ -53,29 +48,28 @@
 							<div class="col-md-12">
 								Tahun : 
 								<select onchange="changeTahun()" id="tahun">
-									@foreach($periode as $key=>$p)
-										@if(@$p[0]->tahun != "")
-											<option value="{{$key}}">{{$p[0]->tahun}}</option>
-										@endif
-									@endforeach
+									<?php $selisihY = (date('Y')-$pembayaran->tahun) ?>
+									@for($i=0; $i <= $selisihY; $i++)
+										<option value="{{$i}}">{{($pembayaran->tahun+$i)}}</option>
+									@endfor
 								</select>
 							</div>
 							<br>
-							@foreach($periode as $key=>$per)
-								<div class="con" id="tahun{{$key}}">
-								@foreach($per as $p)
+							@for($i=0; $i <= $selisihY;$i++)
+								<div class="con" id="tahun{{$i}}">
+								@foreach($periode["tahun-".($pembayaran->tahun+$i)] as $p)
 								  <form action="{{url('/bayar/'.$idJenisTr.'/proses')}}" method="post">
 								  	{{csrf_field()}}
-								  	<input type="hidden" value="{{$p->id_periode}}" name="id_periode">
 										<div class="col-md-3">
-										@if($p->paid)
-											<a href="#" class="bg-success">
-												{{$p->nama_periode}}
+										@if($p['paid'])
+											<a href="{{url('pdf/cetak')}}?kode={{$p['kode']}}&periode={{$p['month']}}-{{($pembayaran->tahun+$i)}}" target="_blank" class="bg-success">
+												{{$p['month']}}
 												<div class="ket bg-primary">Lunas</div>
 											</a>
 										@else
 										<button type="submit" class="bg-success" style="border:none;display: block; width: 100%;">
-												{{$p->nama_periode}}
+												{{$p['month']}}
+												<input type="hidden" value="{{$p['month']}}-{{($pembayaran->tahun+$i)}}" name="periode">
 												<div class="ket bg-danger">Bayar</div>
 										</button>
 										@endif
@@ -83,7 +77,7 @@
 								  </form>
 								@endforeach
 								</div>
-							@endforeach
+							@endfor
 						</div>
 
 						<div id="Mutasi" class="tabcontent">

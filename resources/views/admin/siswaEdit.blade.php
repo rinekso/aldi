@@ -63,15 +63,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="control-label" for="name">
-                    Tahun Ajaran
-                    </label>
-                    <input class="form-control" name="tahun_ajaran" placeholder="20**/20**" required type="text" value="{{$siswa[0]->tahun_ajaran}}">
-                  </div>
-                </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="form-group">
                     <label class="control-label" for="name">
                     Saldo

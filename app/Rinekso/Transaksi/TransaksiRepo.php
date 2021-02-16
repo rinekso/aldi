@@ -11,7 +11,7 @@ class TransaksiRepo extends BaseRepo
     public function getMutasi($kolom,$value){
         $proses = $this->model
             ->where($kolom,'=',$value)
-            ->with('pembayaran.jenisTransaksi')
+            ->with('pembayaran')
             ->get();
         return $proses;
     }
@@ -20,7 +20,7 @@ class TransaksiRepo extends BaseRepo
             ->where($kolom,'=',$value)
             ->whereMonth('created_at',$month)
             ->whereHas('pembayaran',function($query) use ($id_jenis){
-                $query->where('id_jenis_transaksi','=',$id_jenis);
+                $query->where('id_pembayaran','=',$id_jenis);
             })
             ->with('pembayaran.jenisTransaksi')
             ->with('user')
@@ -38,7 +38,7 @@ class TransaksiRepo extends BaseRepo
         $proses = $this->model
             ->where($kolom,'=',$value)
             ->whereHas('pembayaran',function($query) use ($id_jenis){
-                $query->where('id_jenis_transaksi','=',$id_jenis);
+                $query->where('id_pembayaran','=',$id_jenis);
             })
             ->with('pembayaran.jenisTransaksi')
             ->with('user')
@@ -51,7 +51,7 @@ class TransaksiRepo extends BaseRepo
             ->whereMonth('created_at','>=',$startMonth)
             ->whereMonth('created_at','<=',$endMonth)
             ->whereHas('pembayaran',function($query) use ($id_jenis){
-                $query->where('id_jenis_transaksi','=',$id_jenis);
+                $query->where('id_pembayaran','=',$id_jenis);
             })
             ->with('pembayaran')
             ->with('user')

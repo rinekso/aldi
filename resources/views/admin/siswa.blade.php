@@ -16,7 +16,7 @@
         <div class="box-contain">
           <div class="box-header">
             <a href="{{url('/adm/siswa/tambah')}}" class="btn btn-primary">Tambah Siswa</a>
-            <a href="/" class="btn btn-warning">Download Struktur Excel</a>
+            <a href="{{url('/example/download')}}" class="btn btn-warning">Download Struktur Excel</a>
             <a href="#" class="btn btn-success" id="btnExcel" onclick="toggleExcel()">Import Excel</a>
             <form enctype="multipart/form-data" id="excel" class="form" style="width: 700px; display: inline-block;" method="post" action="{{url('/adm/siswa/tambah/excel')}}">
               {{csrf_field()}}

@@ -105,6 +105,14 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label class="control-label" for="name">
+                  Tanggal Mulai
+                  </label>
+                  <input class="form-control" name="tanggal_start" value="{{$data->tanggal_start}}" placeholder="Tanggal Mulai" required type="number">
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="control-label" for="name">
                   Nominal
                   </label>
                   <input class="form-control" name="nominal" value="{{$data->nominal}}" placeholder="Nominal" required type="number">

@@ -12,6 +12,7 @@ use App\Rinekso\Topup\TopupRepo;
 use App\Rinekso\Users\UserRepo;
 use PDF;
 use Carbon\Carbon;
+use DateTime;
 
 class UserController extends Controller
 {
@@ -35,35 +36,52 @@ class UserController extends Controller
 		$pembayaran = $this->pembayaran->getDataWhere('id_pembayaran',$menu);
 		$mutasi = [];
 		$trm = $this->transaksi->getMutasi('id_user',\Auth::User()->id);
-		if(date('Y') >= $pembayaran->tahun){
-			$diff = abs(strtotime(date('Y')) - strtotime($pembayaran->tahun));
-
+		$pembayaranDate = date('Y-m-d',strtotime($pembayaran[0]->tahun."-".$pembayaran[0]->bulan_start."-".$pembayaran[0]->tanggal_start));
+		if(date('Y-m-d') >= $pembayaranDate){
+			$diff = abs(strtotime(date('Y')) - strtotime($pembayaran[0]->tahun));
+			
 			$diffYears = floor($diff / (365*60*60*24));
-
+			
 			$transaksi = $this->transaksi->getDataWhere2('id_pembayaran',$pembayaran[0]->id_pembayaran,'id_user',\Auth::User()->id);
-			if(count($transaksi) == 0){
-				$periode[0]->paid = false;
-				if(date('m') >= $pembayaran->periode){
-					$tagihan 	= $pembayaran[0]->nominal;
-					$dateObj   	= DateTime::createFromFormat('!m', $pembayaran->bulan_start);
-					$monthName 	= $dateObj->format('F');
-					$keterangan	= $monthName." ".$pembayaran->tahun;
-					$idPeriode 	= $pembayaran->id_periode;
-				}
-			}else{
-				$jml = count($transaksi);
-				$year = $transaksi[$jml-1]->create_at->year;
-				$periode[$k]->paid = true;
-			}
-		}
+			$jumlahTr = count($transaksi);
 
-        $k=0;
+			if($pembayaran[0]->periode > 0)
+				for ($i=0; $i <= $diffYears; $i++) {
+					$periode["tahun-".($pembayaran[0]->tahun+$i)] = [];
+					
+					$j=1;
+					if($i==0) $j=$pembayaran[0]->bulan_start;
+					
+					for ($j; $j <= 12; $j+=$pembayaran[0]->periode) { 
+						$arrTemp = [];
+						$dateObj   	= DateTime::createFromFormat('!m', $j);
+						$monthName 	= $dateObj->format('F');
+						$arrTemp["month"] = $monthName;
+						if($jumlahTr == 0){
+
+							$arrTemp["paid"] = false;
+							
+							if($tagihan == 0 && date('m') >= $j){
+								$tagihan 	= $pembayaran[0]->nominal;
+								$keterangan	= $monthName." ".($pembayaran[0]->tahun+$i);
+							}
+							
+						}else{
+							$arrTemp["paid"] = true;
+							$arrTemp["kode"] = $transaksi[$jumlahTr-1]->kode;
+							$jumlahTr--;
+						}
+						$periode["tahun-".($pembayaran[0]->tahun+$i)][] = $arrTemp;
+					}
+				}
+		}
+        $k = 0;
 		foreach($trm as $key => $t){
 			$mutasi[$key]['kode'] = $t->kode;
 			$mutasi[$key]['id_user'] = $t->id_user;
 			$mutasi[$key]['nominal'] = $t->pembayaran->nominal;
 			$mutasi[$key]['status'] = 'keluar';
-			$mutasi[$key]['keterangan'] = $t->pembayaran->jenisTransaksi->nama_transaksi;
+			$mutasi[$key]['keterangan'] = $t->pembayaran->nama;
 			$mutasi[$key]['date'] = $t->created_at;
             $k++;
 		}
@@ -82,8 +100,8 @@ class UserController extends Controller
 			$i++;
 		}
         usort($mutasi, array($this, "date_compare"));
-        // dd($periode);
-    	return view('menu',['idJenisTr'=>$menu,'id_periode'=>$idPeriode,'nama'=>$pembayaran[0]->nama,'tagihan'=>$tagihan,'keterangan'=>$keterangan, 'periode'=>$periode,'mutasi'=>$mutasi]);
+        // dd($periode["tahun-".$pembayaran[0]->tahun]);
+    	return view('menu',['idJenisTr'=>$menu,'pembayaran'=>$pembayaran[0],'tagihan'=>$tagihan,'keterangan'=>$keterangan, 'periode'=>$periode,'mutasi'=>$mutasi]);
     }
     public function spp($id_pembayaran){
     	$d = $this->periode->getYear($id_pembayaran);
@@ -100,6 +118,49 @@ class UserController extends Controller
 		$output = $pdf->output();
 		file_put_contents("bukti/".$input['kode'].".pdf",$output);
     }
+    public function cetakPdf(Request $request){
+    	$pdf = \App::make('dompdf.wrapper');
+    	$pdf->loadHTML($this->cetakBukti($request['kode'],$request['periode']));
+		$output = $pdf->output();
+		file_put_contents("bukti/".$request['kode'].".pdf",$output);
+    }
+	public function cetakBukti($kode,$periode){
+		$data = $this->transaksi->getDataWhere('kode',$kode)->with('pembayaran');
+		$output = "
+		<h1>Laporan transaksi</h1>
+		<table border=1 cellpadding=20>
+			<tr>
+				<th>Kode</th>
+				<td>".$kode."</td>
+			</tr>
+			<tr>
+				<th>NIK</th>
+				<td>".\Auth::User()->nik."</td>
+			</tr>
+			<tr>
+				<th>Oleh</th>
+				<td>".\Auth::User()->nama."</td>
+			</tr>
+			<tr>
+				<th>Jenis Pembayaran</th>
+				<td>".$data[0]->pembayaran->nama."</td>
+			</tr>
+			<tr>
+				<th>Periode</th>
+				<td>".$periode."</td>
+			</tr>
+			<tr>
+				<th>Nominal</th>
+				<td>".$data[0]->pembayaran->nominal."</td>
+			</tr>
+			<tr>
+				<th>Tanggal</th>
+				<td>".$data[0]->created_at."</td>
+			</tr>
+		</table>";
+
+    	return $output;
+	}
     public function bukti($input){
 		$output = "
 		<h1>Laporan transaksi</h1>
@@ -118,7 +179,7 @@ class UserController extends Controller
 			</tr>
 			<tr>
 				<th>Jenis Pembayaran</th>
-				<td>".$input['jenis_transaksi']."</td>
+				<td>".$input['pembayaran']."</td>
 			</tr>
 			<tr>
 				<th>Periode</th>
@@ -139,32 +200,26 @@ class UserController extends Controller
     public function bayar($menu, Request $request){
 		$tagihan = 0;
 		$keterangan = "";
-		$jenis_transaksi = $this->jenis->getDataWhere('id_jenis_transaksi',$menu);
-		$pembayaran = $this->pembayaran->getDataWhere3('id_jenis_transaksi',$jenis_transaksi[0]->id_jenis_transaksi,
-			'id_kelas',\Auth::User()->id_kelas,'id_jenjang',\Auth::User()->id_jenjang);
-		if(count($pembayaran) > 0){
-			if($pembayaran[0]->nominal > \Auth::User()->saldo){
-				return redirect()->back()->withErrors(["text"=>"saldo tidak cukup"]);
-			}
-			$input=[];
-			$input['id_pembayaran'] = $pembayaran[0]->id_pembayaran;
-			$input['id_periode'] = $request->id_periode;
-			$input['id_user'] = \Auth::User()->id;
-			$rand = rand(10000,99999);
-			$input['kode'] = \Auth::User()->id_kelas."-".\Auth::User()->id_jenjang."-".$rand;
-			$saldo = \Auth::User()->saldo;
-			$this->user->update(['saldo'=>($saldo-$pembayaran[0]->nominal)],\Auth::User()->id);
-			$this->transaksi->input($input);
-			$input['jenis_transaksi'] = $jenis_transaksi[0]->nama_transaksi;
-			$input['nominal'] = $pembayaran[0]->nominal;
-			$periode = $this->periode->getDataWhere('id_periode',$request->id_periode)[0];
-			$input['periode'] = $periode->nama_periode." ".$periode->tahun;
-			$this->pdf($input);
-			\Auth::User()->saldo = ($saldo-$pembayaran[0]->nominal);
-			
-			return redirect()->back()->withErrors(["text"=>"Berhasil dibayar"]);
+		$pembayaran = $this->pembayaran->getDataWhere('id_pembayaran',$menu);
+
+		if($pembayaran[0]->nominal > \Auth::User()->saldo){
+			return redirect()->back()->withErrors(["text"=>"saldo tidak cukup"]);
 		}
-		return redirect()->back()->withErrors(["text"=>"terjadi kesalahan"]);
+		$input=[];
+		$input['id_pembayaran'] = $pembayaran[0]->id_pembayaran;
+		$input['id_user'] = \Auth::User()->id;
+		$rand = rand(10000,99999);
+		$input['kode'] = \Auth::User()->id_kelas."-".\Auth::User()->id_jenjang."-".$rand;
+		$saldo = \Auth::User()->saldo;
+		\Auth::User()->saldo = ($saldo-$pembayaran[0]->nominal);
+		$this->user->update(['saldo'=>($saldo-$pembayaran[0]->nominal)],\Auth::User()->id);
+		$this->transaksi->input($input);
+		$input['pembayaran'] = $pembayaran[0]->nama;
+		$input['nominal'] = $pembayaran[0]->nominal;
+		$input['periode'] = $request["periode"];
+		$this->pdf($input);
+		
+		return redirect()->back()->withErrors(["text"=>"Berhasil dibayar"]);
     }
     public function date_compare($a, $b)
     {
