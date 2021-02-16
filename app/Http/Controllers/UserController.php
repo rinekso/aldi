@@ -116,45 +116,45 @@ class UserController extends Controller
     	$pdf = \App::make('dompdf.wrapper');
     	$pdf->loadHTML($this->bukti($input));
 		$output = $pdf->output();
-		file_put_contents("bukti/".$input['kode'].".pdf",$output);
+		return $pdf->download("bukti/".$input['kode'].".pdf");
     }
     public function cetakPdf(Request $request){
     	$pdf = \App::make('dompdf.wrapper');
     	$pdf->loadHTML($this->cetakBukti($request['kode'],$request['periode']));
 		$output = $pdf->output();
-		file_put_contents("bukti/".$request['kode'].".pdf",$output);
+		return $pdf->download("bukti/".$request['kode'].".pdf");
     }
 	public function cetakBukti($kode,$periode){
-		$data = $this->transaksi->getDataWhere('kode',$kode)->with('pembayaran');
+		$data = $this->transaksi->getDataKode($kode);
 		$output = "
 		<h1>Laporan transaksi</h1>
-		<table border=1 cellpadding=20>
+		<table border=0 cellpadding=10 align=left>
 			<tr>
-				<th>Kode</th>
+				<th align=left>Kode</th>
 				<td>".$kode."</td>
 			</tr>
 			<tr>
-				<th>NIK</th>
+				<th align=left>NIK</th>
 				<td>".\Auth::User()->nik."</td>
 			</tr>
 			<tr>
-				<th>Oleh</th>
+				<th align=left>Oleh</th>
 				<td>".\Auth::User()->nama."</td>
 			</tr>
 			<tr>
-				<th>Jenis Pembayaran</th>
+				<th align=left>Jenis Pembayaran</th>
 				<td>".$data[0]->pembayaran->nama."</td>
 			</tr>
 			<tr>
-				<th>Periode</th>
+				<th align=left>Periode</th>
 				<td>".$periode."</td>
 			</tr>
 			<tr>
-				<th>Nominal</th>
+				<th align=left>Nominal</th>
 				<td>".$data[0]->pembayaran->nominal."</td>
 			</tr>
 			<tr>
-				<th>Tanggal</th>
+				<th align=left>Tanggal</th>
 				<td>".$data[0]->created_at."</td>
 			</tr>
 		</table>";

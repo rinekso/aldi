@@ -22,7 +22,7 @@ class TransaksiRepo extends BaseRepo
             ->whereHas('pembayaran',function($query) use ($id_jenis){
                 $query->where('id_pembayaran','=',$id_jenis);
             })
-            ->with('pembayaran.jenisTransaksi')
+            ->with('pembayaran')
             ->with('user')
             ->get();
         return $proses;
@@ -40,7 +40,7 @@ class TransaksiRepo extends BaseRepo
             ->whereHas('pembayaran',function($query) use ($id_jenis){
                 $query->where('id_pembayaran','=',$id_jenis);
             })
-            ->with('pembayaran.jenisTransaksi')
+            ->with('pembayaran')
             ->with('user')
             ->get();
         return $proses;
@@ -55,6 +55,13 @@ class TransaksiRepo extends BaseRepo
             })
             ->with('pembayaran')
             ->with('user')
+            ->get();
+        return $proses;
+    }
+    public function getDataKode($kode){
+        $proses = $this->model
+            ->where('kode','=',$kode)
+            ->with('pembayaran')
             ->get();
         return $proses;
     }
