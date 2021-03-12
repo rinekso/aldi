@@ -22,7 +22,7 @@
 						<form action="{{url('login/user')}}" method="post">
 							{{csrf_field()}}
 							<div class="form-group">
-								<input type="password" class="form-control" placeholder="ID SmartCard" name="rfid">
+								<input type="text" class="form-control" placeholder="ID SmartCard" name="rfid">
 								<i class="fa fa-check"></i>
 							</div>
 							<div class="form-group">

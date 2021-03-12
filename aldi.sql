@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2021 at 03:37 AM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Generation Time: Mar 12, 2021 at 05:56 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -130,6 +131,7 @@ CREATE TABLE `pembayaran` (
   `periode` int(11) NOT NULL,
   `tahun` int(11) DEFAULT NULL,
   `bulan_start` int(11) NOT NULL,
+  `tanggal_start` int(2) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -138,8 +140,9 @@ CREATE TABLE `pembayaran` (
 -- Dumping data for table `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`id_pembayaran`, `id_kelas`, `id_jenjang`, `nama`, `keterangan`, `nominal`, `periode`, `tahun`, `bulan_start`, `created_at`, `updated_at`) VALUES
-(1, 0, 0, 'UTS', 'bayar UTS', 50000, 6, 2020, 3, NULL, NULL);
+INSERT INTO `pembayaran` (`id_pembayaran`, `id_kelas`, `id_jenjang`, `nama`, `keterangan`, `nominal`, `periode`, `tahun`, `bulan_start`, `tanggal_start`, `created_at`, `updated_at`) VALUES
+(2, 0, 0, 'UTS', 'bayar UTS', 50000, 6, 2021, 2, 2, '2021-02-16 02:45:18', '2021-02-16 10:03:56'),
+(3, 0, 0, 'Buku', 'bayar buku paket', 100000, 3, 2021, 2, 3, '2021-02-16 09:59:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -166,7 +169,7 @@ CREATE TABLE `sessions` (
   `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text COLLATE utf8mb4_unicode_ci,
+  `user_agent` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `payload` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -206,6 +209,13 @@ CREATE TABLE `topup` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `topup`
+--
+
+INSERT INTO `topup` (`id_topup`, `id_user`, `nominal`, `kode`, `created_at`, `updated_at`) VALUES
+(1, 3, 100000, '1-1-87648', '2021-02-16 10:37:24', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -215,11 +225,23 @@ CREATE TABLE `topup` (
 CREATE TABLE `transaksi` (
   `id_transaksi` int(10) UNSIGNED NOT NULL,
   `id_pembayaran` int(11) NOT NULL,
-  `id_periode` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `kode` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `id_pembayaran`, `id_user`, `kode`, `created_at`, `updated_at`) VALUES
+(2, 3, 3, '1-1-65150', '2021-02-16 10:30:03', NULL),
+(3, 2, 3, '1-1-10303', '2021-02-16 10:34:45', NULL),
+(4, 2, 3, '1-1-77426', '2021-02-16 10:35:06', NULL),
+(5, 3, 3, '1-1-21837', '2021-02-16 10:35:16', NULL),
+(6, 3, 3, '1-1-33148', '2021-02-16 10:35:20', NULL),
+(7, 3, 3, '1-1-14927', '2021-02-16 10:35:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -234,7 +256,7 @@ CREATE TABLE `users` (
   `id_kelas` int(11) NOT NULL,
   `id_user_role` int(11) NOT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `rfid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rfid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nik` int(11) NOT NULL,
   `saldo` int(11) NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -248,9 +270,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `id_tahun_ajaran`, `id_jenjang`, `id_kelas`, `id_user_role`, `nama`, `rfid`, `nik`, `saldo`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 1, 'admin', 'asd', 123, 0, '$2y$10$iU3Xy6R3YmuEaY62lboY8uRvmHe.JMH3fEuDAbXxH/7JBACYxPyT2', '2eeVsdKB1WJ1axQCUUPzm8355sj4LXcLW34NCwyugVtbU2Vp9AVZypkZ3Fqw', NULL, NULL),
+(1, 1, 1, 1, 1, 'admin', 'asd', 123, 0, '$2y$10$iU3Xy6R3YmuEaY62lboY8uRvmHe.JMH3fEuDAbXxH/7JBACYxPyT2', 'f044QzBJDcDxFhQRqXCJhonHtq74k6CDm9lMgA9nMrB5wHqocEhfkXTmIwT0', NULL, NULL),
 (2, 1, 1, 1, 2, 'topup', '123', 123, 0, '$2y$10$veqwW2HQYOjCFywHqJtsxeON711oyqerZlcQIuiR9MTrLMgWBTYE2', NULL, NULL, NULL),
-(3, 1, 1, 1, 3, 'aldi2', 'asd123', 123, 0, '$2y$10$F81r/p6RZk7KdBsxwncJRu.gAD0whApMc/gDrDWHWOcDay8vdJ9FK', NULL, NULL, NULL);
+(3, 1, 1, 1, 3, 'aldi2', '954BD7FC', 123, 999700000, '$2y$10$jhoj294YoktevBcARB0S/OCZSMIoVw7czzAc5kyN3vqIR2nmQFkje', 'sDvseO5M05bKY2FmFDJ2v8HnK4Pbk2CpHFIsB1TfOHrHu4J61FsVJonVVJED', NULL, '2021-03-12 04:37:11'),
+(4, NULL, 2, 1, 3, 'aldo', NULL, 234, 0, '$2y$10$3xxc92Gz/QlVojWOep7jZ.NPriwBdk/OmhJG.fXFLIRz11Vn0m61a', NULL, '2021-02-16 02:08:46', '2021-02-16 02:08:46'),
+(5, NULL, 1, 1, 3, 'aldu', NULL, 432, 0, '$2y$10$zZNhmYA1TE49MvXBs9hwm.ORMxoWDlz846V4eTR8SJ51ApOMPld4a', NULL, '2021-02-16 02:08:46', '2021-02-16 02:08:46');
 
 -- --------------------------------------------------------
 
@@ -352,56 +376,68 @@ ALTER TABLE `user_role`
 --
 ALTER TABLE `jenis_transaksi`
   MODIFY `id_jenis_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `jenjang`
 --
 ALTER TABLE `jenjang`
   MODIFY `id_jenjang` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
   MODIFY `id_kelas` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pembayaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `periode`
 --
 ALTER TABLE `periode`
   MODIFY `id_periode` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --
 ALTER TABLE `tahun_ajaran`
   MODIFY `id_tahun_ajaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `topup`
 --
 ALTER TABLE `topup`
-  MODIFY `id_topup` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_topup` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
   MODIFY `id_user_role` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
