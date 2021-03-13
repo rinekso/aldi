@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
-    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'CreateJenisTransaksiTable' => $baseDir . '/database/migrations/2019_06_05_163644_create_jenis_transaksi_table.php',
     'CreateJenjangTable' => $baseDir . '/database/migrations/2019_06_05_162416_create_jenjang_table.php',
     'CreateKelasTable' => $baseDir . '/database/migrations/2019_06_05_162529_create_kelas_table.php',

@@ -26,6 +26,7 @@
               <button type="submit" class="btn btn-success">Import</button>
               <button type="button" onclick="toggleExcel()" class="btn btn-danger">Cancel</button>
             </form>
+            <a href="{{url('/adm/siswa/naik')}}" class="btn btn-primary">Naik Kelas</a>
             <div class="clearfix"></div>
           </div>
           <div class="box-body">

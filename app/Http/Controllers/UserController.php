@@ -37,7 +37,17 @@ class UserController extends Controller
 		$mutasi = [];
 		$trm = $this->transaksi->getMutasi('id_user',\Auth::User()->id);
 		$pembayaranDate = date('Y-m-d',strtotime($pembayaran[0]->tahun."-".$pembayaran[0]->bulan_start."-".$pembayaran[0]->tanggal_start));
-		if(date('Y-m-d') >= $pembayaranDate){
+		$joinDate = \Auth::User()->naik;
+		if($joinDate == null)
+			$borderDate = $pembayaranDate;
+		else{
+			if($joinDate > $pembayaranDate)
+				$borderDate = $joinDate;
+			else
+				$borderDate = $pembayaranDate;
+		}
+		// dd($borderDate);
+		if(date('Y-m-d') >= $borderDate){
 			$diff = abs(strtotime(date('Y')) - strtotime($pembayaran[0]->tahun));
 			
 			$diffYears = floor($diff / (365*60*60*24));
@@ -100,7 +110,7 @@ class UserController extends Controller
 			$i++;
 		}
         usort($mutasi, array($this, "date_compare"));
-        // dd($periode["tahun-".$pembayaran[0]->tahun]);
+        // dd($periode);
     	return view('menu',['idJenisTr'=>$menu,'pembayaran'=>$pembayaran[0],'tagihan'=>$tagihan,'keterangan'=>$keterangan, 'periode'=>$periode,'mutasi'=>$mutasi]);
     }
     public function spp($id_pembayaran){

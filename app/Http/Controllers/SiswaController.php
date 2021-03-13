@@ -9,6 +9,7 @@ use App\Rinekso\Users\UserRepo;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SiswaImport;
+use Carbon\Carbon;
 use App\Exports\ContohExport;
 
 class SiswaController extends Controller
@@ -26,6 +27,31 @@ class SiswaController extends Controller
     }
     public function toIndex(){
         return view('index');
+    }
+    public function naik(){
+        $siswa = $this->user->getSiswa();
+        foreach ($siswa as $key => $s) {
+            if($s->jenjang != null){
+                $max = $s->jenjang->max_tingkat;
+                $arr = [
+                    "id_kelas" => $s->kelas->tingkat,
+                    "id_jenjang" => $s->id_jenjang,
+                    "naik" => Carbon::now()
+                ];
+                if($s->kelas->tingkat < $max)
+                    $arr['id_kelas'] = $arr['id_kelas']+1;
+                else{
+                    $n = $s->jenjang->next_jenjang;
+                    $arr['id_jenjang'] = $n;
+                    if($n > 0)
+                        $arr['id_kelas'] = 1;
+                    else
+                        $arr['id_kelas'] = 0;
+                }
+                $this->user->update($arr,$s->id);
+            }
+        }
+    	return redirect()->back();
     }
     public function tambah(){
         $jenjang = $this->jenjang->getData();

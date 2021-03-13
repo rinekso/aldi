@@ -31,6 +31,7 @@ Route::group([ 'prefix' => 'adm' , 'middleware' => ['admin']],function(){
 
 	Route::get('siswa','SiswaController@index');
 	Route::get('siswa/tambah','SiswaController@tambah');
+	Route::get('siswa/naik','SiswaController@naik');
 	Route::post('siswa/tambah/excel','SiswaController@tambahExcel');
 	Route::get('siswa/edit/{id}','SiswaController@edit');
 	Route::get('siswa/delete/{id}','SiswaController@delete');

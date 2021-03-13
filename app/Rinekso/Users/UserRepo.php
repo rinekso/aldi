@@ -14,6 +14,7 @@ class UserRepo extends BaseRepo
             ->with('jenjang')
             ->with('kelas')
             ->where('id_user_role','=','3')
+            ->where('id_jenjang','>','0')
             ->get();
     }
     public function getSiswaId($id){

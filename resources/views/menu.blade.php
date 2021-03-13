@@ -55,6 +55,7 @@
 								</select>
 							</div>
 							<br>
+							@if(count($periode)>0)
 							@for($i=0; $i <= $selisihY;$i++)
 								<div class="con" id="tahun{{$i}}">
 								@foreach($periode["tahun-".($pembayaran->tahun+$i)] as $p)
@@ -78,6 +79,7 @@
 								@endforeach
 								</div>
 							@endfor
+							@endif
 						</div>
 
 						<div id="Mutasi" class="tabcontent">
